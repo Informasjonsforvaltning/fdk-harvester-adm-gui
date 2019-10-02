@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  fdk-admin-gui:
+    build: .
+    ports:
+      - 8136:8000
+    environment:
+      - VAR_1
+      - VAR_2
+      - VAR_3
