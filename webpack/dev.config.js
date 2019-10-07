@@ -18,7 +18,13 @@ export default merge(baseConfig, {
   devServer: {
     host: '0.0.0.0',
     port: 8137,
-    before: app => app.get('/config.js', (_, res) => res.status(204).send())
+    before: app => app.get('/config.js', (_, res) => res.status(204).send()),
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/auth/, to: '/auth.html' },
+        { from: /./, to: '/index.html' }
+      ]
+    }
   },
   module: {
     rules: [
@@ -41,7 +47,8 @@ export default merge(baseConfig, {
       {
         test: /\.(js|ts)x?$/,
         use: ['source-map-loader'],
-        enforce: 'pre'
+        enforce: 'pre',
+        exclude: /node_modules/
       }
     ]
   },
