@@ -13,12 +13,21 @@ export default merge(baseConfig, {
     splitChunks: {
       maxSize: 40000,
       cacheGroups: {
-        vendors: {
+        mainVendors: {
           test: /[\\/]node_modules[\\/]/,
           name: module =>
-            `vendor.${module.context
+            `main.vendor.${module.context
               .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-              .replace('@', '')}`
+              .replace('@', '')}`,
+          chunks: ({ name }) => name === 'main'
+        },
+        authVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: module =>
+            `auth.vendor.${module.context
+              .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+              .replace('@', '')}`,
+          chunks: ({ name }) => name === 'auth'
         }
       }
     }

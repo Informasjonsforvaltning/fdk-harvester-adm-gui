@@ -49,6 +49,7 @@
     "@material-ui/icons": "^4.4.3",
     "core-js": "^3.2.1",
     "immutable": "^4.0.0-rc.12",
+    "oidc-client": "^1.9.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.14",
@@ -57,8 +58,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.1",
     "regenerator-runtime": "^0.13.3",
-    "styled-components": "^4.4.0",
-    "whatwg-fetch": "^3.0.0"
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

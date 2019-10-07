@@ -2,6 +2,8 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Provider as ReduxProvider } from 'react-redux';
 
+import AuthProvider from '../../providers/auth';
+
 import store from './redux/store';
 
 import GlobalStyles from './styles';
@@ -14,8 +16,10 @@ export default hot(function App() {
     <>
       <GlobalStyles />
       <ReduxProvider store={store}>
-        <Header />
-        <Root />
+        <AuthProvider>
+          <Header />
+          <Root />
+        </AuthProvider>
       </ReduxProvider>
     </>
   );

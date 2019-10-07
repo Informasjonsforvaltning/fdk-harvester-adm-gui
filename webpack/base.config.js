@@ -1,16 +1,13 @@
 import path from 'path';
-import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { BaseHrefWebpackPlugin } from 'base-href-webpack-plugin';
 
 export default {
-  entry: [
-    'core-js/stable',
-    'regenerator-runtime/runtime',
-    'whatwg-fetch',
-    './src/index.tsx'
-  ],
+  entry: {
+    main: './src/entrypoints/main/index.tsx',
+    auth: './src/entrypoints/auth/index.ts'
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
@@ -29,9 +26,17 @@ export default {
       automaticNameDelimiter: '.',
       cacheGroups: {
         default: false,
-        vendors: {
+        mainVendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors'
+          name: 'main.vendors',
+          filename: '[name].bundle.js',
+          chunks: ({ name }) => name === 'main'
+        },
+        authVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'auth.vendors',
+          filename: '[name].bundle.js',
+          chunks: ({ name }) => name === 'auth'
         }
       }
     }
@@ -93,10 +98,34 @@ export default {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.EnvironmentPlugin([]),
+    new (class ChunksFromEntryPlugin {
+      apply(compiler) {
+        compiler.hooks.emit.tap('ChunksFromEntryPlugin', compilation => {
+          compilation.hooks.htmlWebpackPluginAlterChunks.tap(
+            'ChunksFromEntryPlugin',
+            (_, { plugin }) =>
+              compilation.entrypoints
+                .get(plugin.options.entry)
+                .chunks.map(chunk => ({
+                  names: chunk.name ? [chunk.name] : [],
+                  files: chunk.files.slice(),
+                  size: chunk.modulesSize(),
+                  hash: chunk.hash
+                }))
+          );
+        });
+      }
+    })(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      entry: 'main',
+      template: './src/entrypoints/main/index.html',
       filename: 'index.html',
+      favicon: './src/images/favicon.ico'
+    }),
+    new HtmlWebpackPlugin({
+      entry: 'auth',
+      template: './src/entrypoints/auth/index.html',
+      filename: 'auth.html',
       favicon: './src/images/favicon.ico'
     }),
     new BaseHrefWebpackPlugin({
