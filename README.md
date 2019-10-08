@@ -1,16 +1,33 @@
 # FDK Admin GUI
 
-An administration application for Fellesdatakatalog
+## Description
 
-## Getting Started
+An administration application for Fellesdatakatalog.
+
+## Installation and Usage
+
+- Required tools to run this project:
+  - Node.js and npm to run locally on a host machine
+  - Docker and Docker Compose to run locally in a container
+
+#### Running application locally on a host machine
 
 - Install dependencies by running `npm install`
-- Set the following environment variables:
-  - `OIDC_ISSUER`
-  - `OIDC_CLIENT_ID`
-- Start the application using one of the following:
-  - Run `npm start` to start local development server
-  - Run as a Docker container:
-    - `docker build -t fdk-admin-gui .`
-    - `docker run -d -p 8080:8080 -e OIDC_ISSUER -e OIDC_CLIENT_ID fdk-admin-gui`
-  - Run `docker-compose up -d`
+- Run `npm start` to start local development server
+
+#### Running application in a Docker container
+
+- Build a Docker container using the following command:
+  - `docker build -t fdk-admin-gui .`
+- Run the container using the following comand:
+  - `docker run -d -p 8137:8000 -e OIDC_ISSUER -e OIDC_CLIENT_ID fdk-admin-gui`
+
+#### Running application using Docker Compose
+
+- Run the application using the following command:
+  - `docker-compose up -d`
+
+## Environment Variables
+
+- `OIDC_ISSUER` - OIDC issuer URI
+- `OIDC_CLIENT_ID` - OIDC client ID
