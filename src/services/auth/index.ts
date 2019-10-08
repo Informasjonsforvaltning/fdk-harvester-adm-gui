@@ -32,6 +32,7 @@ class AuthService implements AuthServiceInteface {
 
   public async init(): Promise<boolean> {
     try {
+      await this.manager.clearStaleState();
       this.user = await this.manager.signinSilent();
     } catch (e) {
       console.error(e);
