@@ -4,8 +4,8 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
-  height: calc(100% - 64px);
-  margin-top: 64px;
+  height: calc(100% - 74px);
+  margin-top: 74px;
   padding: 20px;
 `;
 
