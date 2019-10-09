@@ -19,6 +19,7 @@ const DataSourceItem = styled.li`
 
 const DataSourceType = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-self: stretch;
@@ -26,7 +27,14 @@ const DataSourceType = styled.div`
   padding: 15px;
   margin-right: 15px;
   background: #ccc;
-  font-weight: 500;
+  font-size: 110%;
+  font-weight: bold;
+
+  & > svg {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 15px;
+  }
 `;
 
 const DatasetItemControls = styled.div`

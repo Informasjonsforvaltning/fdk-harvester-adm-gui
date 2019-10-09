@@ -5,6 +5,9 @@ import UpdateIcon from '@material-ui/icons/Update';
 
 import SC from './styled';
 
+import ConceptIcon from '../../images/concept-icon.svg';
+import DatasetIcon from '../../images/dataset-icon.svg';
+
 import { DataSource } from '../../types';
 
 interface Props {
@@ -25,9 +28,19 @@ class DataSourceItem extends PureComponent<Props> {
     } = this.props;
     switch (dataSourceType) {
       case DataSourceType.DCAT_AP_NO:
-        return <SC.DataSourceType>Dataset</SC.DataSourceType>;
+        return (
+          <SC.DataSourceType>
+            <DatasetIcon />
+            Datasets
+          </SC.DataSourceType>
+        );
       case DataSourceType.SKOS_AP_NO:
-        return <SC.DataSourceType>Concept</SC.DataSourceType>;
+        return (
+          <SC.DataSourceType>
+            <ConceptIcon />
+            Concepts
+          </SC.DataSourceType>
+        );
       default:
         return <SC.DataSourceType>Unknown</SC.DataSourceType>;
     }
