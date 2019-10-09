@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import UpdateIcon from '@material-ui/icons/Update';
 
@@ -16,12 +18,24 @@ interface Props {
   onDataSourceItemRemove: (id: string) => void;
 }
 
+interface State {
+  editing: boolean;
+}
+
 enum DataSourceType {
   DCAT_AP_NO = 'DCAT-AP-NO',
   SKOS_AP_NO = 'SKOS-AP-NO'
 }
 
-class DataSourceItem extends PureComponent<Props> {
+class DataSourceItem extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      editing: false
+    };
+  }
+
   private renderDatasetType(): JSX.Element {
     const {
       dataSourceItem: { dataSourceType }
@@ -46,14 +60,55 @@ class DataSourceItem extends PureComponent<Props> {
     }
   }
 
-  public render(): JSX.Element {
+  private renderDatasetControls(): JSX.Element {
     const {
-      dataSourceItem: { id, description, url, publisherId },
+      dataSourceItem: { id },
       onDataSourceItemHarvest,
       onDataSourceItemRemove
     } = this.props;
+    const { editing } = this.state;
     const harvestDataSourceItem = () => onDataSourceItemHarvest(id);
+    const editDataSourceItem = () => this.setState({ editing: true });
+    const confirmEditDataSourceItem = () => this.setState({ editing: false });
+    const cancelEditDataSourceItem = () => this.setState({ editing: false });
     const removeDataSourceItem = () => onDataSourceItemRemove(id);
+    return (
+      <SC.DatasetItemControls>
+        {editing ? (
+          <>
+            <SC.ConfirmEditButton onClick={confirmEditDataSourceItem}>
+              <DoneIcon />
+              Confirm
+            </SC.ConfirmEditButton>
+            <SC.CancelEditButton onClick={cancelEditDataSourceItem}>
+              <CloseIcon />
+              Cancel
+            </SC.CancelEditButton>
+          </>
+        ) : (
+          <>
+            <SC.DatasetItemHarvestButton onClick={harvestDataSourceItem}>
+              <UpdateIcon />
+              Harvest
+            </SC.DatasetItemHarvestButton>
+            <SC.DatasetItemEditButton onClick={editDataSourceItem}>
+              <EditIcon />
+              Edit
+            </SC.DatasetItemEditButton>
+            <SC.DatasetItemRemoveButton onClick={removeDataSourceItem}>
+              <HighlightOffIcon />
+              Remove
+            </SC.DatasetItemRemoveButton>
+          </>
+        )}
+      </SC.DatasetItemControls>
+    );
+  }
+
+  public render(): JSX.Element {
+    const {
+      dataSourceItem: { description, url, publisherId }
+    } = this.props;
     return (
       <SC.DataSourceItem>
         {this.renderDatasetType()}
@@ -71,20 +126,7 @@ class DataSourceItem extends PureComponent<Props> {
             <span>{description}</span>
           </SC.DataSourceDetail>
         </SC.DataSourceDetails>
-        <SC.DatasetItemControls>
-          <SC.DatasetItemHarvestButton onClick={harvestDataSourceItem}>
-            <UpdateIcon />
-            Harvest
-          </SC.DatasetItemHarvestButton>
-          <SC.DatasetItemEditButton>
-            <EditIcon />
-            Edit
-          </SC.DatasetItemEditButton>
-          <SC.DatasetItemRemoveButton onClick={removeDataSourceItem}>
-            <HighlightOffIcon />
-            Remove
-          </SC.DatasetItemRemoveButton>
-        </SC.DatasetItemControls>
+        {this.renderDatasetControls()}
       </SC.DataSourceItem>
     );
   }
