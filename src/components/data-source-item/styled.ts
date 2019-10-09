@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const DataSourceItem = styled.li`
   display: flex;
   align-items: center;
+  min-height: 170px;
   padding-right: 15px;
   box-shadow: 0 0 0 2px #ccc;
   background: white;
@@ -56,6 +57,7 @@ const DatasetItemControls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  min-width: 130px;
   margin-left: 20px;
   padding: 15px 0;
 
@@ -104,6 +106,22 @@ const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
   }
 `;
 
+const ConfirmEditButton = styled(DatasetItemGenericButton)`
+  :hover,
+  :focus {
+    background: #007d69;
+    color: white;
+  }
+`;
+
+const CancelEditButton = styled(DatasetItemGenericButton)`
+  :hover,
+  :focus {
+    background: #d70a5a;
+    color: white;
+  }
+`;
+
 export default {
   DataSourceItem,
   DataSourceType,
@@ -112,5 +130,7 @@ export default {
   DatasetItemControls,
   DatasetItemHarvestButton,
   DatasetItemEditButton,
-  DatasetItemRemoveButton
+  DatasetItemRemoveButton,
+  ConfirmEditButton,
+  CancelEditButton
 };
