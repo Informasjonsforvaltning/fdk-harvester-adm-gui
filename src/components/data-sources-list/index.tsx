@@ -21,6 +21,7 @@ class DataSourcesList extends PureComponent<Props> {
     super(props);
 
     this.addDataSourceItem = this.addDataSourceItem.bind(this);
+    this.harvestDataSourceItem = this.harvestDataSourceItem.bind(this);
     this.removeDataSourceItem = this.removeDataSourceItem.bind(this);
   }
 
@@ -58,6 +59,13 @@ class DataSourcesList extends PureComponent<Props> {
     });
   }
 
+  private harvestDataSourceItem(id: string): void {
+    const {
+      actions: { harvestDataSourceRequested }
+    } = this.props;
+    harvestDataSourceRequested(id);
+  }
+
   private removeDataSourceItem(id: string): void {
     const {
       actions: { removeDataSourceRequested }
@@ -74,6 +82,7 @@ class DataSourcesList extends PureComponent<Props> {
             <DataSourceItem
               key={dataSourceItem.id}
               dataSourceItem={dataSourceItem}
+              onDataSourceItemHarvest={this.harvestDataSourceItem}
               onDataSourceItemRemove={this.removeDataSourceItem}
             />
           ))}
