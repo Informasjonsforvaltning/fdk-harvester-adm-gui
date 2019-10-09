@@ -2,6 +2,9 @@ import {
   FETCH_DATA_SOURCES_FAILED,
   FETCH_DATA_SOURCES_REQUESTED,
   FETCH_DATA_SOURCES_SUCCEEDED,
+  HARVEST_DATA_SOURCE_FAILED,
+  HARVEST_DATA_SOURCE_REQUESTED,
+  HARVEST_DATA_SOURCE_SUCCEEDED,
   REGISTER_DATA_SOURCE_FAILED,
   REGISTER_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
@@ -30,6 +33,30 @@ export function fetchDataSourcesSucceeded(dataSources: DataSource[]) {
 export function fetchDataSourcesFailed(message: string) {
   return {
     type: FETCH_DATA_SOURCES_FAILED,
+    payload: {
+      message
+    }
+  };
+}
+
+export function harvestDataSourceRequested(id: string) {
+  return {
+    type: HARVEST_DATA_SOURCE_REQUESTED,
+    payload: {
+      id
+    }
+  };
+}
+
+export function harvestDataSourceSucceeded() {
+  return {
+    type: HARVEST_DATA_SOURCE_SUCCEEDED
+  };
+}
+
+export function harvestDataSourceFailed(message: string) {
+  return {
+    type: HARVEST_DATA_SOURCE_FAILED,
     payload: {
       message
     }

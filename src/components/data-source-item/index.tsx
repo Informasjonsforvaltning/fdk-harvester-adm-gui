@@ -9,6 +9,7 @@ import { DataSource } from '../../types';
 
 interface Props {
   dataSourceItem: DataSource;
+  onDataSourceItemHarvest: (id: string) => void;
   onDataSourceItemRemove: (id: string) => void;
 }
 
@@ -34,16 +35,18 @@ class DataSourceItem extends PureComponent<Props> {
 
   public render(): JSX.Element {
     const {
-      dataSourceItem: { id, url },
+      dataSourceItem: { id, description, url, publisher },
+      onDataSourceItemHarvest,
       onDataSourceItemRemove
     } = this.props;
+    const harvestDataSourceItem = () => onDataSourceItemHarvest(id);
     const removeDataSourceItem = () => onDataSourceItemRemove(id);
     return (
       <SC.DataSourceItem>
         {this.renderDatasetType()}
         <span>{url}</span>
         <SC.DatasetItemControls>
-          <SC.DatasetItemHarvestButton>
+          <SC.DatasetItemHarvestButton onClick={harvestDataSourceItem}>
             <UpdateIcon />
           </SC.DatasetItemHarvestButton>
           <SC.DatasetItemEditButton>

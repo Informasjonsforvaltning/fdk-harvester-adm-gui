@@ -5,6 +5,7 @@ import { all, put, takeLatest } from 'redux-saga/effects';
 import * as actions from './actions';
 import {
   FETCH_DATA_SOURCES_REQUESTED,
+  HARVEST_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_REQUESTED,
   REMOVE_DATA_SOURCE_REQUESTED
 } from './action-types';
@@ -64,6 +65,23 @@ function* fetchDataSourcesRequested() {
   }
 }
 
+function* harvestDataSourceRequested(
+  action: ReturnType<typeof actions.harvestDataSourceRequested>
+) {
+  try {
+    const data = yield { dataSources };
+    const error = yield '';
+    console.log('HARVEST', action.payload.id);
+    if (data) {
+      yield put(actions.harvestDataSourceSucceeded());
+    } else {
+      yield put(actions.harvestDataSourceFailed(JSON.stringify(error)));
+    }
+  } catch (e) {
+    yield put(actions.harvestDataSourceFailed(e.message));
+  }
+}
+
 function* registerDataSourceRequested(
   action: ReturnType<typeof actions.registerDataSourceRequested>
 ) {
@@ -119,6 +137,7 @@ function* removeDataSourceRequested(
 export default function* saga() {
   yield all([
     takeLatest(FETCH_DATA_SOURCES_REQUESTED, fetchDataSourcesRequested),
+    takeLatest(HARVEST_DATA_SOURCE_REQUESTED, harvestDataSourceRequested),
     takeLatest(REGISTER_DATA_SOURCE_REQUESTED, registerDataSourceRequested),
     takeLatest(REMOVE_DATA_SOURCE_REQUESTED, removeDataSourceRequested)
   ]);
