@@ -45,17 +45,16 @@ class DataSourcesList extends PureComponent<Props> {
 
   private addDataSourceItem(): void {
     const {
-      actions: { registerDataSourceRequested },
-      dataSources
+      actions: { registerDataSourceRequested }
     } = this.props;
-    const index: number = dataSources.length;
+    const index: number = Math.random();
     registerDataSourceRequested({
-      id: `id:${Math.random()}`,
       dataSourceType:
-        Math.round(Math.random()) > 0.5 ? 'DCAT-AP-NO' : 'SCOS-AP-NO',
+        Math.round(Math.random()) > 0.5 ? 'DCAT-AP-NO' : 'SKOS-AP-NO',
       url: `http://localhost/${index}`,
-      publisher: `publisher:${index}`,
-      description: `description:${index}`
+      publisherId: `publisher:${index}`,
+      description: `description:${index}`,
+      acceptHeaderValue: 'text/turtle'
     });
   }
 

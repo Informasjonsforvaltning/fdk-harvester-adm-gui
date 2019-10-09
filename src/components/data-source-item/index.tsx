@@ -15,7 +15,7 @@ interface Props {
 
 enum DataSourceType {
   DCAT_AP_NO = 'DCAT-AP-NO',
-  SCOS_AP_NO = 'SCOS-AP-NO'
+  SKOS_AP_NO = 'SKOS-AP-NO'
 }
 
 class DataSourceItem extends PureComponent<Props> {
@@ -26,7 +26,7 @@ class DataSourceItem extends PureComponent<Props> {
     switch (dataSourceType) {
       case DataSourceType.DCAT_AP_NO:
         return <SC.DataSourceType>Dataset</SC.DataSourceType>;
-      case DataSourceType.SCOS_AP_NO:
+      case DataSourceType.SKOS_AP_NO:
         return <SC.DataSourceType>Concept</SC.DataSourceType>;
       default:
         return <SC.DataSourceType>Unknown</SC.DataSourceType>;
@@ -35,7 +35,7 @@ class DataSourceItem extends PureComponent<Props> {
 
   public render(): JSX.Element {
     const {
-      dataSourceItem: { id, description, url, publisher },
+      dataSourceItem: { id, url },
       onDataSourceItemHarvest,
       onDataSourceItemRemove
     } = this.props;
