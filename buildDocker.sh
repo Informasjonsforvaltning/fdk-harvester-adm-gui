@@ -24,7 +24,9 @@ fi
 echo "SECONDS"
 echo $SECONDS
 
+
 echo "Start build in docker image";
+docker version
 docker build -t dcatno/fdk-admin-gui:latest .
 
 echo "SECONDS"
