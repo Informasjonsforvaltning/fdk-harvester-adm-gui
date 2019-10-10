@@ -6,14 +6,9 @@ const DataSourceItem = styled.li`
   padding-right: 15px;
   box-shadow: 0 0 0 2px #ccc;
   background: white;
-  cursor: pointer;
 
   :nth-of-type(n + 2) {
     margin-top: 15px;
-  }
-
-  :hover {
-    box-shadow: 0 0 0 2px #0069a5;
   }
 `;
 
@@ -37,51 +32,84 @@ const DataSourceType = styled.div`
   }
 `;
 
+const DataSourceDetail = styled.div`
+  display: flex;
+
+  & > span:first-of-type {
+    width: 120px;
+    min-width: 120px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+`;
+
+const DataSourceDetails = styled.div`
+  margin-right: auto;
+  padding: 20px 0;
+
+  & > ${DataSourceDetail}:nth-of-type(n+2) {
+    margin-top: 12px;
+  }
+`;
+
 const DatasetItemControls = styled.div`
   display: flex;
-  align-items: center;
-  margin-left: auto;
+  flex-direction: column;
+  align-items: stretch;
+  margin-left: 20px;
   padding: 15px 0;
 
   & > button:nth-of-type(n + 2) {
-    margin-left: 10px;
+    margin-top: 10px;
   }
 `;
 
 const DatasetItemGenericButton = styled.button`
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 35px;
-  width: 35px;
+  padding: 8px 15px;
   border: none;
   border-radius: 5px;
-  background: #0069a5;
-  color: white;
+  background: #ddd;
   appearance: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
 
   > svg {
-    height: 70%;
-    width: 70%;
+    margin-right: 10px;
   }
 `;
 
 const DatasetItemHarvestButton = styled(DatasetItemGenericButton)`
-  background: #007d69;
+  :hover,
+  :focus {
+    background: #007d69;
+    color: white;
+  }
 `;
 
 const DatasetItemEditButton = styled(DatasetItemGenericButton)`
-  background: #ffbe3c;
+  :hover,
+  :focus {
+    background: #ffbe3c;
+    color: white;
+  }
 `;
 
 const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
-  background: #d70a5a;
+  :hover,
+  :focus {
+    background: #d70a5a;
+    color: white;
+  }
 `;
 
 export default {
   DataSourceItem,
   DataSourceType,
+  DataSourceDetail,
+  DataSourceDetails,
   DatasetItemControls,
   DatasetItemHarvestButton,
   DatasetItemEditButton,
