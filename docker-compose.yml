@@ -6,6 +6,6 @@ services:
     ports:
       - 8136:8000
     environment:
-      - VAR_1
-      - VAR_2
-      - VAR_3
+      - OIDC_ISSUER
+      - OIDC_CLIENT_ID
+      - FDK_HARVEST_ADMIN_HOST
