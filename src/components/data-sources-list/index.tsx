@@ -29,10 +29,6 @@ class DataSourcesList extends PureComponent<Props> {
     this.fetchDataSources();
   }
 
-  public componentDidUpdate(): void {
-    this.fetchDataSources();
-  }
-
   private fetchDataSources(): void {
     const {
       actions: { fetchDataSourcesRequested },
