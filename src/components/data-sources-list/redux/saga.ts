@@ -37,7 +37,6 @@ function* harvestDataSourceRequested(
   try {
     const data = action.payload.id;
     const error = '';
-
     if (data) {
       yield put(actions.harvestDataSourceSucceeded());
     } else {
