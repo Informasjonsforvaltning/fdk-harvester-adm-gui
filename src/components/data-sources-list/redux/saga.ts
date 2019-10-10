@@ -21,7 +21,7 @@ function* fetchDataSourcesRequested() {
       axios.get,
       `${FDK_HARVEST_ADMIN_HOST}/api/datasources`
     );
-    if (data) {
+    if (Array.isArray(data)) {
       yield put(actions.fetchDataSourcesSucceeded(data as DataSource[]));
     } else {
       yield put(actions.fetchDataSourcesFailed(JSON.stringify(message)));
