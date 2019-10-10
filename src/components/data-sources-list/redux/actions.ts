@@ -63,7 +63,9 @@ export function harvestDataSourceFailed(message: string) {
   };
 }
 
-export function registerDataSourceRequested(dataSource: DataSource) {
+export function registerDataSourceRequested(
+  dataSource: Omit<DataSource, 'id'>
+) {
   return {
     type: REGISTER_DATA_SOURCE_REQUESTED,
     payload: {
