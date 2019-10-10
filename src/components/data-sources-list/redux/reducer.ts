@@ -2,7 +2,6 @@ import { fromJS } from 'immutable';
 
 import * as actions from './actions';
 import {
-  FETCH_DATA_SOURCES_REQUESTED,
   FETCH_DATA_SOURCES_SUCCEEDED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
   REMOVE_DATA_SOURCE_SUCCEEDED
@@ -19,8 +18,6 @@ export default function reducer(
   action: Actions<typeof actions>
 ) {
   switch (action.type) {
-    case FETCH_DATA_SOURCES_REQUESTED:
-      return state.set('dataSources', fromJS([]));
     case FETCH_DATA_SOURCES_SUCCEEDED:
       return state.set('dataSources', fromJS(action.payload.dataSources));
     case REGISTER_DATA_SOURCE_SUCCEEDED:
