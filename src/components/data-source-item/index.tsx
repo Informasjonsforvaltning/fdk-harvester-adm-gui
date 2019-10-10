@@ -48,7 +48,7 @@ class DataSourceItem extends PureComponent<Props> {
 
   public render(): JSX.Element {
     const {
-      dataSourceItem: { id, url },
+      dataSourceItem: { id, description, url, publisherId },
       onDataSourceItemHarvest,
       onDataSourceItemRemove
     } = this.props;
@@ -57,16 +57,32 @@ class DataSourceItem extends PureComponent<Props> {
     return (
       <SC.DataSourceItem>
         {this.renderDatasetType()}
-        <span>{url}</span>
+        <SC.DataSourceDetails>
+          <SC.DataSourceDetail>
+            <span>Publisher:</span>
+            <span>{publisherId}</span>
+          </SC.DataSourceDetail>
+          <SC.DataSourceDetail>
+            <span>URI:</span>
+            <span>{url}</span>
+          </SC.DataSourceDetail>
+          <SC.DataSourceDetail>
+            <span>Description:</span>
+            <span>{description}</span>
+          </SC.DataSourceDetail>
+        </SC.DataSourceDetails>
         <SC.DatasetItemControls>
           <SC.DatasetItemHarvestButton onClick={harvestDataSourceItem}>
             <UpdateIcon />
+            Harvest
           </SC.DatasetItemHarvestButton>
           <SC.DatasetItemEditButton>
             <EditIcon />
+            Edit
           </SC.DatasetItemEditButton>
           <SC.DatasetItemRemoveButton onClick={removeDataSourceItem}>
             <HighlightOffIcon />
+            Remove
           </SC.DatasetItemRemoveButton>
         </SC.DatasetItemControls>
       </SC.DataSourceItem>
