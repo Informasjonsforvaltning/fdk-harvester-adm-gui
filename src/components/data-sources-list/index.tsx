@@ -49,6 +49,10 @@ class DataSourcesList extends PureComponent<Props> {
     } = this.props;
     const index: number = Math.random();
     registerDataSourceRequested({
+      // todo we have type-clash here. your fe-application expext id as mandatory, but api model has id optional, in order to support both POST and GET
+      // one solution could be to use extended types NewDataSource = ...fields; Datasource= id, ... NewDataSource
+      // this way you can require specific functions (like this one here) use NewDatasource, without id.
+      id: 'new',
       dataSourceType:
         Math.round(Math.random()) > 0.5 ? 'DCAT-AP-NO' : 'SKOS-AP-NO',
       url: `http://localhost/${index}`,

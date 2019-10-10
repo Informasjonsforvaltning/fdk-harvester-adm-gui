@@ -35,9 +35,9 @@ function* harvestDataSourceRequested(
   action: ReturnType<typeof actions.harvestDataSourceRequested>
 ) {
   try {
-    const data = yield action.payload.id;
-    const error = yield '';
-    console.log('HARVEST', action.payload.id);
+    const data = action.payload.id;
+    const error = '';
+
     if (data) {
       yield put(actions.harvestDataSourceSucceeded());
     } else {
