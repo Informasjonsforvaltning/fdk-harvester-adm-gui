@@ -2,12 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "jsx": "react",
     "lib": [
-      "es2017",
-      "dom",
-      "dom.iterable"
+      "esnext",
+      "dom"
     ],
     "sourceMap": true,
     "outDir": "./dist/",
