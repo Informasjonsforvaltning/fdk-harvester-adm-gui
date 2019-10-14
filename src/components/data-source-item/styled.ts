@@ -72,7 +72,6 @@ const DatasetItemGenericButton = styled.button`
   border-radius: 5px;
   background: #ddd;
   appearance: none;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 
