@@ -77,12 +77,14 @@ function* removeDataSourceRequested(
 ) {
   try {
     const { id } = action.payload;
-    const data = yield { id };
-    const error = yield '';
-    if (data) {
-      yield put(actions.removeDataSourceSucceeded(data.id as string));
+    const { message, status } = yield call(
+      axios.delete,
+      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`
+    );
+    if (status === 204) {
+      yield put(actions.removeDataSourceSucceeded(id));
     } else {
-      yield put(actions.removeDataSourceFailed(JSON.stringify(error)));
+      yield put(actions.removeDataSourceFailed(JSON.stringify(message)));
     }
   } catch (e) {
     yield put(actions.removeDataSourceFailed(e.message));
