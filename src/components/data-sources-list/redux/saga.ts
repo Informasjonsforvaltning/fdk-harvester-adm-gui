@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, getContext, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 import env from '../../../env';
@@ -17,9 +17,16 @@ const { FDK_HARVEST_ADMIN_HOST } = env;
 
 function* fetchDataSourcesRequested() {
   try {
+    const auth = yield getContext('auth');
+    const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.get,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources`
+      `${FDK_HARVEST_ADMIN_HOST}/api/datasources`,
+      {
+        headers: {
+          authorization
+        }
+      }
     );
     if (Array.isArray(data)) {
       yield put(actions.fetchDataSourcesSucceeded(data as DataSource[]));
@@ -50,10 +57,17 @@ function* registerDataSourceRequested({
   payload: { dataSource }
 }: ReturnType<typeof actions.registerDataSourceRequested>) {
   try {
+    const auth = yield getContext('auth');
+    const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { headers, message, status } = yield call(
       axios.post,
       `${FDK_HARVEST_ADMIN_HOST}/api/datasources`,
-      dataSource
+      dataSource,
+      {
+        headers: {
+          authorization
+        }
+      }
     );
     if (status === 201) {
       yield put(
@@ -74,9 +88,16 @@ function* removeDataSourceRequested({
   payload: { id }
 }: ReturnType<typeof actions.removeDataSourceRequested>) {
   try {
+    const auth = yield getContext('auth');
+    const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { message, status } = yield call(
       axios.delete,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`
+      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      {
+        headers: {
+          authorization
+        }
+      }
     );
     if (status === 204) {
       yield put(actions.removeDataSourceSucceeded(id));
