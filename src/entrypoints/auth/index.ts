@@ -14,8 +14,8 @@ async function run(): Promise<void> {
     userStore: new WebStorageStateStore({ store: new InMemoryWebStorage() })
   });
   let path: string = '/';
+  const isInIframe: boolean = location !== parent.location;
   try {
-    const isInIframe: boolean = location !== parent.location;
     const user: User = await (isInIframe
       ? manager.signinSilentCallback()
       : manager.signinRedirectCallback());
@@ -25,7 +25,9 @@ async function run(): Promise<void> {
   } catch (e) {
     console.error(e);
   } finally {
-    location.replace(path);
+    if (!isInIframe) {
+      location.replace(path);
+    }
   }
 }
 
