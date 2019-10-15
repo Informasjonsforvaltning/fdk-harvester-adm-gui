@@ -31,13 +31,12 @@ function* fetchDataSourcesRequested() {
   }
 }
 
-function* harvestDataSourceRequested(
-  action: ReturnType<typeof actions.harvestDataSourceRequested>
-) {
+function* harvestDataSourceRequested({
+  payload: { id }
+}: ReturnType<typeof actions.harvestDataSourceRequested>) {
   try {
-    const data = action.payload.id;
     const error = '';
-    if (data) {
+    if (id) {
       yield put(actions.harvestDataSourceSucceeded());
     } else {
       yield put(actions.harvestDataSourceFailed(JSON.stringify(error)));
@@ -47,11 +46,10 @@ function* harvestDataSourceRequested(
   }
 }
 
-function* registerDataSourceRequested(
-  action: ReturnType<typeof actions.registerDataSourceRequested>
-) {
+function* registerDataSourceRequested({
+  payload: { dataSource }
+}: ReturnType<typeof actions.registerDataSourceRequested>) {
   try {
-    const { dataSource } = action.payload;
     const { headers, message, status } = yield call(
       axios.post,
       `${FDK_HARVEST_ADMIN_HOST}/api/datasources`,
@@ -72,11 +70,10 @@ function* registerDataSourceRequested(
   }
 }
 
-function* removeDataSourceRequested(
-  action: ReturnType<typeof actions.removeDataSourceRequested>
-) {
+function* removeDataSourceRequested({
+  payload: { id }
+}: ReturnType<typeof actions.removeDataSourceRequested>) {
   try {
-    const { id } = action.payload;
     const { message, status } = yield call(
       axios.delete,
       `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`
