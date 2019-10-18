@@ -42,11 +42,22 @@ function* harvestDataSourceRequested({
   payload: { id }
 }: ReturnType<typeof actions.harvestDataSourceRequested>) {
   try {
-    const error = '';
-    if (id) {
+    const auth = yield getContext('auth');
+    const authorization = yield call([auth, auth.getAuthorizationHeader]);
+    const { message, status } = yield call(
+      axios.post,
+      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      {},
+      {
+        headers: {
+          authorization
+        }
+      }
+    );
+    if (status === 204) {
       yield put(actions.harvestDataSourceSucceeded());
     } else {
-      yield put(actions.harvestDataSourceFailed(JSON.stringify(error)));
+      yield put(actions.harvestDataSourceFailed(JSON.stringify(message)));
     }
   } catch (e) {
     yield put(actions.harvestDataSourceFailed(e.message));
