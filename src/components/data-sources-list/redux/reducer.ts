@@ -3,6 +3,9 @@ import { fromJS } from 'immutable';
 import * as actions from './actions';
 import {
   FETCH_DATA_SOURCES_SUCCEEDED,
+  HARVEST_DATA_SOURCE_SUCCEEDED,
+  HARVEST_DATA_SOURCE_FAILED,
+  HARVEST_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
   REMOVE_DATA_SOURCE_SUCCEEDED
 } from './action-types';
@@ -10,7 +13,8 @@ import {
 import { Actions } from '../../../types';
 
 const initialState = fromJS({
-  dataSources: []
+  dataSources: [],
+  snackbarVariant: undefined
 });
 
 export default function reducer(
@@ -30,6 +34,12 @@ export default function reducer(
           (dataSource: any) => dataSource.get('id') !== action.payload.id
         )
       );
+    case HARVEST_DATA_SOURCE_REQUESTED:
+      return state.set('snackbarVariant', undefined);
+    case HARVEST_DATA_SOURCE_SUCCEEDED:
+      return state.set('snackbarVariant', 'harvest:success');
+    case HARVEST_DATA_SOURCE_FAILED:
+      return state.set('snackbarVariant', 'harvest:error');
     default:
       return state;
   }

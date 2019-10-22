@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import BaseSnackbarContent from '@material-ui/core/SnackbarContent';
 
 const DataSources = styled.ul``;
 
@@ -31,4 +32,27 @@ const RegisterDataSourceButton = styled.button`
   }
 `;
 
-export default { DataSources, RegisterDataSourceButton };
+const SnackbarContent = styled(BaseSnackbarContent)<{ type: string }>`
+  background: #007d69 !important;
+
+  .message {
+    display: flex;
+    align-items: center;
+
+    & > svg {
+      margin-right: 10px;
+    }
+  }
+
+  ${({ type }) =>
+    type === 'harvest:error' &&
+    css`
+      background: #d70a5a !important;
+    `}
+`;
+
+export default {
+  DataSources,
+  RegisterDataSourceButton,
+  SnackbarContent
+};

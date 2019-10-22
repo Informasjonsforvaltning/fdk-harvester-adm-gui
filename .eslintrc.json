@@ -58,6 +58,7 @@
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/member-delimiter-style": "off",
     "react/jsx-one-expression-per-line": "off",
+    "react/jsx-wrap-multilines": "off",
     "react/prefer-stateless-function": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
