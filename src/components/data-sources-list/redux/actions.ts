@@ -10,7 +10,10 @@ import {
   REGISTER_DATA_SOURCE_SUCCEEDED,
   REMOVE_DATA_SOURCE_FAILED,
   REMOVE_DATA_SOURCE_REQUESTED,
-  REMOVE_DATA_SOURCE_SUCCEEDED
+  REMOVE_DATA_SOURCE_SUCCEEDED,
+  UPDATE_DATA_SOURCE_FAILED,
+  UPDATE_DATA_SOURCE_REQUESTED,
+  UPDATE_DATA_SOURCE_SUCCEEDED
 } from './action-types';
 
 import { DataSource } from '../../../types';
@@ -86,6 +89,33 @@ export function registerDataSourceSucceeded(dataSource: DataSource) {
 export function registerDataSourceFailed(message: string) {
   return {
     type: REGISTER_DATA_SOURCE_FAILED,
+    payload: {
+      message
+    }
+  };
+}
+
+export function updateDataSourceRequested(dataSource: DataSource) {
+  return {
+    type: UPDATE_DATA_SOURCE_REQUESTED,
+    payload: {
+      dataSource
+    }
+  };
+}
+
+export function updateDataSourceSucceeded(dataSource: DataSource) {
+  return {
+    type: UPDATE_DATA_SOURCE_SUCCEEDED,
+    payload: {
+      dataSource
+    }
+  };
+}
+
+export function updateDataSourceFailed(message: string) {
+  return {
+    type: UPDATE_DATA_SOURCE_FAILED,
     payload: {
       message
     }

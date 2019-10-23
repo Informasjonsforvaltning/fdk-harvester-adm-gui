@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 
 const DataSourceItem = styled.li`
   display: flex;
@@ -66,60 +67,26 @@ const DatasetItemControls = styled.div`
   }
 `;
 
-const DatasetItemGenericButton = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  background: #ddd;
-  appearance: none;
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
-
-  > svg {
-    margin-right: 10px;
+const DatasetItemGenericButton = styled(Button)`
+  .MuiButton-label {
+    display: flex;
+    justify-content: flex-start;
   }
 `;
 
 const DatasetItemHarvestButton = styled(DatasetItemGenericButton)`
-  :hover,
-  :focus {
-    background: #007d69;
-    color: white;
-  }
+  background: #007d69 !important;
+  color: white !important;
 `;
 
 const DatasetItemEditButton = styled(DatasetItemGenericButton)`
-  :hover,
-  :focus {
-    background: #ffbe3c;
-    color: white;
-  }
+  background: #ffbe3c !important;
+  color: white !important;
 `;
 
 const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
-  :hover,
-  :focus {
-    background: #d70a5a;
-    color: white;
-  }
-`;
-
-const ConfirmEditButton = styled(DatasetItemGenericButton)`
-  :hover,
-  :focus {
-    background: #007d69;
-    color: white;
-  }
-`;
-
-const CancelEditButton = styled(DatasetItemGenericButton)`
-  :hover,
-  :focus {
-    background: #d70a5a;
-    color: white;
-  }
+  background: #d70a5a !important;
+  color: white !important;
 `;
 
 export default {
@@ -130,7 +97,5 @@ export default {
   DatasetItemControls,
   DatasetItemHarvestButton,
   DatasetItemEditButton,
-  DatasetItemRemoveButton,
-  ConfirmEditButton,
-  CancelEditButton
+  DatasetItemRemoveButton
 };

@@ -17,4 +17,8 @@ export default css`
     flex-direction: column;
     flex: 1 0 auto;
   }
+
+  body.no-scroll {
+    overflow: hidden;
+  }
 `;

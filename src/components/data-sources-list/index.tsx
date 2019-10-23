@@ -13,6 +13,7 @@ import * as actions from './redux/actions';
 import SC from './styled';
 
 import DataSourceItem from '../data-source-item';
+import DataSourceItemEditor from '../data-source-item-editor';
 
 import { DataSource } from '../../types';
 
@@ -26,6 +27,8 @@ interface Props {
 
 interface State {
   snackbarOpen: boolean;
+  showEditor: boolean;
+  dataSourceId?: string;
 }
 
 const snackbarVariants = {
@@ -44,10 +47,14 @@ class DataSourcesList extends PureComponent<Props, State> {
     super(props);
 
     this.state = {
-      snackbarOpen: false
+      snackbarOpen: false,
+      showEditor: false,
+      dataSourceId: undefined
     };
 
-    this.addDataSourceItem = this.addDataSourceItem.bind(this);
+    this.showDataSourceItemEditor = this.showDataSourceItemEditor.bind(this);
+    this.hideDataSourceItemEditor = this.hideDataSourceItemEditor.bind(this);
+    this.saveDataSourceItem = this.saveDataSourceItem.bind(this);
     this.harvestDataSourceItem = this.harvestDataSourceItem.bind(this);
     this.removeDataSourceItem = this.removeDataSourceItem.bind(this);
     this.hideSnackbar = this.hideSnackbar.bind(this);
@@ -75,19 +82,29 @@ class DataSourcesList extends PureComponent<Props, State> {
     }
   }
 
-  private addDataSourceItem(): void {
+  private showDataSourceItemEditor(dataSourceId?: string): void {
+    document.body.classList.add('no-scroll');
+    this.setState({ showEditor: true, dataSourceId });
+  }
+
+  private hideDataSourceItemEditor(): void {
+    document.body.classList.remove('no-scroll');
+    this.setState({ showEditor: false, dataSourceId: undefined });
+  }
+
+  private saveDataSourceItem(
+    dataSource: Omit<DataSource, 'id'>,
+    update: boolean
+  ): void {
     const {
-      actions: { registerDataSourceRequested }
+      actions: { registerDataSourceRequested, updateDataSourceRequested }
     } = this.props;
-    const index: number = Math.random();
-    registerDataSourceRequested({
-      dataSourceType:
-        Math.round(Math.random()) > 0.5 ? 'DCAT-AP-NO' : 'SKOS-AP-NO',
-      url: `http://localhost/${index}`,
-      publisherId: `publisher:${index}`,
-      description: `description:${index}`,
-      acceptHeaderValue: 'text/turtle'
-    });
+    this.hideDataSourceItemEditor();
+    if (update) {
+      updateDataSourceRequested(dataSource as DataSource);
+    } else {
+      registerDataSourceRequested(dataSource);
+    }
   }
 
   private harvestDataSourceItem(id: string): void {
@@ -97,19 +114,19 @@ class DataSourcesList extends PureComponent<Props, State> {
     harvestDataSourceRequested(id);
   }
 
+  private removeDataSourceItem(id: string): void {
+    const {
+      actions: { removeDataSourceRequested }
+    } = this.props;
+    removeDataSourceRequested(id);
+  }
+
   private showSnackbar(): void {
     this.setState({ snackbarOpen: true });
   }
 
   private hideSnackbar(): void {
     this.setState({ snackbarOpen: false });
-  }
-
-  private removeDataSourceItem(id: string): void {
-    const {
-      actions: { removeDataSourceRequested }
-    } = this.props;
-    removeDataSourceRequested(id);
   }
 
   private renderSnackbarContent(snackbarVariant: SnackbarVariant): JSX.Element {
@@ -139,7 +156,8 @@ class DataSourcesList extends PureComponent<Props, State> {
 
   public render(): JSX.Element {
     const { dataSources, snackbarVariant } = this.props;
-    const { snackbarOpen } = this.state;
+    const { snackbarOpen, showEditor, dataSourceId } = this.state;
+    const dataSource = dataSources.find(({ id }) => id === dataSourceId);
     return (
       <>
         <SC.DataSources>
@@ -148,11 +166,14 @@ class DataSourcesList extends PureComponent<Props, State> {
               key={dataSourceItem.id}
               dataSourceItem={dataSourceItem}
               onDataSourceItemHarvest={this.harvestDataSourceItem}
+              onDataSourceItemEdit={this.showDataSourceItemEditor}
               onDataSourceItemRemove={this.removeDataSourceItem}
             />
           ))}
         </SC.DataSources>
-        <SC.RegisterDataSourceButton onClick={this.addDataSourceItem}>
+        <SC.RegisterDataSourceButton
+          onClick={() => this.showDataSourceItemEditor()}
+        >
           <AddIcon />
         </SC.RegisterDataSourceButton>
         {snackbarVariant && snackbarOpen && (
@@ -167,6 +188,13 @@ class DataSourcesList extends PureComponent<Props, State> {
           >
             {this.renderSnackbarContent(snackbarVariant)}
           </Snackbar>
+        )}
+        {showEditor && (
+          <DataSourceItemEditor
+            dataSource={dataSource}
+            onDiscard={this.hideDataSourceItemEditor}
+            onSave={this.saveDataSourceItem}
+          />
         )}
       </>
     );
