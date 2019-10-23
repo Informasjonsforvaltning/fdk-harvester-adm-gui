@@ -7,6 +7,7 @@ import {
   HARVEST_DATA_SOURCE_FAILED,
   HARVEST_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
+  UPDATE_DATA_SOURCE_SUCCEEDED,
   REMOVE_DATA_SOURCE_SUCCEEDED
 } from './action-types';
 
@@ -27,6 +28,14 @@ export default function reducer(
     case REGISTER_DATA_SOURCE_SUCCEEDED:
       return state.update('dataSources', (dataSources: any) =>
         dataSources.push(fromJS(action.payload.dataSource))
+      );
+    case UPDATE_DATA_SOURCE_SUCCEEDED:
+      return state.update('dataSources', (dataSources: any) =>
+        dataSources.map((dataSource: any) =>
+          dataSource.get('id') === action.payload.dataSource.id
+            ? fromJS(action.payload.dataSource)
+            : dataSource
+        )
       );
     case REMOVE_DATA_SOURCE_SUCCEEDED:
       return state.update('dataSources', (dataSources: any) =>

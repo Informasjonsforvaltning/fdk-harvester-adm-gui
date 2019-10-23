@@ -8,6 +8,7 @@ import {
   FETCH_DATA_SOURCES_REQUESTED,
   HARVEST_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_REQUESTED,
+  UPDATE_DATA_SOURCE_REQUESTED,
   REMOVE_DATA_SOURCE_REQUESTED
 } from './action-types';
 
@@ -95,6 +96,39 @@ function* registerDataSourceRequested({
   }
 }
 
+function* updateDataSourceRequested({
+  payload: {
+    dataSource: { id, ...dataSourceData }
+  }
+}: ReturnType<typeof actions.updateDataSourceRequested>) {
+  try {
+    const auth = yield getContext('auth');
+    const authorization = yield call([auth, auth.getAuthorizationHeader]);
+    const { data, message, status } = yield call(
+      axios.put,
+      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      dataSourceData,
+      {
+        headers: {
+          authorization
+        }
+      }
+    );
+    if (status === 200) {
+      yield put(
+        actions.updateDataSourceSucceeded({
+          id,
+          ...data
+        } as DataSource)
+      );
+    } else {
+      yield put(actions.updateDataSourceFailed(JSON.stringify(message)));
+    }
+  } catch (e) {
+    yield put(actions.updateDataSourceFailed(e.message));
+  }
+}
+
 function* removeDataSourceRequested({
   payload: { id }
 }: ReturnType<typeof actions.removeDataSourceRequested>) {
@@ -125,6 +159,7 @@ export default function* saga() {
     takeLatest(FETCH_DATA_SOURCES_REQUESTED, fetchDataSourcesRequested),
     takeLatest(HARVEST_DATA_SOURCE_REQUESTED, harvestDataSourceRequested),
     takeLatest(REGISTER_DATA_SOURCE_REQUESTED, registerDataSourceRequested),
+    takeLatest(UPDATE_DATA_SOURCE_REQUESTED, updateDataSourceRequested),
     takeLatest(REMOVE_DATA_SOURCE_REQUESTED, removeDataSourceRequested)
   ]);
 }
