@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, PureComponent } from 'react';
+import React, { ChangeEvent, PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -40,8 +40,6 @@ const dataSourceSchema = Yup.object().shape({
 });
 
 class DataSourceItemEditor extends PureComponent<Props, State> {
-  private modalElement: HTMLElement;
-
   constructor(props: Props) {
     super(props);
 
@@ -55,32 +53,14 @@ class DataSourceItemEditor extends PureComponent<Props, State> {
       }
     };
 
-    this.captureModalElement = this.captureModalElement.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDataSource = this.saveDataSource.bind(this);
     this.saveDataSource = this.saveDataSource.bind(this);
   }
 
-  private captureModalElement(element: HTMLDivElement | null): void {
-    if (element) {
-      this.modalElement = element;
-    }
-  }
-
-  private closeModal(e: MouseEvent): void {
-    const root: any = document.getElementById('root');
-    if (
-      this.modalElement &&
-      e.target &&
-      (e.target as any).nodeType &&
-      !this.modalElement.contains(e.target as HTMLElement)
-    ) {
-      if (root && !root.contains(e.target)) {
-        return;
-      }
-      const { onDiscard } = this.props;
-      onDiscard();
-    }
+  private closeModal(): void {
+    const { onDiscard } = this.props;
+    onDiscard();
   }
 
   private saveDataSource(
@@ -112,8 +92,8 @@ class DataSourceItemEditor extends PureComponent<Props, State> {
       setFieldTouched(name);
     };
     return (
-      <SC.DataSourceItemEditor onClick={this.closeModal}>
-        <SC.Modal ref={this.captureModalElement}>
+      <SC.DataSourceItemEditor>
+        <SC.Modal>
           <SC.ModalHeading>Register new data source</SC.ModalHeading>
           <Formik
             initialValues={existingDataSource || dataSource}
