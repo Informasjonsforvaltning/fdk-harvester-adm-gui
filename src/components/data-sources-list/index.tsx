@@ -33,11 +33,11 @@ interface State {
 
 const snackbarVariants = {
   'harvest:success': {
-    message: 'Harvest successful',
+    message: 'Harvest request sent',
     Icon: CheckCircleIcon
   },
   'harvest:error': {
-    message: 'Harvest failed',
+    message: 'Failed to send harvest request',
     Icon: ErrorIcon
   }
 };
