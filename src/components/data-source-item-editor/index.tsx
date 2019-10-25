@@ -20,14 +20,17 @@ interface State {
   dataSource: Partial<DataSource>;
 }
 
-const dataSourceTypes: string[] = ['DCAT-AP-NO', 'SKOS-AP-NO'];
+const dataSourceTypes = {
+  'DCAT-AP-NO': 'Datasets (DCAT-AP-NO)',
+  'SKOS-AP-NO': 'Concepts (DCAT-AP-NO)'
+};
 
 const dataSourceSchema = Yup.object().shape({
   dataSourceType: Yup.string()
     .required('Data source type is required')
     .oneOf(
-      dataSourceTypes,
-      'Data source type must be one of: DCAT-AP-NO, SKOS-AP-NO'
+      Object.keys(dataSourceTypes),
+      `Data source type must be one of: ${Object.keys(dataSourceTypes)}`
     ),
   url: Yup.string()
     .required('Data source URL is required')
@@ -115,7 +118,8 @@ class DataSourceItemEditor extends PureComponent<Props, State> {
                     select
                     name='dataSourceType'
                     value={
-                      (existingDataSource &&
+                      (!touched.dataSourceType &&
+                        existingDataSource &&
                         existingDataSource.dataSourceType) ||
                       dataSource.dataSourceType
                     }
@@ -135,9 +139,9 @@ class DataSourceItemEditor extends PureComponent<Props, State> {
                       )
                     }
                   >
-                    {dataSourceTypes.map(option => (
-                      <MenuItem key={option} value={option}>
-                        {option}
+                    {Object.entries(dataSourceTypes).map(([key, value]) => (
+                      <MenuItem key={key} value={key}>
+                        {value}
                       </MenuItem>
                     ))}
                   </Field>
