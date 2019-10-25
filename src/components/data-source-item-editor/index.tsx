@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { Formik, Form, Field, FormikActions } from 'formik';
 import * as Yup from 'yup';
+import isURL from 'validator/lib/isURL';
 
 import SC from './styled';
 
@@ -34,7 +35,9 @@ const dataSourceSchema = Yup.object().shape({
     ),
   url: Yup.string()
     .required('Data source URL is required')
-    .url('Data source URL must be valid'),
+    .test('url', 'Data source URL must be valid', url =>
+      isURL(url, { require_tld: false })
+    ),
   publisherId: Yup.string()
     .required('Organisation number is required')
     .matches(/^\d{9}$/, 'Organisation number must be a 9-digit value'),
