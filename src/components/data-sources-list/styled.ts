@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Dialog from '@material-ui/core/Dialog';
 import Fab from '@material-ui/core/Fab';
 import BaseSnackbarContent from '@material-ui/core/SnackbarContent';
 
@@ -34,8 +35,15 @@ const SnackbarContent = styled(BaseSnackbarContent)<{ type: string }>`
     `}
 `;
 
+const ConfirmDialog = styled(Dialog)`
+  button {
+    color: #0069a5 !important;
+  }
+`;
+
 export default {
   DataSources,
   RegisterDataSourceButton,
-  SnackbarContent
+  SnackbarContent,
+  ConfirmDialog
 };

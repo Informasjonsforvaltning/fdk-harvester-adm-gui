@@ -2,7 +2,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import CloseIcon from '@material-ui/icons/Close';
@@ -28,6 +33,7 @@ interface Props {
 interface State {
   snackbarOpen: boolean;
   showEditor: boolean;
+  showConfirmModal: boolean;
   dataSourceId?: string;
 }
 
@@ -49,11 +55,14 @@ class DataSourcesList extends PureComponent<Props, State> {
     this.state = {
       snackbarOpen: false,
       showEditor: false,
+      showConfirmModal: false,
       dataSourceId: undefined
     };
 
     this.showDataSourceItemEditor = this.showDataSourceItemEditor.bind(this);
     this.hideDataSourceItemEditor = this.hideDataSourceItemEditor.bind(this);
+    this.showConfirmModal = this.showConfirmModal.bind(this);
+    this.hideConfirmModal = this.hideConfirmModal.bind(this);
     this.saveDataSourceItem = this.saveDataSourceItem.bind(this);
     this.harvestDataSourceItem = this.harvestDataSourceItem.bind(this);
     this.removeDataSourceItem = this.removeDataSourceItem.bind(this);
@@ -114,11 +123,15 @@ class DataSourcesList extends PureComponent<Props, State> {
     harvestDataSourceRequested(id);
   }
 
-  private removeDataSourceItem(id: string): void {
+  private removeDataSourceItem(): void {
     const {
       actions: { removeDataSourceRequested }
     } = this.props;
-    removeDataSourceRequested(id);
+    const { dataSourceId } = this.state;
+    if (dataSourceId) {
+      this.hideConfirmModal();
+      removeDataSourceRequested(dataSourceId);
+    }
   }
 
   private showSnackbar(): void {
@@ -127,6 +140,14 @@ class DataSourcesList extends PureComponent<Props, State> {
 
   private hideSnackbar(): void {
     this.setState({ snackbarOpen: false });
+  }
+
+  private showConfirmModal(dataSourceId: string): void {
+    this.setState({ showConfirmModal: true, dataSourceId });
+  }
+
+  private hideConfirmModal(): void {
+    this.setState({ showConfirmModal: false, dataSourceId: undefined });
   }
 
   private renderSnackbarContent(snackbarVariant: SnackbarVariant): JSX.Element {
@@ -156,7 +177,12 @@ class DataSourcesList extends PureComponent<Props, State> {
 
   public render(): JSX.Element {
     const { dataSources, snackbarVariant } = this.props;
-    const { snackbarOpen, showEditor, dataSourceId } = this.state;
+    const {
+      snackbarOpen,
+      showEditor,
+      showConfirmModal,
+      dataSourceId
+    } = this.state;
     const dataSource = dataSources.find(({ id }) => id === dataSourceId);
     return (
       <>
@@ -167,7 +193,7 @@ class DataSourcesList extends PureComponent<Props, State> {
               dataSourceItem={dataSourceItem}
               onDataSourceItemHarvest={this.harvestDataSourceItem}
               onDataSourceItemEdit={this.showDataSourceItemEditor}
-              onDataSourceItemRemove={this.removeDataSourceItem}
+              onDataSourceItemRemove={this.showConfirmModal}
             />
           ))}
         </SC.DataSources>
@@ -196,6 +222,25 @@ class DataSourcesList extends PureComponent<Props, State> {
             onSave={this.saveDataSourceItem}
           />
         )}
+        <SC.ConfirmDialog
+          open={showConfirmModal}
+          onClose={this.hideConfirmModal}
+        >
+          <DialogTitle>Confirm data source removal</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please confirm that you would like to remove a data source.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.hideConfirmModal} color='primary'>
+              Cancel
+            </Button>
+            <Button onClick={this.removeDataSourceItem} color='primary'>
+              Confirm
+            </Button>
+          </DialogActions>
+        </SC.ConfirmDialog>
       </>
     );
   }

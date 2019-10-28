@@ -13,7 +13,7 @@ import { DataSource } from '../../types';
 interface Props {
   dataSourceItem: DataSource;
   onDataSourceItemHarvest: (id: string) => void;
-  onDataSourceItemEdit: (id?: string) => void;
+  onDataSourceItemEdit: (id: string) => void;
   onDataSourceItemRemove: (id: string) => void;
 }
 
