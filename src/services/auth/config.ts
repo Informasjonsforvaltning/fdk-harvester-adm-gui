@@ -2,7 +2,9 @@ import { UserManagerSettings } from 'oidc-client';
 
 import env from '../../env';
 
-const { OIDC_ISSUER, OIDC_CLIENT_ID } = env;
+const { OIDC_ISSUER } = env;
+
+const OIDC_CLIENT_ID = 'fdk-admin-gui';
 
 const userManagerSettings: UserManagerSettings = {
   authority: OIDC_ISSUER,
