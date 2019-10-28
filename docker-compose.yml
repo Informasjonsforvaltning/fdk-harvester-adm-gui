@@ -7,6 +7,6 @@ services:
     ports:
       - 8136:8000
     environment:
-      - OIDC_ISSUER=http://localhost:8084/auth/realms/fdk
-      - OIDC_CLIENT_ID=fdk-admin-gui
-      - FDK_HARVEST_ADMIN_HOST=http://localhost:8134
+      - OIDC_ISSUER
+      - OIDC_CLIENT_ID
+      - FDK_HARVEST_ADMIN_HOST
