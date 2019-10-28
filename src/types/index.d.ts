@@ -1,6 +1,5 @@
 export interface Configuration {
   OIDC_ISSUER: string;
-  OIDC_CLIENT_ID: string;
   FDK_HARVEST_ADMIN_HOST: string;
 }
 
