@@ -1,29 +1,11 @@
 import React, { PureComponent } from 'react';
 
-import { withAuth } from '../../providers/auth';
-import { AuthServiceInteface } from '../../services/auth';
-
 import SC from './styled';
 
-import DataSourcesList from '../data-sources-list';
-
-interface Props {
-  authService: AuthServiceInteface;
-}
-
-class Root extends PureComponent<Props> {
+class Root extends PureComponent {
   public render(): JSX.Element {
-    const { authService } = this.props;
-    const authenticated: boolean = authService.isAuthenticated();
-    return authenticated ? (
-      <SC.Root>
-        <SC.Heading>Data Sources</SC.Heading>
-        <DataSourcesList />
-      </SC.Root>
-    ) : (
-      <></>
-    );
+    return <SC.Root {...this.props} />;
   }
 }
 
-export default withAuth(Root);
+export default Root;

@@ -4,8 +4,11 @@ import {
   UserManager,
   WebStorageStateStore
 } from 'oidc-client';
+import decode from 'jwt-decode';
 
 import config from './config';
+
+const ALLOWED_AUTHORITIES = ['system:root:admin'];
 
 export interface AuthServiceInteface {
   init(): Promise<boolean>;
@@ -15,6 +18,12 @@ export interface AuthServiceInteface {
   isTokenExpired(): boolean;
   getAuthorizationHeader(): Promise<string>;
   onUserLoad(callback: (user: User) => void): void;
+  getUser(): User | null;
+  isAuthorised(): boolean;
+}
+
+interface AccessToken {
+  authorities: string;
 }
 
 class AuthService implements AuthServiceInteface {
@@ -83,8 +92,33 @@ class AuthService implements AuthServiceInteface {
     this.manager.events.addUserLoaded(callback);
   }
 
+  public getUser(): User | null {
+    return this.user;
+  }
+
   private setUser(user: User): void {
     this.user = user;
+  }
+
+  private decodeAccessToken(token: string): AccessToken {
+    return decode(token);
+  }
+
+  public isAuthorised(): boolean {
+    return this.user
+      ? this.hasRequiredAuthorities(this.user.access_token)
+      : false;
+  }
+
+  public hasRequiredAuthorities(token: string): boolean {
+    const authorities: string[] = (
+      this.decodeAccessToken(token).authorities || ''
+    ).split(',');
+    return (
+      ALLOWED_AUTHORITIES.map((authority: string) =>
+        authorities.includes(authority)
+      ).filter(Boolean).length === ALLOWED_AUTHORITIES.length
+    );
   }
 }
 
