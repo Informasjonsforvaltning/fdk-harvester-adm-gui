@@ -10,6 +10,7 @@ import config from './config';
 export interface AuthServiceInteface {
   init(): Promise<boolean>;
   logIn(): Promise<void>;
+  logOut(redirectUri?: string): Promise<void>;
   isAuthenticated(): boolean;
   isTokenExpired(): boolean;
   getAuthorizationHeader(): Promise<string>;
@@ -44,6 +45,16 @@ class AuthService implements AuthServiceInteface {
   public async logIn(): Promise<void> {
     try {
       await this.manager.signinRedirect({ data: { path: location.href } });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  public async logOut(redirectUri?: string): Promise<void> {
+    try {
+      await this.manager.signoutRedirect({
+        post_logout_redirect_uri: redirectUri
+      });
     } catch (e) {
       console.error(e);
     }
