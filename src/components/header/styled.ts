@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 
 import FdkLogo from '../../images/fdk-admin-logo.svg';
 
@@ -22,4 +23,22 @@ const Logo = styled(FdkLogo)`
   height: 100%;
 `;
 
-export default { Header, Logo };
+const UserAvatar = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > svg {
+    fill: #0069a5;
+  }
+`;
+
+const UserName = styled.span`
+  margin-left: 5px;
+  text-transform: capitalize;
+`;
+
+const LogoutButton = styled(Button)`
+  margin-left: 10px !important;
+`;
+
+export default { Header, Logo, UserAvatar, UserName, LogoutButton };
