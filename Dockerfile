@@ -1,4 +1,4 @@
-FROM node:alpine AS base
+FROM node:alpine AS build
 RUN mkdir /app
 RUN addgroup -g 1001 -S app && \
   adduser -u 1001 -S app -G app && \
@@ -7,13 +7,9 @@ RUN addgroup -g 1001 -S app && \
 USER app:app
 WORKDIR /app
 COPY --chown=app:app package.json package-lock.json .babelrc ./
-
-FROM base AS dependencies
 RUN npm set progress=false && \
   npm config set depth 0 && \
   npm ci
-
-FROM dependencies AS build
 COPY --chown=app:app src ./src
 COPY --chown=app:app webpack ./webpack
 COPY --chown=app:app tsconfig.json .
