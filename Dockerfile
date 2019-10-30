@@ -6,13 +6,15 @@ RUN addgroup -g 1001 -S app && \
   chmod 770 /app
 USER app:app
 WORKDIR /app
-COPY --chown=app:app package.json package-lock.json .babelrc ./
+COPY --chown=app:app package.json package-lock.json ./
 RUN npm set progress=false && \
   npm config set depth 0 && \
   npm ci
-COPY --chown=app:app src ./src
+COPY --chown=app:app .babelrc tsconfig.json jest.config.js ./
 COPY --chown=app:app webpack ./webpack
-COPY --chown=app:app tsconfig.json .
+COPY --chown=app:app test ./test
+COPY --chown=app:app src ./src
+RUN npm test
 RUN npm run build:prod
 
 FROM nginx:alpine

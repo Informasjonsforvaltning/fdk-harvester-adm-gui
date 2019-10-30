@@ -16,6 +16,5 @@ commitlint.config.js
 Dockerfile
 docker-compose.yml
 
-jest.config.js
 .eslintrc.json
 README.md
