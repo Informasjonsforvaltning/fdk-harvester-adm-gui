@@ -1,14 +1,3 @@
-#!/usr/bin/env bash
-
-i=0
-
-docker_apps="fdk-admin-gui"
-
-for docker_app in $docker_apps; do
-    i=$((i+1))
-    BUILD_APPS[$i]=$docker_app
-    BUILD_CMD[$i]="( ./buildDocker.sh )"
-done
-
-export BUILD_APPS
-export BUILD_CMD
+#!/usr/bin/env bash -e
+export BUILD_APPS=("fdk-admin-gui")
+export BUILD_CMD=("docker build -t dcatno/fdk-admin-gui:latest .")
