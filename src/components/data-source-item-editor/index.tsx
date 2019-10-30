@@ -23,7 +23,7 @@ interface State {
 
 const dataSourceTypes = {
   'DCAT-AP-NO': 'Datasets (DCAT-AP-NO)',
-  'SKOS-AP-NO': 'Concepts (DCAT-AP-NO)'
+  'SKOS-AP-NO': 'Concepts (SKOS-AP-NO)'
 };
 
 const dataSourceSchema = Yup.object().shape({
