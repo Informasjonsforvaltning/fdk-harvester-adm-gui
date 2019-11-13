@@ -10,7 +10,7 @@ interface Props {
   authService: AuthServiceInteface;
 }
 
-class Login extends PureComponent<Props> {
+class LoginPage extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
@@ -47,4 +47,4 @@ class Login extends PureComponent<Props> {
   }
 }
 
-export default withAuth(Login);
+export default withAuth(LoginPage);

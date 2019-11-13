@@ -9,7 +9,7 @@ import ProtectedRoute from '../protected-route';
 const DataSourcesPage = lazy(() => import('../data-sources-page'));
 const WhitelistPage = lazy(() => import('../whitelist-page'));
 const DelegationPage = lazy(() => import('../delegation-page'));
-const LoginPage = lazy(() => import('../login'));
+const LoginPage = lazy(() => import('../login-page'));
 
 export default class Router extends PureComponent {
   public render(): JSX.Element {
