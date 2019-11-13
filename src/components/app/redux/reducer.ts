@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import DataSourcesReducer from '../../data-sources-list/redux/reducer';
+import DataSourcesPageReducer from '../../data-sources-page/redux/reducer';
 
 export default combineReducers({
-  DataSourcesReducer
+  DataSourcesPageReducer
 });

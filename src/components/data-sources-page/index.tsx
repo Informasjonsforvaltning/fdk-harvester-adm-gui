@@ -48,7 +48,7 @@ const snackbarVariants = {
   }
 };
 
-class DataSourcesList extends PureComponent<Props, State> {
+class DataSourcesPage extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -186,7 +186,7 @@ class DataSourcesList extends PureComponent<Props, State> {
     const dataSource = dataSources.find(({ id }) => id === dataSourceId);
     return (
       <>
-        <SC.DataSources>
+        <SC.DataSourcesPage>
           {dataSources.map(dataSourceItem => (
             <DataSourceItem
               key={dataSourceItem.id}
@@ -196,7 +196,7 @@ class DataSourcesList extends PureComponent<Props, State> {
               onDataSourceItemRemove={this.showConfirmModal}
             />
           ))}
-        </SC.DataSources>
+        </SC.DataSourcesPage>
         <SC.RegisterDataSourceButton
           onClick={() => this.showDataSourceItemEditor()}
         >
@@ -247,8 +247,8 @@ class DataSourcesList extends PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  dataSources: state.DataSourcesReducer.get('dataSources').toJS(),
-  snackbarVariant: state.DataSourcesReducer.get('snackbarVariant')
+  dataSources: state.DataSourcesPageReducer.get('dataSources').toJS(),
+  snackbarVariant: state.DataSourcesPageReducer.get('snackbarVariant')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -258,4 +258,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DataSourcesList);
+)(DataSourcesPage);
