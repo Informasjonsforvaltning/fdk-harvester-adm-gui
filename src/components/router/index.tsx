@@ -7,6 +7,8 @@ import Root from '../root';
 import ProtectedRoute from '../protected-route';
 
 const DataSourcesPage = lazy(() => import('../data-sources-page'));
+const WhitelistPage = lazy(() => import('../whitelist-page'));
+const DelegationPage = lazy(() => import('../delegation-page'));
 const LoginPage = lazy(() => import('../login'));
 
 export default class Router extends PureComponent {
@@ -22,6 +24,16 @@ export default class Router extends PureComponent {
                 exact
                 path='/data-sources'
                 component={DataSourcesPage}
+              />
+              <ProtectedRoute
+                exact
+                path='/whitelist'
+                component={WhitelistPage}
+              />
+              <ProtectedRoute
+                exact
+                path='/delegation'
+                component={DelegationPage}
               />
               <Route exact path='/login' component={LoginPage} />
               <Redirect from='/' to='/data-sources' />
