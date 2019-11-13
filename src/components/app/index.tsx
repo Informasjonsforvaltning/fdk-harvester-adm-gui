@@ -8,7 +8,6 @@ import store from './redux/store';
 
 import GlobalStyles from './styles';
 
-import Header from '../header';
 import Router from '../router';
 
 export default hot(function App() {
@@ -17,7 +16,6 @@ export default hot(function App() {
       <GlobalStyles />
       <ReduxProvider store={store}>
         <AuthProvider>
-          <Header />
           <Router />
         </AuthProvider>
       </ReduxProvider>
