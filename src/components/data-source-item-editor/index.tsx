@@ -35,8 +35,10 @@ const dataSourceSchema = Yup.object().shape({
     ),
   url: Yup.string()
     .required('Data source URL is required')
-    .test('url', 'Data source URL must be valid', url =>
-      isURL(url, { require_tld: false })
+    .test(
+      'url',
+      'Data source URL must be valid',
+      url => url && isURL(url, { require_tld: false })
     ),
   publisherId: Yup.string()
     .required('Organisation number is required')
