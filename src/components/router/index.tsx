@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Root from '../root';
 import ProtectedRoute from '../protected-route';
 
-const DataSourcesPage = lazy(() => import('../data-sources-list'));
+const DataSourcesPage = lazy(() => import('../data-sources-page'));
 const LoginPage = lazy(() => import('../login'));
 
 export default class Router extends PureComponent {

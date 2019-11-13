@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Fab from '@material-ui/core/Fab';
 import BaseSnackbarContent from '@material-ui/core/SnackbarContent';
 
-const DataSources = styled.ul``;
+const DataSourcesPage = styled.ul``;
 
 const RegisterDataSourceButton = styled(Fab)`
   position: fixed !important;
@@ -42,7 +42,7 @@ const ConfirmDialog = styled(Dialog)`
 `;
 
 export default {
-  DataSources,
+  DataSourcesPage,
   RegisterDataSourceButton,
   SnackbarContent,
   ConfirmDialog

@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import dataSourcesSaga from '../../data-sources-list/redux/saga';
+import dataSourcesPageSaga from '../../data-sources-page/redux/saga';
 
 export default function* saga(): Generator {
-  yield all([dataSourcesSaga()]);
+  yield all([dataSourcesPageSaga()]);
 }
