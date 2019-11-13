@@ -2,6 +2,7 @@ import React, { PureComponent, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import Header from '../header';
+import SideMenu from '../side-menu';
 import Root from '../root';
 import ProtectedRoute from '../protected-route';
 
@@ -13,6 +14,7 @@ export default class Router extends PureComponent {
     return (
       <BrowserRouter>
         <Header />
+        <SideMenu />
         <Root>
           <Suspense fallback={<></>}>
             <Switch>
