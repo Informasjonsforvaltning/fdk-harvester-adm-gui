@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ViewListIcon from '@material-ui/icons/ViewList';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
 
 import SC from './styled';
 
@@ -13,6 +15,16 @@ class SideMenu extends PureComponent<RouteComponentProps<any>> {
         title: 'Data Sources',
         path: '/data-sources',
         icon: ViewListIcon
+      },
+      {
+        title: 'Whitelist',
+        path: '/whitelist',
+        icon: PlaylistAddCheckIcon
+      },
+      {
+        title: 'Delegation',
+        path: '/delegation',
+        icon: RecentActorsIcon
       }
     ];
     return sideMenuItems.map((item, index) => (
