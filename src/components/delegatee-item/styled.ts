@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
-const DataSourceItem = styled.li`
+const DelegateeItem = styled.li`
   display: flex;
   align-items: center;
-  min-height: 170px;
+  min-height: 130px;
   padding-right: 15px;
   box-shadow: 0 0 0 2px #ccc;
   background: white;
@@ -14,7 +14,7 @@ const DataSourceItem = styled.li`
   }
 `;
 
-const DataSourceType = styled.div`
+const DelegateeType = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,27 +34,32 @@ const DataSourceType = styled.div`
   }
 `;
 
-const DataSourceDetail = styled.div`
+const DelegateeName = styled.h2`
+  margin-bottom: 12px;
+  font-size: 110%;
+  font-weight: bold;
+`;
+
+const DelegateeDetail = styled.div`
   display: flex;
 
   & > span:first-of-type {
-    width: 120px;
-    min-width: 120px;
     margin-right: 10px;
     font-weight: bold;
+    white-space: nowrap;
   }
 `;
 
-const DataSourceDetails = styled.div`
+const DelegateeDetails = styled.div`
   margin-right: auto;
   padding: 20px 0;
 
-  & > ${DataSourceDetail}:nth-of-type(n+2) {
+  & > ${DelegateeDetail}:nth-of-type(n+2) {
     margin-top: 12px;
   }
 `;
 
-const DatasetItemControls = styled.div`
+const DelegateeControls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -67,35 +72,24 @@ const DatasetItemControls = styled.div`
   }
 `;
 
-const DatasetItemGenericButton = styled(Button)`
+const DelegateeGenericButton = styled(Button)`
   .MuiButton-label {
     display: flex;
     justify-content: flex-start;
   }
 `;
 
-const DatasetItemHarvestButton = styled(DatasetItemGenericButton)`
-  background: #007d69 !important;
-  color: white !important;
-`;
-
-const DatasetItemEditButton = styled(DatasetItemGenericButton)`
-  background: #ffbe3c !important;
-  color: white !important;
-`;
-
-const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
+const DelegateeRemoveButton = styled(DelegateeGenericButton)`
   background: #d70a5a !important;
   color: white !important;
 `;
 
 export default {
-  DataSourceItem,
-  DataSourceType,
-  DataSourceDetail,
-  DataSourceDetails,
-  DatasetItemControls,
-  DatasetItemHarvestButton,
-  DatasetItemEditButton,
-  DatasetItemRemoveButton
+  DelegateeItem,
+  DelegateeType,
+  DelegateeName,
+  DelegateeDetail,
+  DelegateeDetails,
+  DelegateeControls,
+  DelegateeRemoveButton
 };

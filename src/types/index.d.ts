@@ -13,4 +13,9 @@ export interface DataSource {
   acceptHeaderValue: string;
 }
 
+export interface Delegatee {
+  id: string;
+  name: string;
+}
+
 export * from './common';
