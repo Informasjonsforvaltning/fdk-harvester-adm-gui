@@ -9,3 +9,4 @@ services:
     environment:
       - OIDC_ISSUER
       - FDK_HARVEST_ADMIN_HOST
+      - ORGANISATION_CATALOGUE_HOST

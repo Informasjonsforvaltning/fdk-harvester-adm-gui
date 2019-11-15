@@ -1,6 +1,7 @@
 export interface Configuration {
   OIDC_ISSUER: string;
   FDK_HARVEST_ADMIN_HOST: string;
+  ORGANISATION_CATALOGUE_HOST: string;
 }
 
 export interface DataSource {
