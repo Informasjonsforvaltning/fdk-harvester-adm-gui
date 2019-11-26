@@ -16,6 +16,7 @@ export interface AuthServiceInteface {
   logOut(redirectUri?: string): Promise<void>;
   isAuthenticated(): boolean;
   isTokenExpired(): boolean;
+  isInstantiated(): boolean;
   getAuthorizationHeader(): Promise<string>;
   onUserLoad(callback: (user: User) => void): void;
   getUser(): User | null;
@@ -30,6 +31,8 @@ class AuthService implements AuthServiceInteface {
   public user: User | null;
 
   private manager: UserManager;
+
+  private instantiated: boolean = false;
 
   constructor() {
     this.manager = new UserManager({
@@ -48,6 +51,7 @@ class AuthService implements AuthServiceInteface {
       console.error(e);
       await this.logIn();
     }
+    this.instantiated = true;
     return this.isAuthenticated() && !this.isTokenExpired();
   }
 
@@ -75,6 +79,10 @@ class AuthService implements AuthServiceInteface {
 
   public isTokenExpired(): boolean {
     return !!this.user && !!this.user.expired;
+  }
+
+  public isInstantiated(): boolean {
+    return !!this.instantiated;
   }
 
   public async getAuthorizationHeader(): Promise<string> {
@@ -105,7 +113,7 @@ class AuthService implements AuthServiceInteface {
   }
 
   public isAuthorised(): boolean {
-    return this.user
+    return this.isAuthenticated() && !this.isTokenExpired() && this.user
       ? this.hasRequiredAuthorities(this.user.access_token)
       : false;
   }

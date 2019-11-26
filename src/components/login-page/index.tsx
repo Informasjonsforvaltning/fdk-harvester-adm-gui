@@ -22,13 +22,12 @@ class LoginPage extends PureComponent<Props> {
     await authService.logOut(`${location.origin}/auth`);
   }
 
-  public render(): JSX.Element {
+  public render(): JSX.Element | null {
     const { authService } = this.props;
-    const isAuthenticated: boolean = authService.isAuthenticated();
-    const isAuthorised: boolean = authService.isAuthorised();
-    return isAuthenticated && isAuthorised ? (
-      <Redirect to='/' />
-    ) : (
+    if (authService.isAuthorised()) {
+      return <Redirect to='/' />;
+    }
+    return authService.isInstantiated() ? (
       <SC.LoginPage>
         <h1>Access denied</h1>
         <p>
@@ -43,7 +42,7 @@ class LoginPage extends PureComponent<Props> {
           Log in
         </SC.LoginButton>
       </SC.LoginPage>
-    );
+    ) : null;
   }
 }
 

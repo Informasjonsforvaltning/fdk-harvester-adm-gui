@@ -11,9 +11,7 @@ interface Props {
 class ProtectedRoute extends PureComponent<Props> {
   public render(): JSX.Element {
     const { authService } = this.props;
-    const isAuthenticated: boolean = authService.isAuthenticated();
-    const isAuthorised: boolean = authService.isAuthorised();
-    return isAuthenticated && isAuthorised ? (
+    return authService.isAuthorised() ? (
       <Route {...this.props} />
     ) : (
       <Redirect to='/login' />
