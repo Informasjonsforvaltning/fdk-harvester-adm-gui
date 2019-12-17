@@ -3,7 +3,7 @@ version: "3"
 services:
   fdk-admin-gui:
     build: ../fdk-admin-gui
-    image: dcatno/fdk-admin-gui:latest
+    image: eu.gcr.io/fdk-infra/fdk-admin-gui:latest
     ports:
       - 8136:8000
     environment:
