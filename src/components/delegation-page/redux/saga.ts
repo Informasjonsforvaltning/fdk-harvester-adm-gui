@@ -30,9 +30,12 @@ function* findAllDelegateesRequested() {
     );
     if (Array.isArray(data)) {
       yield put(
-        actions.findAllDelegateesSucceeded(data.map(
-          ({ organizationId, name }) => ({ id: organizationId, name })
-        ) as Delegatee[])
+        actions.findAllDelegateesSucceeded(
+          data.map(({ organizationId, name }) => ({
+            id: organizationId,
+            name
+          })) as Delegatee[]
+        )
       );
     } else {
       yield put(actions.findAllDelegateesFailed(JSON.stringify(message)));

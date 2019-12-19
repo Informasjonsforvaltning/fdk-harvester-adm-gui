@@ -213,7 +213,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OrganisationFinder);
+export default connect(mapStateToProps, mapDispatchToProps)(OrganisationFinder);
