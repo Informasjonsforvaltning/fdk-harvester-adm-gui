@@ -9,34 +9,30 @@ interface Props {}
 interface State {
   service: AuthServiceInteface;
   instantiated: boolean;
-  userLoaded: boolean;
 }
 
 class AuthProvider extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {
       service: AuthService,
-      instantiated: false,
-      userLoaded: false
+      instantiated: false
     };
   }
 
   public async componentDidMount(): Promise<void> {
-    const { service, userLoaded } = this.state;
-    const authenticated: boolean = await service.init();
-    this.setState({ instantiated: true });
-    if (!authenticated && !userLoaded) {
-      service.onUserLoad(() => this.setState({ userLoaded: true }));
-    }
+    const { service } = this.state;
+    await service.init();
+    this.setState({ instantiated: service.isInstantiated() });
   }
 
   public render(): JSX.Element {
     const { children } = this.props;
-    const { instantiated } = this.state;
-    return instantiated ? (
-      <AuthContext.Provider value={this.state}>{children}</AuthContext.Provider>
+    const { service } = this.state;
+    return service.isInstantiated() ? (
+      <AuthContext.Provider value={{ service }}>
+        {children}
+      </AuthContext.Provider>
     ) : (
       <></>
     );
@@ -46,13 +42,7 @@ class AuthProvider extends PureComponent<Props, State> {
 export function withAuth(Child: ComponentType<any>): ComponentType<any> {
   return (props: any) => (
     <AuthContext.Consumer>
-      {({ service }) =>
-        service ? (
-          <Child {...props} authService={service} />
-        ) : (
-          <Child {...props} />
-        )
-      }
+      {({ service }) => <Child {...props} authService={service} />}
     </AuthContext.Consumer>
   );
 }
