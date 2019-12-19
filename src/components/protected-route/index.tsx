@@ -2,16 +2,16 @@ import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import { withAuth } from '../../providers/auth';
-import { AuthServiceInteface } from '../../services/auth';
+import { Auth } from '../../lib/auth/auth';
 
 interface Props {
-  authService: AuthServiceInteface;
+  authService: Auth;
 }
 
 class ProtectedRoute extends PureComponent<Props> {
   public render(): JSX.Element {
     const { authService } = this.props;
-    return authService.isAuthorised() ? (
+    return authService.hasSystemAdminPermission() ? (
       <Route {...this.props} />
     ) : (
       <Redirect to='/login' />

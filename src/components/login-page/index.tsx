@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { withAuth } from '../../providers/auth';
-import { AuthServiceInteface } from '../../services/auth';
 
 import SC from './styled';
+import { Auth } from '../../lib/auth/auth';
 
 interface Props {
-  authService: AuthServiceInteface;
+  authService: Auth;
 }
 
 class LoginPage extends PureComponent<Props> {
@@ -19,15 +19,15 @@ class LoginPage extends PureComponent<Props> {
 
   private async logOutAndRedirect(): Promise<void> {
     const { authService } = this.props;
-    await authService.logOut(`${location.origin}/auth`);
+    await authService.logout();
   }
 
   public render(): JSX.Element | null {
     const { authService } = this.props;
-    if (authService.isAuthorised()) {
+    if (authService.hasSystemAdminPermission()) {
       return <Redirect to='/' />;
     }
-    return authService.isInstantiated() ? (
+    return (
       <SC.LoginPage>
         <h1>Access denied</h1>
         <p>
@@ -42,7 +42,7 @@ class LoginPage extends PureComponent<Props> {
           Log in
         </SC.LoginButton>
       </SC.LoginPage>
-    ) : null;
+    );
   }
 }
 
