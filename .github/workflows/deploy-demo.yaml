@@ -20,7 +20,7 @@ jobs:
             helm init --client-only
             helm repo add fdk https://informasjonsforvaltning.github.io/helm-chart/
             helm fetch --untar --untardir ./helm fdk/fdk-admin-gui
-            helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-admin-gui:latest" -f ./helm/fdk-admin-gui/values/demo.yaml ./helm/fdk-admin-gui/ > ./kubectlapply.yaml
+            helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-admin-gui:${{ github.event.client_payload.sha }}" -f ./helm/fdk-admin-gui/values/demo.yaml ./helm/fdk-admin-gui/ > ./kubectlapply.yaml
             cat ./kubectlapply.yaml
             chmod o+w ./kubectlapply.yaml
             cat kubectlapply.yaml
