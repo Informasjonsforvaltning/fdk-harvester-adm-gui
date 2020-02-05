@@ -20,12 +20,13 @@ const DataSourceType = styled.div`
   justify-content: center;
   align-items: center;
   align-self: stretch;
-  min-width: 140px;
+  width: 140px;
   padding: 15px;
   margin-right: 15px;
   background: #ccc;
   font-size: 110%;
   font-weight: bold;
+  text-align: center;
 
   & > svg {
     height: 50px;

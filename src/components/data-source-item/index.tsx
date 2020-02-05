@@ -7,8 +7,10 @@ import SC from './styled';
 
 import ConceptIcon from '../../images/concept-icon.svg';
 import DatasetIcon from '../../images/dataset-icon.svg';
+import InformationModelIcon from '../../images/information-model-icon.svg';
 
 import { DataSource } from '../../types';
+import { DataType } from '../../types/enums';
 
 interface Props {
   dataSourceItem: DataSource;
@@ -17,29 +19,31 @@ interface Props {
   onDataSourceItemRemove: (id: string) => void;
 }
 
-enum DataSourceType {
-  DCAT_AP_NO = 'DCAT-AP-NO',
-  SKOS_AP_NO = 'SKOS-AP-NO'
-}
-
 class DataSourceItem extends PureComponent<Props> {
   private renderDatasetType(): JSX.Element {
     const {
-      dataSourceItem: { dataSourceType }
+      dataSourceItem: { dataType }
     } = this.props;
-    switch (dataSourceType) {
-      case DataSourceType.DCAT_AP_NO:
+    switch (dataType) {
+      case DataType.DATASET:
         return (
           <SC.DataSourceType>
             <DatasetIcon />
             Datasets
           </SC.DataSourceType>
         );
-      case DataSourceType.SKOS_AP_NO:
+      case DataType.CONCEPT:
         return (
           <SC.DataSourceType>
             <ConceptIcon />
             Concepts
+          </SC.DataSourceType>
+        );
+      case DataType.INFORMATION_MODEL:
+        return (
+          <SC.DataSourceType>
+            <InformationModelIcon />
+            Information Models
           </SC.DataSourceType>
         );
       default:
