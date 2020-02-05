@@ -1,3 +1,5 @@
+import { DataType, Standard, MimeType } from './enums';
+
 export interface Configuration {
   OIDC_ISSUER: string;
   FDK_HARVEST_ADMIN_HOST: string;
@@ -6,11 +8,12 @@ export interface Configuration {
 
 export interface DataSource {
   id: string;
-  dataSourceType: string;
+  dataType: DataType | null;
+  dataSourceType: Standard | null;
   url: string;
   publisherId: string;
   description: string;
-  acceptHeaderValue: string;
+  acceptHeaderValue: MimeType | null;
 }
 
 export interface Delegatee {
