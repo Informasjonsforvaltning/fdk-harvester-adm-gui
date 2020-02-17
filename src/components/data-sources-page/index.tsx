@@ -101,19 +101,16 @@ class DataSourcesPage extends PureComponent<Props, State> {
     this.setState({ showEditor: false, dataSourceId: undefined });
   }
 
-  private saveDataSourceItem(
-    dataSource: Omit<DataSource, 'id'>,
-    update: boolean
-  ): void {
+  private saveDataSourceItem(dataSource: DataSource, update: boolean): void {
     const {
       actions: { registerDataSourceRequested, updateDataSourceRequested }
     } = this.props;
-    this.hideDataSourceItemEditor();
     if (update) {
       updateDataSourceRequested(dataSource as DataSource);
     } else {
       registerDataSourceRequested(dataSource);
     }
+    this.hideDataSourceItemEditor();
   }
 
   private harvestDataSourceItem(id: string): void {

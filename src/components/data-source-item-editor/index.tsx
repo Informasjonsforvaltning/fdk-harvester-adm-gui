@@ -17,7 +17,7 @@ interface FormValues extends Omit<DataSource, 'id'> {}
 interface Props {
   dataSource?: Partial<DataSource>;
   onDiscard: () => void;
-  onSave: (dataSource: Omit<DataSource, 'id'>, update: boolean) => void;
+  onSave: (dataSource: DataSource, update: boolean) => void;
 }
 
 const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
@@ -190,7 +190,7 @@ export default memo(
       acceptHeaderValue
     }),
     handleSubmit: (values, { props: { onSave, dataSource } }) =>
-      onSave(values, !!dataSource),
+      onSave({ id: dataSource?.id ?? '', ...values }, !!dataSource),
     validationSchema,
     displayName: 'DataSourceItemEditor'
   })(DataSourceItemEditor)
