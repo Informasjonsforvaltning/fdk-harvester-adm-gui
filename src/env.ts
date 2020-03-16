@@ -7,9 +7,12 @@ interface EnvironmentVariables {
 }
 
 const env = ((window as any).env || {
-  OIDC_ISSUER: 'http://localhost:8084/auth/realms/fdk',
-  FDK_HARVEST_ADMIN_HOST: 'http://localhost:8134',
-  ORGANISATION_CATALOGUE_HOST: 'http://localhost:8140'
+  OIDC_ISSUER:
+    'https://sso.staging.fellesdatakatalog.digdir.no/auth/realms/fdk',
+  FDK_HARVEST_ADMIN_HOST:
+    'https://admin-api.staging.fellesdatakatalog.digdir.no',
+  ORGANISATION_CATALOGUE_HOST:
+    'https://organization-catalogue.staging.fellesdatakatalog.digdir.no'
 }) as EnvironmentVariables;
 
 export default { ...env } as Configuration;

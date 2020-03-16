@@ -7,7 +7,12 @@ export default Yup.object().shape({
   dataType: Yup.string()
     .required('Data source type is required')
     .oneOf(
-      [DataType.CONCEPT, DataType.DATASET, DataType.INFORMATION_MODEL],
+      [
+        DataType.CONCEPT,
+        DataType.DATASET,
+        DataType.INFORMATION_MODEL,
+        DataType.DATASERVICE
+      ],
       'Data source type is not supported'
     ),
   dataSourceType: Yup.string()
@@ -30,6 +35,12 @@ export default Yup.object().shape({
     })
     .when('dataType', {
       is: DataType.INFORMATION_MODEL,
+      then: Yup.string()
+        .required('Data standard is required')
+        .oneOf([Standard.DCAT_AP_NO], 'Data standard for is not supported')
+    })
+    .when('dataType', {
+      is: DataType.DATASERVICE,
       then: Yup.string()
         .required('Data standard is required')
         .oneOf([Standard.DCAT_AP_NO], 'Data standard for is not supported')

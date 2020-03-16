@@ -8,6 +8,7 @@ import SC from './styled';
 import ConceptIcon from '../../images/concept-icon.svg';
 import DatasetIcon from '../../images/dataset-icon.svg';
 import InformationModelIcon from '../../images/information-model-icon.svg';
+import DataServiceIcon from '../../images/dataservice-icon.svg';
 
 import { DataSource } from '../../types';
 import { DataType } from '../../types/enums';
@@ -44,6 +45,13 @@ class DataSourceItem extends PureComponent<Props> {
           <SC.DataSourceType>
             <InformationModelIcon />
             Information Models
+          </SC.DataSourceType>
+        );
+      case DataType.DATASERVICE:
+        return (
+          <SC.DataSourceType>
+            <DataServiceIcon />
+            Data Services
           </SC.DataSourceType>
         );
       default:
