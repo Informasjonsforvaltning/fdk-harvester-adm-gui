@@ -41,6 +41,9 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
       case DataType.INFORMATION_MODEL: {
         return 'Information Models';
       }
+      case DataType.DATASERVICE: {
+        return 'Data Service';
+      }
       default: {
         return '';
       }
@@ -73,7 +76,8 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
               {[
                 DataType.CONCEPT,
                 DataType.DATASET,
-                DataType.INFORMATION_MODEL
+                DataType.INFORMATION_MODEL,
+                DataType.DATASERVICE
               ].map(dataType => (
                 <MenuItem key={dataType} value={dataType}>
                   {formatDataType(dataType)}
