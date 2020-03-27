@@ -11,5 +11,10 @@ export enum DataType {
 }
 
 export enum MimeType {
-  TEXT_TURTLE = 'text/turtle'
+  TEXT_TURTLE = 'text/turtle',
+  RDF_XML = 'application/rdf+xml',
+  RDF_JSON = 'application/rdf+json',
+  LD_JSON = 'application/ld+json',
+  NTRIPLES = 'application/n-triples',
+  N3 = 'text/n3'
 }
