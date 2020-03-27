@@ -148,7 +148,14 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
               error={touched.acceptHeaderValue && !!errors.acceptHeaderValue}
               helperText={touched.acceptHeaderValue && errors.acceptHeaderValue}
             >
-              {[MimeType.TEXT_TURTLE].map(mimeType => (
+              {[
+                MimeType.TEXT_TURTLE,
+                MimeType.RDF_XML,
+                MimeType.RDF_JSON,
+                MimeType.LD_JSON,
+                MimeType.NTRIPLES,
+                MimeType.N3
+              ].map(mimeType => (
                 <MenuItem key={mimeType} value={mimeType}>
                   {mimeType}
                 </MenuItem>
