@@ -11,7 +11,8 @@ interface Props {
 class ProtectedRoute extends PureComponent<Props> {
   public render(): JSX.Element {
     const { authService } = this.props;
-    return authService.hasSystemAdminPermission() ? (
+    return authService.hasSystemAdminPermission() ||
+      authService.hasOrganizationAdminPermissions() ? (
       <Route {...this.props} />
     ) : (
       <Redirect to='/login' />

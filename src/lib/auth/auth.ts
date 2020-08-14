@@ -130,4 +130,16 @@ export class Auth {
       resourceId: 'root',
       role: 'admin'
     });
+
+  hasOrganizationAdminPermissions = () =>
+    this.getResourceRoles().some(
+      ({ resource, role }) => resource === 'organization' && role === 'admin'
+    );
+
+  getOrganizationsWithAdminPermission = () =>
+    this.getResourceRoles()
+      .filter(
+        ({ resource, role }) => resource === 'organization' && role === 'admin'
+      )
+      .map(({ resourceId }) => resourceId);
 }
