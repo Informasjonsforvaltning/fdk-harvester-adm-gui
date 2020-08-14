@@ -1,9 +1,13 @@
 import React, { memo, FC, ChangeEvent } from 'react';
-import { Form, withFormik, FormikProps } from 'formik';
+import { compose } from 'redux';
+import { Form, withFormik, FormikProps, WithFormikConfig } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+
+import { withAuth } from '../../providers/auth';
+import { Auth } from '../../lib/auth/auth';
 
 import SC from './styled';
 
@@ -14,13 +18,17 @@ import { Standard, DataType, MimeType } from '../../types/enums';
 
 interface FormValues extends Omit<DataSource, 'id'> {}
 
-interface Props {
+interface ExternalProps {
   dataSource?: Partial<DataSource>;
   onDiscard: () => void;
   onSave: (dataSource: DataSource, update: boolean) => void;
 }
 
-const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
+interface Props extends ExternalProps, FormikProps<FormValues> {
+  authService: Auth;
+}
+
+const DataSourceItemEditor: FC<Props> = ({
   onDiscard,
   values,
   errors,
@@ -28,7 +36,8 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
   isValid,
   isSubmitting,
   handleChange,
-  setFieldTouched
+  setFieldTouched,
+  authService
 }) => {
   const formatDataType = (dataType: DataType): string => {
     switch (dataType) {
@@ -55,6 +64,10 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
     setFieldTouched(e.target.name);
   };
 
+  const hasSystemAdminPermission = authService.hasSystemAdminPermission();
+  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+  const organizationsWithAdminPermission = authService.getOrganizationsWithAdminPermission();
+
   return (
     <SC.DataSourceItemEditor>
       <SC.Modal>
@@ -64,7 +77,7 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
             <TextField
               select
               name='dataType'
-              value={values.dataType}
+              value={values.dataType || ''}
               label='Data source type'
               onChange={onChange}
               variant='outlined'
@@ -87,7 +100,7 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
             <TextField
               select
               name='dataSourceType'
-              value={values.dataSourceType}
+              value={values.dataSourceType || ''}
               label='Data standard'
               onChange={onChange}
               variant='outlined'
@@ -114,6 +127,9 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
               helperText={touched.url && errors.url}
             />
             <TextField
+              select={
+                hasOrganizationAdminPermissions && !hasSystemAdminPermission
+              }
               name='publisherId'
               value={values.publisherId}
               label='Organisation number'
@@ -123,7 +139,15 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
               fullWidth
               error={touched.publisherId && !!errors.publisherId}
               helperText={touched.publisherId && errors.publisherId}
-            />
+            >
+              {hasOrganizationAdminPermissions &&
+                !hasSystemAdminPermission &&
+                organizationsWithAdminPermission.map(organization => (
+                  <MenuItem key={organization} value={organization}>
+                    {organization}
+                  </MenuItem>
+                ))}
+            </TextField>
             <TextField
               name='description'
               value={values.description}
@@ -139,7 +163,7 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
             <TextField
               select
               name='acceptHeaderValue'
-              value={values.acceptHeaderValue}
+              value={values.acceptHeaderValue || ''}
               label='Accept header'
               onChange={onChange}
               variant='outlined'
@@ -180,29 +204,33 @@ const DataSourceItemEditor: FC<Props & FormikProps<FormValues>> = ({
   );
 };
 
-export default memo(
-  withFormik<Props, FormValues>({
-    isInitialValid: false,
-    mapPropsToValues: ({
-      dataSource: {
-        dataType = null,
-        dataSourceType = null,
-        url = '',
-        publisherId = '',
-        description = '',
-        acceptHeaderValue = null
-      } = {}
-    }: Props) => ({
-      dataType,
-      dataSourceType,
-      url,
-      publisherId,
-      description,
-      acceptHeaderValue
-    }),
-    handleSubmit: (values, { props: { onSave, dataSource } }) =>
-      onSave({ id: dataSource?.id ?? '', ...values }, !!dataSource),
-    validationSchema,
-    displayName: 'DataSourceItemEditor'
-  })(DataSourceItemEditor)
-);
+const formikConfig: WithFormikConfig<Props, FormValues> = {
+  isInitialValid: false,
+  mapPropsToValues: ({
+    dataSource: {
+      dataType = null,
+      dataSourceType = null,
+      url = '',
+      publisherId = '',
+      description = '',
+      acceptHeaderValue = null
+    } = {}
+  }: Props) => ({
+    dataType,
+    dataSourceType,
+    url,
+    publisherId,
+    description,
+    acceptHeaderValue
+  }),
+  handleSubmit: (values, { props: { onSave, dataSource } }) =>
+    onSave({ id: dataSource?.id ?? '', ...values }, !!dataSource),
+  validationSchema,
+  displayName: 'DataSourceItemEditor'
+};
+
+export default compose<FC<ExternalProps>>(
+  memo,
+  withAuth,
+  withFormik(formikConfig)
+)(DataSourceItemEditor);

@@ -1,6 +1,9 @@
 import React, { PureComponent, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
+import { withAuth } from '../../providers/auth';
+import { Auth } from '../../lib/auth/auth';
+
 import Header from '../header';
 import SideMenu from '../side-menu';
 import Root from '../root';
@@ -11,8 +14,16 @@ const WhitelistPage = lazy(() => import('../whitelist-page'));
 const DelegationPage = lazy(() => import('../delegation-page'));
 const LoginPage = lazy(() => import('../login-page'));
 
-export default class Router extends PureComponent {
+interface Props {
+  authService: Auth;
+}
+
+class Router extends PureComponent<Props> {
   public render(): JSX.Element {
+    const { authService } = this.props;
+
+    const hasSystemAdminPermission = authService.hasSystemAdminPermission();
+
     return (
       <BrowserRouter>
         <Header />
@@ -25,16 +36,20 @@ export default class Router extends PureComponent {
                 path='/data-sources'
                 component={DataSourcesPage}
               />
-              <ProtectedRoute
-                exact
-                path='/whitelist'
-                component={WhitelistPage}
-              />
-              <ProtectedRoute
-                exact
-                path='/delegation'
-                component={DelegationPage}
-              />
+              {hasSystemAdminPermission && (
+                <>
+                  <ProtectedRoute
+                    exact
+                    path='/whitelist'
+                    component={WhitelistPage}
+                  />
+                  <ProtectedRoute
+                    exact
+                    path='/delegation'
+                    component={DelegationPage}
+                  />
+                </>
+              )}
               <Route exact path='/login' component={LoginPage} />
               <Redirect from='/' to='/data-sources' />
             </Switch>
@@ -44,3 +59,5 @@ export default class Router extends PureComponent {
     );
   }
 }
+
+export default withAuth(Router);

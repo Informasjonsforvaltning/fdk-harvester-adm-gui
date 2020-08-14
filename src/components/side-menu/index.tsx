@@ -5,39 +5,56 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 
+import { Auth } from '../../lib/auth/auth';
+import { withAuth } from '../../providers/auth';
+
 import SC from './styled';
 
-class SideMenu extends PureComponent<RouteComponentProps<any>> {
+interface Props extends RouteComponentProps {
+  authService: Auth;
+}
+
+class SideMenu extends PureComponent<Props> {
   private renderSideMenuItems(): JSX.Element[] {
-    const { location } = this.props;
+    const { location, authService } = this.props;
+
+    const hasSystemAdminPermission = authService.hasSystemAdminPermission();
+    const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+
     const sideMenuItems = [
       {
         title: 'Data Sources',
         path: '/data-sources',
-        icon: ViewListIcon
+        icon: ViewListIcon,
+        visible: hasSystemAdminPermission || hasOrganizationAdminPermissions
       },
       {
         title: 'Whitelist',
         path: '/whitelist',
-        icon: PlaylistAddCheckIcon
+        icon: PlaylistAddCheckIcon,
+        visible: hasSystemAdminPermission
       },
       {
         title: 'Delegation',
         path: '/delegation',
-        icon: RecentActorsIcon
+        icon: RecentActorsIcon,
+        visible: hasSystemAdminPermission
       }
     ];
-    return sideMenuItems.map((item, index) => (
-      <SC.SideMenuItem
-        key={`${item.title}-${index}`}
-        selected={location.pathname.indexOf(item.path) !== -1}
-      >
-        <Link to={item.path}>
-          {item.icon && <item.icon />}
-          <span>{item.title}</span>
-        </Link>
-      </SC.SideMenuItem>
-    ));
+
+    return sideMenuItems
+      .filter(({ visible }) => visible)
+      .map(({ title, path, icon: Icon }, index) => (
+        <SC.SideMenuItem
+          key={`${title}-${index}`}
+          selected={location.pathname.indexOf(path) !== -1}
+        >
+          <Link to={path}>
+            {Icon && <Icon />}
+            <span>{title}</span>
+          </Link>
+        </SC.SideMenuItem>
+      ));
   }
 
   public render(): JSX.Element {
@@ -51,4 +68,4 @@ class SideMenu extends PureComponent<RouteComponentProps<any>> {
   }
 }
 
-export default withRouter(SideMenu);
+export default withRouter(withAuth(SideMenu));

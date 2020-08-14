@@ -13,6 +13,9 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 
+import { withAuth } from '../../providers/auth';
+import { Auth } from '../../lib/auth/auth';
+
 import * as actions from './redux/actions';
 
 import SC from './styled';
@@ -28,6 +31,7 @@ interface Props {
   dataSources: DataSource[];
   snackbarVariant?: SnackbarVariant;
   actions: typeof actions;
+  authService: Auth;
 }
 
 interface State {
@@ -173,18 +177,32 @@ class DataSourcesPage extends PureComponent<Props, State> {
   }
 
   public render(): JSX.Element {
-    const { dataSources, snackbarVariant } = this.props;
+    const { dataSources, snackbarVariant, authService } = this.props;
     const {
       snackbarOpen,
       showEditor,
       showConfirmModal,
       dataSourceId
     } = this.state;
-    const dataSource = dataSources.find(({ id }) => id === dataSourceId);
+
+    const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+
+    const filteredDataSources = dataSources.filter(({ publisherId }) => {
+      if (hasOrganizationAdminPermissions) {
+        return authService.hasOrganizationAdminPermission(publisherId);
+      }
+
+      return true;
+    });
+
+    const dataSource = filteredDataSources.find(
+      ({ id }) => id === dataSourceId
+    );
+
     return (
       <>
         <SC.DataSourcesPage>
-          {dataSources.map(dataSourceItem => (
+          {filteredDataSources.map(dataSourceItem => (
             <DataSourceItem
               key={dataSourceItem.id}
               dataSourceItem={dataSourceItem}
@@ -252,4 +270,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DataSourcesPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuth(DataSourcesPage));
