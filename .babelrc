@@ -5,7 +5,6 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
-    "babel-plugin-styled-components",
-    "inline-react-svg"
+    "babel-plugin-styled-components"
   ]
 }
