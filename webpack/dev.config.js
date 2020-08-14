@@ -1,5 +1,5 @@
-import path from 'path';
-import merge from 'webpack-merge';
+import { resolve } from 'path';
+import { merge } from 'webpack-merge';
 import ErrorOverlayPlugin from 'error-overlay-webpack-plugin';
 
 import baseConfig from './base.config';
@@ -36,9 +36,9 @@ export default merge(baseConfig, {
           }
         ],
         include: [
-          path.resolve(__dirname, '../node_modules/ansi-styles'),
-          path.resolve(__dirname, '../node_modules/chalk'),
-          path.resolve(__dirname, '../node_modules/react-dev-utils')
+          resolve(__dirname, '../node_modules/ansi-styles'),
+          resolve(__dirname, '../node_modules/chalk'),
+          resolve(__dirname, '../node_modules/react-dev-utils')
         ]
       },
       {

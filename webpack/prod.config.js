@@ -1,4 +1,4 @@
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 
 import baseConfig from './base.config';
 
@@ -14,7 +14,7 @@ export default merge(baseConfig, {
       maxSize: 40000,
       cacheGroups: {
         mainVendors: {
-          test: /[\\/]node_modules[\\/]/,
+          test: ({ resource = '' }) => resource.includes('node_modules'),
           name: module =>
             `main.vendor.${module.context
               .match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
