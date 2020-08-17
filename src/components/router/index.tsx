@@ -36,20 +36,18 @@ class Router extends PureComponent<Props> {
                 path='/data-sources'
                 component={DataSourcesPage}
               />
-              {hasSystemAdminPermission && (
-                <>
-                  <ProtectedRoute
-                    exact
-                    path='/whitelist'
-                    component={WhitelistPage}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path='/delegation'
-                    component={DelegationPage}
-                  />
-                </>
-              )}
+              <ProtectedRoute
+                exact
+                path='/whitelist'
+                component={WhitelistPage}
+                disabled={!hasSystemAdminPermission}
+              />
+              <ProtectedRoute
+                exact
+                path='/delegation'
+                component={DelegationPage}
+                disabled={!hasSystemAdminPermission}
+              />
               <Route exact path='/login' component={LoginPage} />
               <Redirect from='/' to='/data-sources' />
             </Switch>

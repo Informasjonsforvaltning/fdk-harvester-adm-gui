@@ -1,4 +1,4 @@
-import React, { memo, FC, ChangeEvent } from 'react';
+import React, { memo, FC, ChangeEventHandler } from 'react';
 import { compose } from 'redux';
 import { Form, withFormik, FormikProps, WithFormikConfig } from 'formik';
 import TextField from '@material-ui/core/TextField';
@@ -59,9 +59,9 @@ const DataSourceItemEditor: FC<Props> = ({
     }
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
+  const onChange: ChangeEventHandler<HTMLInputElement> = e => {
     setFieldTouched(e.target.name);
+    handleChange(e);
   };
 
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
@@ -77,7 +77,7 @@ const DataSourceItemEditor: FC<Props> = ({
             <TextField
               select
               name='dataType'
-              value={values.dataType || ''}
+              value={values.dataType ?? ''}
               label='Data source type'
               onChange={onChange}
               variant='outlined'
@@ -100,7 +100,7 @@ const DataSourceItemEditor: FC<Props> = ({
             <TextField
               select
               name='dataSourceType'
-              value={values.dataSourceType || ''}
+              value={values.dataSourceType ?? ''}
               label='Data standard'
               onChange={onChange}
               variant='outlined'
@@ -163,7 +163,7 @@ const DataSourceItemEditor: FC<Props> = ({
             <TextField
               select
               name='acceptHeaderValue'
-              value={values.acceptHeaderValue || ''}
+              value={values.acceptHeaderValue ?? ''}
               label='Accept header'
               onChange={onChange}
               variant='outlined'
@@ -205,7 +205,6 @@ const DataSourceItemEditor: FC<Props> = ({
 };
 
 const formikConfig: WithFormikConfig<Props, FormValues> = {
-  isInitialValid: false,
   mapPropsToValues: ({
     dataSource: {
       dataType = null,
@@ -226,6 +225,7 @@ const formikConfig: WithFormikConfig<Props, FormValues> = {
   handleSubmit: (values, { props: { onSave, dataSource } }) =>
     onSave({ id: dataSource?.id ?? '', ...values }, !!dataSource),
   validationSchema,
+  validateOnMount: false,
   displayName: 'DataSourceItemEditor'
 };
 
