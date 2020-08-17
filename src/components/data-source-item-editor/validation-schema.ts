@@ -17,10 +17,6 @@ export default Yup.object().shape({
     ),
   dataSourceType: Yup.string()
     .required('Data standard is required')
-    .oneOf(
-      [Standard.DCAT_AP_NO, Standard.SKOS_AP_NO],
-      'Data standard is not supported'
-    )
     .when('dataType', {
       is: DataType.CONCEPT,
       then: Yup.string()
@@ -59,10 +55,8 @@ export default Yup.object().shape({
     }),
   url: Yup.string()
     .required('Data source URL is required')
-    .test(
-      'url',
-      'Data source URL must be valid',
-      url => url && isURL(url, { require_tld: false })
+    .test('url', 'Data source URL must be valid', url =>
+      isURL(url ?? '', { require_tld: false })
     ),
   publisherId: Yup.string()
     .required('Organisation number is required')
