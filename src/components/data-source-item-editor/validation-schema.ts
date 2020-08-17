@@ -25,25 +25,37 @@ export default Yup.object().shape({
       is: DataType.CONCEPT,
       then: Yup.string()
         .required('Data standard is required')
-        .oneOf([Standard.SKOS_AP_NO], 'Data standard for is not supported')
+        .oneOf(
+          [Standard.SKOS_AP_NO],
+          'Data standard is not supported for concepts'
+        )
     })
     .when('dataType', {
       is: DataType.DATASET,
       then: Yup.string()
         .required('Data standard is required')
-        .oneOf([Standard.DCAT_AP_NO], 'Data standard for is not supported')
+        .oneOf(
+          [Standard.DCAT_AP_NO],
+          'Data standar is not supported for datasets'
+        )
     })
     .when('dataType', {
       is: DataType.INFORMATION_MODEL,
       then: Yup.string()
         .required('Data standard is required')
-        .oneOf([Standard.DCAT_AP_NO], 'Data standard for is not supported')
+        .oneOf(
+          [Standard.DCAT_AP_NO],
+          'Data standard is not supported for information models'
+        )
     })
     .when('dataType', {
       is: DataType.DATASERVICE,
       then: Yup.string()
         .required('Data standard is required')
-        .oneOf([Standard.DCAT_AP_NO], 'Data standard for is not supported')
+        .oneOf(
+          [Standard.DCAT_AP_NO],
+          'Data standard is not supported for data services'
+        )
     }),
   url: Yup.string()
     .required('Data source URL is required')

@@ -185,10 +185,11 @@ class DataSourcesPage extends PureComponent<Props, State> {
       dataSourceId
     } = this.state;
 
+    const hasSystemAdminPermission = authService.hasSystemAdminPermission();
     const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
 
     const filteredDataSources = dataSources.filter(({ publisherId }) => {
-      if (hasOrganizationAdminPermissions) {
+      if (hasOrganizationAdminPermissions && !hasSystemAdminPermission) {
         return authService.hasOrganizationAdminPermission(publisherId);
       }
 
