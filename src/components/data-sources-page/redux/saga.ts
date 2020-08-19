@@ -84,8 +84,8 @@ function* registerDataSourceRequested({
     if (status === 201) {
       yield put(
         actions.registerDataSourceSucceeded({
-          id: headers.location,
-          ...dataSource
+          ...dataSource,
+          id: headers.location
         } as DataSource)
       );
     } else {
