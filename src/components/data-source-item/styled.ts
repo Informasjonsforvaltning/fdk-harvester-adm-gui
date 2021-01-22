@@ -92,6 +92,11 @@ const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
   color: white !important;
 `;
 
+const DatasetItemValidateButton = styled(DatasetItemGenericButton)`
+  background: #aaa !important;
+  color: white !important;
+`;
+
 const PublicServiceIcon = styled(PublicServiceIconBase)`
   & > path {
     fill: #0069a5;
@@ -111,5 +116,6 @@ export default {
   DatasetItemHarvestButton,
   DatasetItemEditButton,
   DatasetItemRemoveButton,
+  DatasetItemValidateButton,
   PublicServiceIcon
 };

@@ -33,7 +33,9 @@ An administration application for Fellesdatakatalog.
   - `development`
   - `production`
 - `OIDC_ISSUER` - OIDC issuer URI
+- `FDK_BASE_URI` - FDK Base URI
 - `FDK_HARVEST_ADMIN_HOST` - fdk-harvest-admin API hostname
+- `FDK_REGISTRATION_BASE_URI` - Base URI of the FDK registration application
 - `ORGANISATION_CATALOGUE_HOST` - organization-catalogue API hostname
 
 ## Contributing

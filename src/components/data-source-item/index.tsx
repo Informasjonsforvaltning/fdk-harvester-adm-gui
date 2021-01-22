@@ -3,7 +3,9 @@ import { compose } from 'redux';
 import EditIcon from '@material-ui/icons/Edit';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import UpdateIcon from '@material-ui/icons/Update';
+import CheckIcon from '@material-ui/icons/Check';
 
+import { Link } from 'react-router-dom';
 import SC from './styled';
 
 import ConceptIcon from '../../images/concept-icon.svg';
@@ -14,14 +16,16 @@ import DataServiceIcon from '../../images/dataservice-icon.svg';
 import { DataSource } from '../../types';
 import { DataType } from '../../types/enums';
 
-interface ExternalProps {
+import env from '../../env';
+
+interface Props {
   dataSourceItem: DataSource;
   onDataSourceItemHarvest: (id: string) => void;
   onDataSourceItemEdit: (id: string) => void;
   onDataSourceItemRemove: (id: string) => void;
 }
 
-interface Props extends ExternalProps {}
+const { FDK_BASE_URI } = env;
 
 const DataSourceItem: FC<Props> = ({
   dataSourceItem: {
@@ -101,6 +105,19 @@ const DataSourceItem: FC<Props> = ({
       >
         Remove
       </SC.DatasetItemRemoveButton>
+      <SC.DatasetItemValidateButton
+        variant='contained'
+        startIcon={<CheckIcon />}
+      >
+        <Link
+          to={{
+            pathname: `${FDK_BASE_URI}/validator/${encodeURIComponent(url)}`
+          }}
+          target='_blank'
+        >
+          Validate
+        </Link>
+      </SC.DatasetItemValidateButton>
     </SC.DatasetItemControls>
   );
 
@@ -130,4 +147,4 @@ const DataSourceItem: FC<Props> = ({
   );
 };
 
-export default compose<FC<ExternalProps>>(memo)(DataSourceItem);
+export default compose<FC<Props>>(memo)(DataSourceItem);
