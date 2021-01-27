@@ -1,12 +1,12 @@
 version: "3"
 
 services:
-  fdk-admin-gui:
-    build: ../fdk-admin-gui
-    image: eu.gcr.io/fdk-infra/fdk-admin-gui:latest
+  app:
+    build: .
     ports:
-      - 8136:8000
+      - 8137:8080
     environment:
-      - OIDC_ISSUER
-      - FDK_HARVEST_ADMIN_HOST
-      - ORGANISATION_CATALOGUE_HOST
+      - ENV=development
+      - OIDC_ISSUER=https://sso.staging.fellesdatakatalog.digdir.no/auth/realms/fdk
+      - FDK_HARVEST_ADMIN_HOST=https://admin-api.staging.fellesdatakatalog.digdir.no
+      - ORGANISATION_CATALOGUE_HOST=https://organization-catalogue.staging.fellesdatakatalog.digdir.no

@@ -5,16 +5,15 @@ node_modules
 npm-debug.log
 
 .DS_Store
-
-.gitignore
 .dockerignore
+.gitignore
 .eslintignore
 .huskyrc
 .lintstagedrc
+.eslintrc.json
 commitlint.config.js
 
 Dockerfile
 docker-compose.yml
 
-.eslintrc.json
 README.md

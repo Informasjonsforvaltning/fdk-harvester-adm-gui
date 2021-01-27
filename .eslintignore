@@ -8,9 +8,11 @@ images
 .eslintignore
 .huskyrc
 .lintstagedrc
-package-lock.json
+
 Dockerfile
 
 *.yml
 *.sh
 *.conf
+
+package-lock.json

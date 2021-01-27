@@ -20,7 +20,7 @@ An administration application for Fellesdatakatalog.
 - Build a Docker container using the following command:
   - `docker build -t fdk-admin-gui .`
 - Run the container using the following comand:
-  - `docker run -d -p 8137:8000 -e OIDC_ISSUER -e FDK_HARVEST_ADMIN_HOST -e ORGANISATION_CATALOGUE_HOST fdk-admin-gui`
+  - `docker run -d -p 8137:8080 -e ENV -e OIDC_ISSUER -e FDK_HARVEST_ADMIN_HOST -e ORGANISATION_CATALOGUE_HOST fdk-admin-gui`
 
 #### Running application using Docker Compose
 
@@ -29,6 +29,28 @@ An administration application for Fellesdatakatalog.
 
 ## Environment Variables
 
+- `ENV` - Environment
+  - `development`
+  - `production`
 - `OIDC_ISSUER` - OIDC issuer URI
 - `FDK_HARVEST_ADMIN_HOST` - fdk-harvest-admin API hostname
 - `ORGANISATION_CATALOGUE_HOST` - organization-catalogue API hostname
+
+## Contributing
+
+#### Branching Strategy
+
+Whenever a new change is to be implemented, follow these steps:
+
+- Create a new branch from the master branch
+- Implement and commit changes
+- Create a pull request for code review
+
+#### Commits
+
+This repository uses conventional commmit format. In order to commit, follow these steps:
+
+- Stage files to be committed
+- Run `npm run commit` script
+
+Do not use `--no-verify` flag when making commits.

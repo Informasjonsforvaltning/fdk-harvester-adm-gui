@@ -45,7 +45,7 @@ export class Auth {
       onLoad: 'check-sso',
       silentCheckSsoRedirectUri: this.conf.silentCheckSsoRedirectUri
     };
-    await this.kc.init(keycloakInitOptions).catch(console.error);
+    await this.kc.init(keycloakInitOptions).catch(() => {});
     if (loginRequired && !this.isAuthenticated()) {
       await this.login();
     }
@@ -53,13 +53,16 @@ export class Auth {
   };
 
   login: () => Promise<void> = () =>
-    this.kc.login().then().catch(console.error);
+    this.kc
+      .login()
+      .then()
+      .catch(() => {});
 
   logout: () => Promise<void> = () =>
     this.kc
       .logout({ redirectUri: this.conf.logoutRedirectUri })
       .then()
-      .catch(console.error);
+      .catch(() => {});
 
   isAuthenticated: () => boolean = () => this.kc.authenticated || false;
 
