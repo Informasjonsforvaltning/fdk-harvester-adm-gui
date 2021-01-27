@@ -43,7 +43,8 @@
         "singleQuote": true,
         "jsxSingleQuote": true,
         "trailingComma": "none",
-        "arrowParens": "avoid"
+        "arrowParens": "avoid",
+        "endOfLine": "auto"
       }
     ],
     "import/no-extraneous-dependencies": [
@@ -78,7 +79,9 @@
         "ignoreRestSiblings": true
       }
     ],
+    "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "react/jsx-one-expression-per-line": "off",
     "react/prefer-stateless-function": "off",
     "react/jsx-props-no-spreading": "off",
@@ -89,9 +92,11 @@
     "react/prop-types": "off",
     "react/require-default-props": "off",
     "react/jsx-curly-newline": "off",
+    "no-use-before-define": "off",
     "no-restricted-globals": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
+    "no-shadow": "off",
     "camelcase": "off",
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",

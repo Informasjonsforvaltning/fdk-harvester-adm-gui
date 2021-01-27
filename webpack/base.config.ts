@@ -1,11 +1,12 @@
+import type { Configuration } from 'webpack';
 import { resolve } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-export default {
+const configuration: Configuration = {
   entry: {
-    main: './src/entrypoints/main/index.tsx'
+    main: './src/entrypoints/main/index.tsx',
+    auth: './src/entrypoints/auth/index.tsx'
   },
   output: {
     path: resolve(__dirname, '../dist'),
@@ -26,7 +27,7 @@ export default {
       cacheGroups: {
         default: false,
         mainVendors: {
-          test: ({ resource = '' }) => resource.includes('node_modules'),
+          test: ({ resource = '' }: any) => resource.includes('node_modules'),
           name: 'main.vendors',
           filename: '[name].bundle.js',
           chunks: ({ name }) => name === 'main'
@@ -42,10 +43,15 @@ export default {
           {
             loader: 'babel-loader',
             options: {
-              configFile: resolve(__dirname, '../.babelrc')
+              configFile: resolve(__dirname, '../babel.config.js')
             }
           },
-          'ts-loader'
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: resolve(__dirname, '../tsconfig.json')
+            }
+          }
         ],
         exclude: /node_modules/
       },
@@ -61,7 +67,8 @@ export default {
               jsx: true
             }
           }
-        ]
+        ],
+        include: [resolve(__dirname, '..', 'src', 'images')]
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -77,15 +84,9 @@ export default {
         ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'fonts'
-            }
-          }
-        ]
+        test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+        exclude: [resolve(__dirname, '..', 'src', 'images')]
       }
     ]
   },
@@ -98,8 +99,14 @@ export default {
       base: '/',
       chunks: ['main']
     }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: './src/lib/auth/silent-check-sso.html', to: './' }]
+    new HtmlWebpackPlugin({
+      template: './src/entrypoints/auth/index.html',
+      filename: 'silent-check-sso.html',
+      favicon: './src/images/favicon.ico',
+      base: '/',
+      chunks: ['auth']
     })
   ]
 };
+
+export default configuration;

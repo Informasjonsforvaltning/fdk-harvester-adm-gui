@@ -1,3 +1,8 @@
+export enum Environment {
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production'
+}
+
 export enum Standard {
   DCAT_AP_NO = 'DCAT-AP-NO',
   SKOS_AP_NO = 'SKOS-AP-NO'

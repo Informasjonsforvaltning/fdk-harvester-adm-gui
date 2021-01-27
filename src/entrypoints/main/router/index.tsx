@@ -1,18 +1,22 @@
 import React, { PureComponent, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-import { withAuth } from '../../providers/auth';
-import { Auth } from '../../lib/auth/auth';
+import { withAuth } from '../../../providers/auth';
+import { Auth } from '../../../lib/auth/auth';
 
-import Header from '../header';
-import SideMenu from '../side-menu';
-import Root from '../root';
-import ProtectedRoute from '../protected-route';
+import Header from '../../../components/header';
+import SideMenu from '../../../components/side-menu';
+import Root from '../../../components/root';
+import ProtectedRoute from '../../../components/protected-route';
 
-const DataSourcesPage = lazy(() => import('../data-sources-page'));
-const WhitelistPage = lazy(() => import('../whitelist-page'));
-const DelegationPage = lazy(() => import('../delegation-page'));
-const LoginPage = lazy(() => import('../login-page'));
+const DataSourcesPage = lazy(
+  () => import('../../../components/data-sources-page')
+);
+const WhitelistPage = lazy(() => import('../../../components/whitelist-page'));
+const DelegationPage = lazy(
+  () => import('../../../components/delegation-page')
+);
+const LoginPage = lazy(() => import('../../../components/login-page'));
 
 interface Props {
   authService: Auth;

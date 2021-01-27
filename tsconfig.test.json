@@ -8,8 +8,6 @@
       "esnext",
       "dom"
     ],
-    "sourceMap": true,
-    "outDir": "dist",
     "esModuleInterop": true,
     "isolatedModules": false,
     "downlevelIteration": true,
@@ -30,16 +28,16 @@
     ],
     "typeRoots": [
       "node_modules/@types",
-      "src/types/*"
+      "test/types"
     ],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*"
+    "test",
+    "src/**/__tests__/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "src/**/__tests__/**/*"
+    "node_modules"
   ]
 }
