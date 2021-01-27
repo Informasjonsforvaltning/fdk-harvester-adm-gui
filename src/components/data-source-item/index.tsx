@@ -54,6 +54,13 @@ class DataSourceItem extends PureComponent<Props> {
             Data Services
           </SC.DataSourceType>
         );
+      case DataType.PUBLIC_SERVICE:
+        return (
+          <SC.DataSourceType>
+            <SC.PublicServiceIcon />
+            Public Services
+          </SC.DataSourceType>
+        );
       default:
         return <SC.DataSourceType>Unknown</SC.DataSourceType>;
     }

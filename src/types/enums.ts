@@ -1,13 +1,15 @@
 export enum Standard {
   DCAT_AP_NO = 'DCAT-AP-NO',
-  SKOS_AP_NO = 'SKOS-AP-NO'
+  SKOS_AP_NO = 'SKOS-AP-NO',
+  CPSV_AP_NO = 'CPSV-AP-NO'
 }
 
 export enum DataType {
   CONCEPT = 'concept',
   DATASET = 'dataset',
   INFORMATION_MODEL = 'informationmodel',
-  DATASERVICE = 'dataservice'
+  DATASERVICE = 'dataservice',
+  PUBLIC_SERVICE = 'publicService'
 }
 
 export enum MimeType {

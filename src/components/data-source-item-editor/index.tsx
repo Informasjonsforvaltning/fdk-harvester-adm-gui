@@ -53,6 +53,9 @@ const DataSourceItemEditor: FC<Props> = ({
       case DataType.DATASERVICE: {
         return 'Data Service';
       }
+      case DataType.PUBLIC_SERVICE: {
+        return 'Public Service';
+      }
       default: {
         return '';
       }
@@ -90,7 +93,8 @@ const DataSourceItemEditor: FC<Props> = ({
                 DataType.CONCEPT,
                 DataType.DATASET,
                 DataType.INFORMATION_MODEL,
-                DataType.DATASERVICE
+                DataType.DATASERVICE,
+                DataType.PUBLIC_SERVICE
               ].map(dataType => (
                 <MenuItem key={dataType} value={dataType}>
                   {formatDataType(dataType)}
@@ -109,7 +113,11 @@ const DataSourceItemEditor: FC<Props> = ({
               error={touched.dataSourceType && !!errors.dataSourceType}
               helperText={touched.dataSourceType && errors.dataSourceType}
             >
-              {[Standard.SKOS_AP_NO, Standard.DCAT_AP_NO].map(standard => (
+              {[
+                Standard.SKOS_AP_NO,
+                Standard.DCAT_AP_NO,
+                Standard.CPSV_AP_NO
+              ].map(standard => (
                 <MenuItem key={standard} value={standard}>
                   {standard}
                 </MenuItem>

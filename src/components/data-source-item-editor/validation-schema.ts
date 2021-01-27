@@ -11,7 +11,8 @@ export default Yup.object().shape({
         DataType.CONCEPT,
         DataType.DATASET,
         DataType.INFORMATION_MODEL,
-        DataType.DATASERVICE
+        DataType.DATASERVICE,
+        DataType.PUBLIC_SERVICE
       ],
       'Data source type is not supported'
     ),
@@ -51,6 +52,15 @@ export default Yup.object().shape({
         .oneOf(
           [Standard.DCAT_AP_NO],
           'Data standard is not supported for data services'
+        )
+    })
+    .when('dataType', {
+      is: DataType.PUBLIC_SERVICE,
+      then: Yup.string()
+        .required('Data standard is required')
+        .oneOf(
+          [Standard.CPSV_AP_NO],
+          'Data standard is not supported for public services'
         )
     }),
   url: Yup.string()
