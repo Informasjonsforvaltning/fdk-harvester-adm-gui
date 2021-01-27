@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
+import PublicServiceIconBase from '../../images/public-service-icon.svg';
+
 const DataSourceItem = styled.li`
   display: flex;
   align-items: center;
@@ -90,6 +92,16 @@ const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
   color: white !important;
 `;
 
+const PublicServiceIcon = styled(PublicServiceIconBase)`
+  & > path {
+    fill: #0069a5;
+  }
+
+  & > path:last-child {
+    fill: #c4ebfa;
+  }
+`;
+
 export default {
   DataSourceItem,
   DataSourceType,
@@ -98,5 +110,6 @@ export default {
   DatasetItemControls,
   DatasetItemHarvestButton,
   DatasetItemEditButton,
-  DatasetItemRemoveButton
+  DatasetItemRemoveButton,
+  PublicServiceIcon
 };
