@@ -1,4 +1,4 @@
-import type { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import { resolve } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -91,6 +91,11 @@ const configuration: Configuration = {
     ]
   },
   plugins: [
+    // TODO This should be solved in @fellesdatakatalog/skatteetaten-frontend-components
+    // fix "process is not defined" error
+    new DefinePlugin({
+      'process.env.NODE_DEBUG': JSON.stringify(process.env.NODE_DEBUG)
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/entrypoints/main/index.html',

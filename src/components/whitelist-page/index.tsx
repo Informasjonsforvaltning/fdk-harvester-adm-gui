@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { memo, FC } from 'react';
+import { compose } from 'redux';
 
 import SC from './styled';
 
-class WhitelistPage extends PureComponent {
-  public render(): JSX.Element {
-    return <SC.WhitelistPage>WHITELIST PAGE</SC.WhitelistPage>;
-  }
-}
+const WhitelistPage: FC = () => (
+  <SC.WhitelistPage>WHITELIST PAGE</SC.WhitelistPage>
+);
 
-export default WhitelistPage;
+export default compose<FC>(memo)(WhitelistPage);

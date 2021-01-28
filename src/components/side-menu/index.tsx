@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { memo, FC } from 'react';
+import { compose } from 'redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ViewListIcon from '@material-ui/icons/ViewList';
@@ -14,14 +15,12 @@ interface Props extends RouteComponentProps {
   authService: Auth;
 }
 
-class SideMenu extends PureComponent<Props> {
-  private renderSideMenuItems(): JSX.Element[] {
-    const { location, authService } = this.props;
+const SideMenu: FC<Props> = ({ location, authService }) => {
+  const hasSystemAdminPermission = authService.hasSystemAdminPermission();
+  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
 
-    const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-    const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
-
-    const sideMenuItems = [
+  const sideMenuItems = () => {
+    const menuItems = [
       {
         title: 'Data Sources',
         path: '/data-sources',
@@ -42,7 +41,7 @@ class SideMenu extends PureComponent<Props> {
       }
     ];
 
-    return sideMenuItems
+    return menuItems
       .filter(({ visible }) => visible)
       .map(({ title, path, icon: Icon }, index) => (
         <SC.SideMenuItem
@@ -55,17 +54,15 @@ class SideMenu extends PureComponent<Props> {
           </Link>
         </SC.SideMenuItem>
       ));
-  }
+  };
 
-  public render(): JSX.Element {
-    return (
-      <SC.SideMenu>
-        <SC.Navigation>
-          <ul>{this.renderSideMenuItems()}</ul>
-        </SC.Navigation>
-      </SC.SideMenu>
-    );
-  }
-}
+  return (
+    <SC.SideMenu>
+      <SC.Navigation>
+        <ul>{sideMenuItems()}</ul>
+      </SC.Navigation>
+    </SC.SideMenu>
+  );
+};
 
-export default withRouter(withAuth(SideMenu));
+export default compose<FC>(memo, withRouter, withAuth)(SideMenu);

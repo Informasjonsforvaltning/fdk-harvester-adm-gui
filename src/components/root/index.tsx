@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { memo, FC, PropsWithChildren } from 'react';
+import { compose } from 'redux';
 
 import SC from './styled';
 
-class Root extends PureComponent {
-  public render(): JSX.Element {
-    return <SC.Root {...this.props} />;
-  }
-}
+const Root: FC<PropsWithChildren<any>> = ({ children }) => (
+  <SC.Root>{children}</SC.Root>
+);
 
-export default Root;
+export default compose<FC>(memo)(Root);

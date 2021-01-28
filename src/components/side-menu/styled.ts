@@ -5,13 +5,11 @@ const SideMenu = styled.aside`
   flex-direction: column;
   position: fixed;
   left: 0;
-  top: 74px;
-  height: calc(100% - 74px);
+  top: 94px;
+  height: calc(100% - 294px);
   width: 220px;
   padding: 20px 0;
   border-bottom: 1px solid #e6e6e6;
-  box-shadow: 0 0 10px -5px #ccc;
-  background: white;
   z-index: 2;
 `;
 

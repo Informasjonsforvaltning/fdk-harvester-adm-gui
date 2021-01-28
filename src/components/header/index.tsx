@@ -1,52 +1,34 @@
-import React, { PureComponent } from 'react';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import React, { memo, FC } from 'react';
+import { compose } from 'redux';
+import InternalHeader from '@fellesdatakatalog/internal-header';
+import Link from '@fellesdatakatalog/link';
 
 import { withAuth } from '../../providers/auth';
-
-import SC from './styled';
 import { Auth } from '../../lib/auth/auth';
+
+import env from '../../env';
 
 interface Props {
   authService: Auth;
 }
 
-class Header extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
+const { FDK_BASE_URI, FDK_REGISTRATION_BASE_URI, FDK_HARVEST_ADMIN_HOST } = env;
 
-    this.logOutAndRedirect = this.logOutAndRedirect.bind(this);
-  }
+const Header: FC<Props> = ({ authService }) => {
+  const logOutAndRedirect = async () => authService.logout();
 
-  private getUserName(): string | undefined {
-    const { authService } = this.props;
-    return authService.getUser()?.name;
-  }
+  return (
+    <InternalHeader
+      username={authService.getUser()?.name}
+      onLogout={logOutAndRedirect}
+    >
+      <Link href={FDK_REGISTRATION_BASE_URI}>Registrere data</Link>
+      <Link href={FDK_HARVEST_ADMIN_HOST}>Høste data</Link>
+      <Link href={FDK_BASE_URI} external>
+        Søk i Felles datakatalog
+      </Link>
+    </InternalHeader>
+  );
+};
 
-  private async logOutAndRedirect(): Promise<void> {
-    const { authService } = this.props;
-    await authService.logout();
-  }
-
-  public render(): JSX.Element {
-    const userName = this.getUserName();
-    return (
-      <SC.Header>
-        <SC.Logo />
-        {userName && (
-          <SC.UserAvatar>
-            <AccountCircleIcon />
-            <SC.UserName>{userName}</SC.UserName>
-            <SC.LogoutButton
-              variant='outlined'
-              onClick={this.logOutAndRedirect}
-            >
-              Log out
-            </SC.LogoutButton>
-          </SC.UserAvatar>
-        )}
-      </SC.Header>
-    );
-  }
-}
-
-export default withAuth(Header);
+export default compose<FC>(memo, withAuth)(Header);

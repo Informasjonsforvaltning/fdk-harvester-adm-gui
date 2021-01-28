@@ -16,15 +16,12 @@ export default css`
 
   body {
     background: ${theme.colour(Colour.NEUTRAL, 'N10')};
+    color: ${theme.colour(Colour.NEUTRAL, 'N60')};
     overflow-x: hidden;
     overflow-y: scroll;
   }
 
   body.no-scroll {
     overflow: hidden;
-  }
-
-  * {
-    color: ${theme.colour(Colour.NEUTRAL, 'N60')};
   }
 `;
