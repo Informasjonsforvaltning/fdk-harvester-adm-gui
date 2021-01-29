@@ -74,7 +74,11 @@ const DataSourceItemEditor: FC<Props> = ({
   return (
     <SC.DataSourceItemEditor>
       <SC.Modal>
-        <SC.ModalHeading>Register new data source</SC.ModalHeading>
+        <SC.ModalHeading>
+          {values.dataSourceType
+            ? 'Edit data source'
+            : 'Register new data source'}
+        </SC.ModalHeading>
         <Form noValidate>
           <SC.Fieldset>
             <TextField

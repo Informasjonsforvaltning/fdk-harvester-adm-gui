@@ -75,10 +75,10 @@ const DataSourcesPage: FC<Props> = ({
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [dataSourceId, setDataSourceId] = useState<string | null>(null);
 
-  const showDataSourceItemEditor = () => {
+  const showDataSourceItemEditor = (id?: string) => {
     document.body.classList.add('no-scroll');
     setShowEditor(true);
-    setDataSourceId(dataSourceId ?? null);
+    setDataSourceId(id ?? null);
   };
 
   const hideDataSourceItemEditor = () => {
@@ -95,9 +95,9 @@ const DataSourcesPage: FC<Props> = ({
     setSnackbarOpen(false);
   };
 
-  const showConfirm = () => {
+  const showConfirm = (id: string) => {
     setShowConfirmModal(true);
-    setDataSourceId(dataSourceId);
+    setDataSourceId(id);
   };
 
   const hideConfirm = () => {
