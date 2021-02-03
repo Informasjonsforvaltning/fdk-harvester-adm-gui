@@ -144,7 +144,7 @@ const DataSourceItemEditor: FC<Props> = ({
               }
               name='publisherId'
               value={values.publisherId}
-              label='Organisation number'
+              label='Organization number'
               onChange={onChange}
               variant='outlined'
               required

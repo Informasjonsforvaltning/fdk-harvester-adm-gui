@@ -4,7 +4,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import SC from './styled';
 
-import OrganisationIcon from '../../images/organisation-icon.svg';
+import OrganizationIcon from '../../images/organization-icon.svg';
 
 import { Delegatee } from '../../types';
 
@@ -21,13 +21,13 @@ const DelegateeItem: FC<Props> = ({
 }) => (
   <SC.DelegateeItem>
     <SC.DelegateeType>
-      <OrganisationIcon />
-      Organisation
+      <OrganizationIcon />
+      Organization
     </SC.DelegateeType>
     <SC.DelegateeDetails>
       <SC.DelegateeName>{name}</SC.DelegateeName>
       <SC.DelegateeDetail>
-        <span>Organisation number:</span>
+        <span>Organization number:</span>
         <span>{id}</span>
       </SC.DelegateeDetail>
     </SC.DelegateeDetails>

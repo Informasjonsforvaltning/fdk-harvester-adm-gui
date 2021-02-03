@@ -12,7 +12,7 @@ interface Props {
   authService: Auth;
 }
 
-const { FDK_BASE_URI, FDK_REGISTRATION_BASE_URI, FDK_HARVEST_ADMIN_HOST } = env;
+const { FDK_BASE_URI, FDK_REGISTRATION_BASE_URI } = env;
 
 const Header: FC<Props> = ({ authService }) => {
   const logOutAndRedirect = async () => authService.logout();
@@ -23,7 +23,7 @@ const Header: FC<Props> = ({ authService }) => {
       onLogout={logOutAndRedirect}
     >
       <Link href={FDK_REGISTRATION_BASE_URI}>Registrere data</Link>
-      <Link href={FDK_HARVEST_ADMIN_HOST}>Høste data</Link>
+      <Link href='/'>Høste data</Link>
       <Link href={FDK_BASE_URI} external>
         Søk i Felles datakatalog
       </Link>

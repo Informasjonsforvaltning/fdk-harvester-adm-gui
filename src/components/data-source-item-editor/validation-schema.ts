@@ -69,8 +69,8 @@ export default Yup.object().shape({
       isURL(url ?? '', { require_tld: false })
     ),
   publisherId: Yup.string()
-    .required('Organisation number is required')
-    .matches(/^\d{9}$/, 'Organisation number must be a 9-digit value'),
+    .required('Organization number is required')
+    .matches(/^\d{9}$/, 'Organization number must be a 9-digit value'),
   description: Yup.string(),
   acceptHeaderValue: Yup.string().required('Accept header is required')
 });

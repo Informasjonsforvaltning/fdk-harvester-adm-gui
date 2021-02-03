@@ -11,8 +11,8 @@ export default validateEnv(
     FDK_HARVEST_ADMIN_HOST:
       'https://admin-api.staging.fellesdatakatalog.digdir.no',
     FDK_REGISTRATION_BASE_URI:
-      'https://registrering.fellesdatakatalog.digdir.no',
-    ORGANISATION_CATALOGUE_HOST:
+      'https://registrering.staging.fellesdatakatalog.digdir.no',
+    ORGANIZATION_CATALOGUE_HOST:
       'https://organization-catalogue.staging.fellesdatakatalog.digdir.no'
   }
 );

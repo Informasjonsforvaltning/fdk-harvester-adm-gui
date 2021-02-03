@@ -1,25 +1,29 @@
 import React, { memo, FC } from 'react';
 import { compose } from 'redux';
-import EditIcon from '@material-ui/icons/Edit';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import UpdateIcon from '@material-ui/icons/Update';
-import CheckIcon from '@material-ui/icons/Check';
+import { Variant } from '@fellesdatakatalog/button';
+import Link from '@fellesdatakatalog/link';
 
-import { Link } from 'react-router-dom';
+import { Link as RouteLink } from 'react-router-dom';
 import SC from './styled';
 
 import ConceptIcon from '../../images/concept-icon.svg';
 import DatasetIcon from '../../images/dataset-icon.svg';
 import InformationModelIcon from '../../images/information-model-icon.svg';
-import DataServiceIcon from '../../images/dataservice-icon.svg';
+import ApiIcon from '../../images/api-icon.svg';
+import ServiceIcon from '../../images/service-icon.svg';
+import ImportIcon from '../../images/import-icon.svg';
+import EditIcon from '../../images/edit-icon.svg';
+import CheckIcon from '../../images/check-icon.svg';
+import RemoveIcon from '../../images/remove-circle-icon.svg';
 
-import { DataSource } from '../../types';
+import type { DataSource, Organization } from '../../types';
 import { DataType } from '../../types/enums';
 
 import env from '../../env';
 
 interface Props {
   dataSourceItem: DataSource;
+  organization?: Organization;
   onDataSourceItemHarvest: (id: string) => void;
   onDataSourceItemEdit: (id: string) => void;
   onDataSourceItemRemove: (id: string) => void;
@@ -31,11 +35,12 @@ const DataSourceItem: FC<Props> = ({
   dataSourceItem: {
     id,
     dataType,
-    publisherId,
     url,
     acceptHeaderValue,
-    description
+    description,
+    publisherId
   },
+  organization,
   onDataSourceItemHarvest,
   onDataSourceItemEdit,
   onDataSourceItemRemove
@@ -44,37 +49,64 @@ const DataSourceItem: FC<Props> = ({
     switch (dataType) {
       case DataType.DATASET:
         return (
-          <SC.DataSourceType>
+          <SC.DataSourceType dataType={dataType}>
             <DatasetIcon />
-            Datasets
+            <SC.DataSourceTitleContainer>
+              <SC.DataSourceTitle>
+                {description.length > 0 ? description : '?'}
+              </SC.DataSourceTitle>
+              <SC.DataSourceSubTitle>Datasettkatalog</SC.DataSourceSubTitle>
+            </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
       case DataType.CONCEPT:
         return (
-          <SC.DataSourceType>
+          <SC.DataSourceType dataType={dataType}>
             <ConceptIcon />
-            Concepts
+            <SC.DataSourceTitleContainer>
+              <SC.DataSourceTitle>
+                {description.length > 0 ? description : '?'}
+              </SC.DataSourceTitle>
+              <SC.DataSourceSubTitle>Begrepskatalog</SC.DataSourceSubTitle>
+            </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
       case DataType.INFORMATION_MODEL:
         return (
-          <SC.DataSourceType>
+          <SC.DataSourceType dataType={dataType}>
             <InformationModelIcon />
-            Information Models
+            <SC.DataSourceTitleContainer>
+              <SC.DataSourceTitle>
+                {description.length > 0 ? description : '?'}
+              </SC.DataSourceTitle>
+              <SC.DataSourceSubTitle>
+                Informasjonsmodellkatalog
+              </SC.DataSourceSubTitle>
+            </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
       case DataType.DATASERVICE:
         return (
-          <SC.DataSourceType>
-            <DataServiceIcon />
-            Data Services
+          <SC.DataSourceType dataType={dataType}>
+            <ApiIcon />
+            <SC.DataSourceTitleContainer>
+              <SC.DataSourceTitle>
+                {description.length > 0 ? description : '?'}
+              </SC.DataSourceTitle>
+              <SC.DataSourceSubTitle>API-katalog</SC.DataSourceSubTitle>
+            </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
       case DataType.PUBLIC_SERVICE:
         return (
-          <SC.DataSourceType>
-            <SC.PublicServiceIcon />
-            Public Services
+          <SC.DataSourceType dataType={dataType}>
+            <ServiceIcon />
+            <SC.DataSourceTitleContainer>
+              <SC.DataSourceTitle>
+                {description.length > 0 ? description : '?'}
+              </SC.DataSourceTitle>
+              <SC.DataSourceSubTitle>Tjenestekatalog</SC.DataSourceSubTitle>
+            </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
       default:
@@ -84,65 +116,70 @@ const DataSourceItem: FC<Props> = ({
 
   const DatasetItemControls = () => (
     <SC.DatasetItemControls>
-      <SC.DatasetItemHarvestButton
+      <SC.HarvestButton
         onClick={() => onDataSourceItemHarvest(id)}
-        variant='contained'
-        startIcon={<UpdateIcon />}
+        variant={Variant.SECONDARY}
+        dataType={dataType}
       >
-        Harvest
-      </SC.DatasetItemHarvestButton>
-      <SC.DatasetItemEditButton
+        <ImportIcon />
+        Høst
+      </SC.HarvestButton>
+      <SC.EditButton
         onClick={() => onDataSourceItemEdit(id)}
-        variant='contained'
-        startIcon={<EditIcon />}
+        variant={Variant.SECONDARY}
+        dataType={dataType}
       >
-        Edit
-      </SC.DatasetItemEditButton>
-      <SC.DatasetItemRemoveButton
-        onClick={() => onDataSourceItemRemove(id)}
-        variant='contained'
-        startIcon={<HighlightOffIcon />}
-      >
-        Remove
-      </SC.DatasetItemRemoveButton>
-      <SC.DatasetItemValidateButton
-        variant='contained'
-        startIcon={<CheckIcon />}
-      >
-        <Link
+        <EditIcon />
+        Rediger
+      </SC.EditButton>
+      <SC.ValidateButton variant={Variant.SECONDARY} dataType={dataType}>
+        <CheckIcon />
+        <RouteLink
           to={{
             pathname: `${FDK_BASE_URI}/validator/${encodeURIComponent(url)}`
           }}
           target='_blank'
         >
-          Validate
-        </Link>
-      </SC.DatasetItemValidateButton>
+          Valider
+        </RouteLink>
+      </SC.ValidateButton>
+      <SC.TertiaryButton
+        onClick={() => onDataSourceItemRemove(id)}
+        variant={Variant.TERTIARY}
+        dataType={dataType}
+      >
+        <RemoveIcon />
+        Slett
+      </SC.TertiaryButton>
     </SC.DatasetItemControls>
   );
 
   return (
     <SC.DataSourceItem>
-      <DataSourceType />
-      <SC.DataSourceDetails>
-        <SC.DataSourceDetail>
-          <span>Publisher:</span>
-          <span>{publisherId}</span>
-        </SC.DataSourceDetail>
-        <SC.DataSourceDetail>
-          <span>URI:</span>
-          <span>{url}</span>
-        </SC.DataSourceDetail>
-        <SC.DataSourceDetail>
-          <span>Data type:</span>
-          <span>{acceptHeaderValue}</span>
-        </SC.DataSourceDetail>
-        <SC.DataSourceDetail>
-          <span>Description:</span>
-          <span>{description}</span>
-        </SC.DataSourceDetail>
-      </SC.DataSourceDetails>
-      <DatasetItemControls />
+      <div>
+        <DataSourceType />
+        <SC.DataSourceDetails>
+          <SC.DataSourceDetail>
+            <span>Utgiver:</span>
+            <span>
+              {organization?.name} {publisherId}
+            </span>
+          </SC.DataSourceDetail>
+          <SC.DataSourceDetail dataType={dataType}>
+            <span>URI:</span>
+            <span>
+              <Link href={url} external>
+                {url}
+              </Link>
+            </span>
+          </SC.DataSourceDetail>
+          <SC.DataSourceDetail>
+            <span>Content type:</span>
+            <span>{acceptHeaderValue}</span>
+          </SC.DataSourceDetail>
+        </SC.DataSourceDetails>
+        <DatasetItemControls />
+      </div>
     </SC.DataSourceItem>
   );
 };

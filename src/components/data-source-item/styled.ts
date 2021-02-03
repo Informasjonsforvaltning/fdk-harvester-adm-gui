@@ -1,50 +1,130 @@
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
+import styled, { css } from 'styled-components';
+import { theme, Colour } from '@fellesdatakatalog/theme';
+import ButtonBase from '@fellesdatakatalog/button';
 
-import PublicServiceIconBase from '../../images/public-service-icon.svg';
+import { DataType } from '../../types/enums';
+
+interface Props {
+  dataType?: DataType | null;
+}
 
 const DataSourceItem = styled.li`
   display: flex;
   align-items: center;
   min-height: 170px;
-  padding-right: 15px;
-  box-shadow: 0 0 0 2px #ccc;
+  max-width: 730px;
+  padding: 20px;
   background: white;
+  border-radius: 5px;
 
   :nth-of-type(n + 2) {
     margin-top: 15px;
   }
 `;
 
-const DataSourceType = styled.div`
+const DataSourceType = styled.div<Props>`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
-  width: 140px;
-  padding: 15px;
-  margin-right: 15px;
-  background: #ccc;
-  font-size: 110%;
-  font-weight: bold;
-  text-align: center;
+  width: 690px;
+  min-height: 65px;
+  padding: 10px;
+  border-radius: 5px;
+
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          background: #d5edf2;
+          color: #2e6773;
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          background: #f2e1d5;
+          color: #805333;
+        `;
+      case DataType.DATASET:
+        return css`
+          background: #d5e1f2;
+          color: #335380;
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          background: #e4d5f2;
+          color: #593380;
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          background: #f2d5e1;
+          color: #803353;
+        `;
+      default:
+        return css``;
+    }
+  }};
 
   & > svg {
-    height: 50px;
-    width: 50px;
-    margin-bottom: 15px;
+    margin-right: ${theme.spacing('S8')};
+    min-width: 48px;
   }
 `;
 
-const DataSourceDetail = styled.div`
+const DataSourceTitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DataSourceTitle = styled.div`
+  font-size: ${theme.fontSize('FS24')};
+  font-weight: ${theme.fontWeight('FW700')};
+`;
+
+const DataSourceSubTitle = styled.div`
+  font-size: ${theme.fontSize('FS16')};
+`;
+
+const DataSourceDetail = styled.div<Props>`
   display: flex;
 
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          & > span:last-of-type {
+            color: #2e6773;
+          }
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          & > span:last-of-type {
+            color: #805333;
+          }
+        `;
+      case DataType.DATASET:
+        return css`
+          & > span:last-of-type {
+            color: #335380;
+          }
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          & > span:last-of-type {
+            color: #593380;
+          }
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          & > span:last-of-type {
+            color: #803353;
+          }
+        `;
+      default:
+        return css``;
+    }
+  }};
+
   & > span:first-of-type {
-    width: 120px;
-    min-width: 120px;
     margin-right: 10px;
-    font-weight: bold;
+    width: 100px;
+    min-width: 100px;
   }
 `;
 
@@ -59,63 +139,269 @@ const DataSourceDetails = styled.div`
 
 const DatasetItemControls = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   min-width: 130px;
-  margin-left: 20px;
-  padding: 15px 0;
+  padding: 15px 0 0 0;
 
   & > button:nth-of-type(n + 2) {
-    margin-top: 10px;
+    margin-left: 10px;
   }
 `;
 
-const DatasetItemGenericButton = styled(Button)`
-  .MuiButton-label {
-    display: flex;
-    justify-content: flex-start;
+const SecondaryButton = styled(ButtonBase)`
+  color: ${theme.colour(Colour.NEUTRAL, 'N70')};
+
+  & > svg {
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: ${theme.spacing('S4')};
   }
 `;
 
-const DatasetItemHarvestButton = styled(DatasetItemGenericButton)`
-  background: #007d69 !important;
-  color: white !important;
+const HarvestButton = styled(SecondaryButton)<Props>`
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          background: #d5edf2;
+          color: #2e6773;
+          & > svg > path {
+            fill: #2e6773;
+          }
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          background: #f2e1d5;
+          color: #805333;
+          & > svg > path {
+            fill: #805333;
+          }
+        `;
+      case DataType.DATASET:
+        return css`
+          background: #d5e1f2;
+          color: #335380;
+          & > svg > path {
+            fill: #335380;
+          }
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          background: #e4d5f2;
+          color: #593380;
+          & > svg > path {
+            fill: #593380;
+          }
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          background: #f2d5e1;
+          color: #803353;
+          & > svg > path {
+            fill: #803353;
+          }
+        `;
+      default:
+        return css``;
+    }
+  }};
+
+  &:hover > svg > path {
+    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  }
 `;
 
-const DatasetItemEditButton = styled(DatasetItemGenericButton)`
-  background: #ffbe3c !important;
-  color: white !important;
+const EditButton = styled(SecondaryButton)<Props>`
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          background: #d5edf2;
+          color: #2e6773;
+          & > svg > path {
+            fill: #2e6773;
+          }
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          background: #f2e1d5;
+          color: #805333;
+          & > svg > path {
+            fill: #805333;
+          }
+        `;
+      case DataType.DATASET:
+        return css`
+          background: #d5e1f2;
+          color: #335380;
+          & > svg > path {
+            fill: #335380;
+          }
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          background: #e4d5f2;
+          color: #593380;
+          & > svg > path {
+            fill: #593380;
+          }
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          background: #f2d5e1;
+          color: #803353;
+          & > svg > path {
+            fill: #803353;
+          }
+        `;
+      default:
+        return css``;
+    }
+  }};
+
+  &:hover > svg > path {
+    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  }
 `;
 
-const DatasetItemRemoveButton = styled(DatasetItemGenericButton)`
-  background: #d70a5a !important;
-  color: white !important;
+const ValidateButton = styled(SecondaryButton)<Props>`
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          background: #d5edf2;
+          color: #2e6773;
+          & > svg > path:first-child {
+            fill: #2e6773;
+          }
+          & > svg > path:last-child {
+            stroke: #2e6773;
+          }
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          background: #f2e1d5;
+          color: #805333;
+          & > svg > path:first-child {
+            fill: #805333;
+          }
+          & > svg > path:last-child {
+            stroke: #805333;
+          }
+        `;
+      case DataType.DATASET:
+        return css`
+          background: #d5e1f2;
+          color: #335380;
+          & > svg > path:first-child {
+            fill: #335380;
+          }
+          & > svg > path:last-child {
+            stroke: #335380;
+          }
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          background: #e4d5f2;
+          color: #593380;
+          & > svg > path:first-child {
+            fill: #593380;
+          }
+          & > svg > path:last-child {
+            stroke: #593380;
+          }
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          background: #f2d5e1;
+          color: #803353;
+          & > svg > path:first-child {
+            fill: #803353;
+          }
+          & > svg > path:last-child {
+            stroke: #803353;
+          }
+        `;
+      default:
+        return css``;
+    }
+  }};
+
+  &:hover > svg > path:first-child {
+    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  }
+  &:hover > svg > path:last-child {
+    stroke: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  }
 `;
 
-const DatasetItemValidateButton = styled(DatasetItemGenericButton)`
-  background: #aaa !important;
-  color: white !important;
-`;
+const TertiaryButton = styled(ButtonBase)<Props>`
+  ${({ dataType }) => {
+    switch (dataType) {
+      case DataType.CONCEPT:
+        return css`
+          color: #2e6773;
+          & > svg > path {
+            fill: #2e6773;
+          }
+        `;
+      case DataType.DATASERVICE:
+        return css`
+          color: #805333;
+          & > svg > path {
+            fill: #805333;
+          }
+        `;
+      case DataType.DATASET:
+        return css`
+          color: #335380;
+          & > svg > path {
+            fill: #335380;
+          }
+        `;
+      case DataType.INFORMATION_MODEL:
+        return css`
+          color: #593380;
+          & > svg > path {
+            fill: #593380;
+          }
+        `;
+      case DataType.PUBLIC_SERVICE:
+        return css`
+          color: #803353;
+          & > svg > path {
+            fill: #803353;
+          }
+        `;
+      default:
+        return css``;
+    }
+  }};
 
-const PublicServiceIcon = styled(PublicServiceIconBase)`
-  & > path {
-    fill: #0069a5;
+  & > svg {
+    margin-right: ${theme.spacing('S4')};
   }
 
-  & > path:last-child {
-    fill: #c4ebfa;
+  &:hover {
+    color: ${theme.colour(Colour.NEUTRAL, 'N70')};
+  }
+
+  &:hover > svg > path {
+    fill: ${theme.colour(Colour.NEUTRAL, 'N70')};
   }
 `;
 
 export default {
   DataSourceItem,
   DataSourceType,
+  DataSourceTitleContainer,
+  DataSourceTitle,
+  DataSourceSubTitle,
   DataSourceDetail,
   DataSourceDetails,
   DatasetItemControls,
-  DatasetItemHarvestButton,
-  DatasetItemEditButton,
-  DatasetItemRemoveButton,
-  DatasetItemValidateButton,
-  PublicServiceIcon
+  HarvestButton,
+  EditButton,
+  ValidateButton,
+  TertiaryButton
 };

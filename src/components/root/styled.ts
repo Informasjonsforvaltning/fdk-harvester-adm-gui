@@ -4,15 +4,23 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
-  height: calc(100% - 74px);
-  margin-left: 220px;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+    width: 100%;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+    width: 100%;
+  }
 `;
 
-const Heading = styled.h1`
-  margin-bottom: 20px;
-  font-size: 130%;
-  font-weight: 500;
-`;
-
-export default { Root, Heading };
+export default { Root };

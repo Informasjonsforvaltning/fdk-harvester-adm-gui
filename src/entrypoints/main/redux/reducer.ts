@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
 
-import DataSourcesPageReducer from '../../../components/data-sources-page/redux/reducer';
-import DelegationPageReducer from '../../../components/delegation-page/redux/reducer';
-import OrganisationFinderReducer from '../../../components/organisation-finder/redux/reducer';
+import DataSourcesReducer from '../../../components/with-data-sources/redux/reducer';
+import OrganizationsReducer from '../../../components/with-organizations/redux/reducer';
+import FilterReducer from '../../../components/with-filter/redux/reducer';
+import DelegationsReducer from '../../../components/with-delegations/redux/reducer';
+import OrganizationFinderReducer from '../../../components/organization-finder/redux/reducer';
 
 export default combineReducers({
-  DataSourcesPageReducer,
-  DelegationPageReducer,
-  OrganisationFinderReducer
+  DataSourcesReducer,
+  OrganizationsReducer,
+  FilterReducer,
+  DelegationsReducer,
+  OrganizationFinderReducer
 });

@@ -15,7 +15,7 @@ export default css`
   }
 
   body {
-    background: ${theme.colour(Colour.NEUTRAL, 'N10')};
+    background: ${theme.colour(Colour.NEUTRAL, 'N20', 50)};
     color: ${theme.colour(Colour.NEUTRAL, 'N60')};
     overflow-x: hidden;
     overflow-y: scroll;

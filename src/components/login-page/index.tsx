@@ -2,6 +2,8 @@ import React, { memo, FC } from 'react';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 
+import Button, { Variant } from '@fellesdatakatalog/button';
+
 import { withAuth } from '../../providers/auth';
 import { Auth } from '../../lib/auth/auth';
 
@@ -18,18 +20,13 @@ const LoginPage: FC<Props> = ({ authService }) => {
     <Redirect to='/' />
   ) : (
     <SC.LoginPage>
-      <h1>Access denied</h1>
-      <p>
-        Unfortunately, you do not have access to the resources you requested.
-      </p>
-      <p>You can log in with another user.</p>
-      <SC.LoginButton
-        type='button'
-        variant='contained'
-        onClick={logOutAndRedirect}
-      >
-        Log in
-      </SC.LoginButton>
+      <h1>Ikke tilgang</h1>
+      <p>Beklager, du har ikke tilgang til denne siden.</p>
+      <p>Prøv å logge på med en annen bruker.</p>
+      <p />
+      <Button variant={Variant.PRIMARY} onClick={logOutAndRedirect}>
+        Logg på
+      </Button>
     </SC.LoginPage>
   );
 };

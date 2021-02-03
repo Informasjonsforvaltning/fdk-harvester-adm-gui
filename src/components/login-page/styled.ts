@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
+import { theme } from '@fellesdatakatalog/theme';
 
 const LoginPage = styled.div`
   display: flex;
@@ -10,8 +10,8 @@ const LoginPage = styled.div`
 
   & > h1 {
     margin-bottom: 20px;
-    font-size: 110%;
-    font-weight: bold;
+    font-size: ${theme.fontSize('FS24')};
+    font-weight: ${theme.fontWeight('FW700')};
   }
 
   & > p:nth-of-type(n + 2) {
@@ -19,10 +19,4 @@ const LoginPage = styled.div`
   }
 `;
 
-const LoginButton = styled(Button)`
-  margin-top: 20px !important;
-  background: #0069a5 !important;
-  color: white !important;
-`;
-
-export default { LoginPage, LoginButton };
+export default { LoginPage };
