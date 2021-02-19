@@ -206,7 +206,8 @@ const HarvestButton = styled(SecondaryButton)<Props>`
     }
   }};
 
-  &:hover > svg > path {
+  &:hover > svg > path,
+  &:focus > svg > path {
     fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
   }
 `;
@@ -259,7 +260,8 @@ const EditButton = styled(SecondaryButton)<Props>`
     }
   }};
 
-  &:hover > svg > path {
+  &:hover > svg > path,
+  &:focus > svg > path {
     fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
   }
 `;
@@ -327,10 +329,12 @@ const ValidateButton = styled(SecondaryButton)<Props>`
     }
   }};
 
-  &:hover > svg > path:first-child {
+  &:hover > svg > path:first-child,
+  &:focus > svg > path:first-child {
     fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
   }
-  &:hover > svg > path:last-child {
+  &:hover > svg > path:last-child,
+  &:focus > svg > path:last-child {
     stroke: ${theme.colour(Colour.NEUTRAL, 'N0')};
   }
 `;
@@ -382,11 +386,13 @@ const TertiaryButton = styled(ButtonBase)<Props>`
     margin-right: ${theme.spacing('S4')};
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${theme.colour(Colour.NEUTRAL, 'N70')};
   }
 
-  &:hover > svg > path {
+  &:hover > svg > path,
+  &:focus > svg > path {
     fill: ${theme.colour(Colour.NEUTRAL, 'N70')};
   }
 `;

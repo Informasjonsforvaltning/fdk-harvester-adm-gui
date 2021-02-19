@@ -174,7 +174,7 @@ const DataSourceItem: FC<Props> = ({
             </span>
           </SC.DataSourceDetail>
           <SC.DataSourceDetail>
-            <span>Content type:</span>
+            <span>Format:</span>
             <span>{acceptHeaderValue}</span>
           </SC.DataSourceDetail>
         </SC.DataSourceDetails>

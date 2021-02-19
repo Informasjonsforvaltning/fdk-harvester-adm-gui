@@ -1,20 +1,24 @@
-import React, { memo, FC, ChangeEventHandler } from 'react';
+import React, { memo, FC, useEffect, useRef, MutableRefObject } from 'react';
+
 import { compose } from 'redux';
-import { Form, withFormik, FormikProps, WithFormikConfig } from 'formik';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
+import { withFormik, FormikProps, WithFormikConfig } from 'formik';
+import FocusTrap from 'focus-trap-react';
+
+import Button, { Variant } from '@fellesdatakatalog/button';
 
 import { withAuth } from '../../providers/auth';
 import { Auth } from '../../lib/auth/auth';
+
+import CloseIcon from '../../images/close-icon.svg';
 
 import SC from './styled';
 
 import validationSchema from './validation-schema';
 
-import { DataSource } from '../../types';
+import { DataSource, Organization } from '../../types';
 import { Standard, DataType, MimeType } from '../../types/enums';
+
+import withOrganizations from '../with-organizations';
 
 interface FormValues extends Omit<DataSource, 'id'> {}
 
@@ -26,193 +30,272 @@ interface ExternalProps {
 
 interface Props extends ExternalProps, FormikProps<FormValues> {
   authService: Auth;
+  organizations: Organization[];
 }
 
 const DataSourceItemEditor: FC<Props> = ({
   onDiscard,
   values,
-  errors,
-  touched,
   isValid,
   isSubmitting,
   handleChange,
-  setFieldTouched,
-  authService
+  handleBlur,
+  handleSubmit,
+  setFieldValue,
+  authService,
+  organizations
 }) => {
-  const formatDataType = (dataType: DataType): string => {
-    switch (dataType) {
-      case DataType.CONCEPT: {
-        return 'Concepts';
-      }
-      case DataType.DATASET: {
-        return 'Datasets';
-      }
-      case DataType.INFORMATION_MODEL: {
-        return 'Information Models';
-      }
-      case DataType.DATASERVICE: {
-        return 'Data Service';
-      }
-      case DataType.PUBLIC_SERVICE: {
-        return 'Public Service';
-      }
-      default: {
-        return '';
-      }
+  const hasSystemAdminPermission = authService.hasSystemAdminPermission();
+  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+
+  const datatTypeOptions = [
+    { value: DataType.CONCEPT, label: 'Begrep' },
+    { value: DataType.DATASET, label: 'Datasett' },
+    { value: DataType.INFORMATION_MODEL, label: 'Informasjonsmodell' },
+    { value: DataType.DATASERVICE, label: 'API' },
+    { value: DataType.PUBLIC_SERVICE, label: 'Tjeneste' }
+  ];
+
+  const datatSourceTypeOptions = [
+    { value: Standard.SKOS_AP_NO, label: 'SKOS-AP-NO' },
+    { value: Standard.DCAT_AP_NO, label: 'DCAT-AP-NO' },
+    { value: Standard.CPSV_AP_NO, label: 'CPSV-AP-NO' }
+  ];
+
+  const formatOptions = [
+    { value: MimeType.TEXT_TURTLE, label: 'Turtle' },
+    { value: MimeType.RDF_XML, label: 'RDF/XML' },
+    { value: MimeType.RDF_JSON, label: 'RDF/JSON' },
+    { value: MimeType.LD_JSON, label: 'JSON-LD' },
+    { value: MimeType.NTRIPLES, label: 'N-Triples' },
+    { value: MimeType.N3, label: 'N3' }
+  ];
+
+  const dataSourceItemEditorRef: MutableRefObject<any> = useRef();
+
+  const publisherOptions = organizations
+    .filter(({ organizationId }) =>
+      authService.hasOrganizationAdminPermission(organizationId)
+    )
+    .map(({ organizationId, name }) => ({
+      value: organizationId,
+      label: `${name} (${organizationId})`
+    }));
+
+  const onChangeField = (fieldName: string, option: any) => {
+    setFieldValue(fieldName, option.value);
+  };
+
+  const filterDataSourceType = ({ value }: { value: Standard }) => {
+    switch (values.dataType) {
+      case DataType.CONCEPT:
+        return [Standard.SKOS_AP_NO].find(type => value === type);
+      case DataType.DATASET:
+        return [Standard.DCAT_AP_NO].find(type => value === type);
+      case DataType.INFORMATION_MODEL:
+        return [Standard.DCAT_AP_NO].find(type => value === type);
+      case DataType.DATASERVICE:
+        return [Standard.DCAT_AP_NO].find(type => value === type);
+      case DataType.PUBLIC_SERVICE:
+        return [Standard.CPSV_AP_NO].find(type => value === type);
+      default:
+        return true;
     }
   };
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = e => {
-    setFieldTouched(e.target.name);
-    handleChange(e);
-  };
-
-  const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
-  const organizationsWithAdminPermission = authService.getOrganizationsWithAdminPermission();
+  useEffect(() => {
+    if (
+      !values.publisherId &&
+      hasOrganizationAdminPermissions &&
+      !hasSystemAdminPermission
+    ) {
+      values.publisherId = publisherOptions[0].value;
+    }
+  }, []);
 
   return (
-    <SC.DataSourceItemEditor>
-      <SC.Modal>
-        <SC.ModalHeading>
-          {values.dataSourceType
-            ? 'Edit data source'
-            : 'Register new data source'}
-        </SC.ModalHeading>
-        <Form noValidate>
-          <SC.Fieldset>
-            <TextField
-              select
-              name='dataType'
-              value={values.dataType ?? ''}
-              label='Data source type'
-              onChange={onChange}
-              variant='outlined'
-              required
-              fullWidth
-              error={touched.dataType && !!errors.dataType}
-              helperText={touched.dataType && errors.dataType}
-            >
-              {[
-                DataType.CONCEPT,
-                DataType.DATASET,
-                DataType.INFORMATION_MODEL,
-                DataType.DATASERVICE,
-                DataType.PUBLIC_SERVICE
-              ].map(dataType => (
-                <MenuItem key={dataType} value={dataType}>
-                  {formatDataType(dataType)}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              select
-              name='dataSourceType'
-              value={values.dataSourceType ?? ''}
-              label='Data standard'
-              onChange={onChange}
-              variant='outlined'
-              required
-              fullWidth
-              error={touched.dataSourceType && !!errors.dataSourceType}
-              helperText={touched.dataSourceType && errors.dataSourceType}
-            >
-              {[
-                Standard.SKOS_AP_NO,
-                Standard.DCAT_AP_NO,
-                Standard.CPSV_AP_NO
-              ].map(standard => (
-                <MenuItem key={standard} value={standard}>
-                  {standard}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              name='url'
-              value={values.url}
-              label='Data source URL'
-              onChange={onChange}
-              variant='outlined'
-              required
-              fullWidth
-              error={touched.url && !!errors.url}
-              helperText={touched.url && errors.url}
-            />
-            <TextField
-              select={
-                hasOrganizationAdminPermissions && !hasSystemAdminPermission
-              }
-              name='publisherId'
-              value={values.publisherId}
-              label='Organization number'
-              onChange={onChange}
-              variant='outlined'
-              required
-              fullWidth
-              error={touched.publisherId && !!errors.publisherId}
-              helperText={touched.publisherId && errors.publisherId}
-            >
-              {hasOrganizationAdminPermissions &&
-                !hasSystemAdminPermission &&
-                organizationsWithAdminPermission.map(organization => (
-                  <MenuItem key={organization} value={organization}>
-                    {organization}
-                  </MenuItem>
-                ))}
-            </TextField>
-            <TextField
-              name='description'
-              value={values.description}
-              label='Description'
-              onChange={onChange}
-              variant='outlined'
-              fullWidth
-              multiline
-              rows='5'
-              error={touched.description && !!errors.description}
-              helperText={touched.description && errors.description}
-            />
-            <TextField
-              select
-              name='acceptHeaderValue'
-              value={values.acceptHeaderValue ?? ''}
-              label='Accept header'
-              onChange={onChange}
-              variant='outlined'
-              required
-              fullWidth
-              error={touched.acceptHeaderValue && !!errors.acceptHeaderValue}
-              helperText={touched.acceptHeaderValue && errors.acceptHeaderValue}
-            >
-              {[
-                MimeType.TEXT_TURTLE,
-                MimeType.RDF_XML,
-                MimeType.RDF_JSON,
-                MimeType.LD_JSON,
-                MimeType.NTRIPLES,
-                MimeType.N3
-              ].map(mimeType => (
-                <MenuItem key={mimeType} value={mimeType}>
-                  {mimeType}
-                </MenuItem>
-              ))}
-            </TextField>
-          </SC.Fieldset>
-          <SC.ModalActions>
-            <Button onClick={onDiscard}>Discard</Button>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              endIcon={<SaveIcon />}
-              disabled={!isValid || isSubmitting}
-            >
-              Save
-            </Button>
-          </SC.ModalActions>
-        </Form>
-      </SC.Modal>
-    </SC.DataSourceItemEditor>
+    <FocusTrap>
+      <SC.DataSourceItemEditor ref={dataSourceItemEditorRef}>
+        <SC.Modal>
+          <SC.ModalHeading>
+            <span>
+              {values.dataSourceType
+                ? 'Rediger datakilde'
+                : 'Registrer ny datakilde'}
+            </span>
+            <SC.CloseButton type='button' onClick={onDiscard}>
+              <CloseIcon />
+            </SC.CloseButton>
+          </SC.ModalHeading>
+          <form onSubmit={handleSubmit}>
+            <SC.FieldSet>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Utgiver</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>Velg organisasjonen som eier datakilden.</div>
+              </SC.FieldHeader>
+
+              {hasOrganizationAdminPermissions && !hasSystemAdminPermission ? (
+                <SC.Select
+                  options={publisherOptions}
+                  isClearable={false}
+                  name='publisherId'
+                  onChange={(option: any) =>
+                    onChangeField('publisherId', option)
+                  }
+                  defaultValue={publisherOptions[0]}
+                  value={
+                    publisherOptions &&
+                    publisherOptions.find(
+                      option => option.value === values.publisherId
+                    )
+                  }
+                />
+              ) : (
+                <input
+                  type='text'
+                  name='publisherId'
+                  placeholder='F.eks. 910244132'
+                  value={values.publisherId}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  required
+                />
+              )}
+              <SC.ErrorMessage name='publisherId' component='div' />
+            </SC.FieldSet>
+            <SC.FieldSetShort>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Katalog</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>Velg katalog datakilden hører til.</div>
+              </SC.FieldHeader>
+              <SC.Select
+                options={datatTypeOptions}
+                isClearable={false}
+                name='dataType'
+                value={
+                  datatTypeOptions &&
+                  datatTypeOptions.find(
+                    option => option.value === values.dataType
+                  )
+                }
+                onChange={(option: any) => onChangeField('dataType', option)}
+              />
+              <SC.ErrorMessage name='dataType' component='div' />
+            </SC.FieldSetShort>
+            <SC.FieldSetShort>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Datakildetype</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>Velg spesifikasjon for datakilden.</div>
+              </SC.FieldHeader>
+              <SC.Select
+                options={datatSourceTypeOptions.filter(filterDataSourceType)}
+                isClearable={false}
+                name='dataSourceType'
+                onChange={(option: any) =>
+                  onChangeField('dataSourceType', option)
+                }
+                value={
+                  datatSourceTypeOptions
+                    ? datatSourceTypeOptions.find(
+                        option => option.value === values.dataSourceType
+                      )
+                    : datatSourceTypeOptions[0]
+                }
+              />
+              <SC.ErrorMessage name='dataSourceType' component='div' />
+            </SC.FieldSetShort>
+            <SC.FieldSetShort>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Format</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>Velg formatet til datakilden (HTTP Content-Type).</div>
+              </SC.FieldHeader>
+              <SC.Select
+                options={formatOptions}
+                isClearable={false}
+                name='acceptHeaderValue'
+                onChange={(option: any) =>
+                  onChangeField('acceptHeaderValue', option)
+                }
+                value={
+                  formatOptions
+                    ? formatOptions.find(
+                        option => option.value === values.acceptHeaderValue
+                      )
+                    : formatOptions[0]
+                }
+              />
+              <SC.ErrorMessage name='acceptHeaderValue' component='div' />
+            </SC.FieldSetShort>
+            <SC.FieldSet>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Navn på datakilde</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>Beskriv kort datakilden.</div>
+              </SC.FieldHeader>
+              <input
+                type='text'
+                name='description'
+                placeholder='F.eks. Datakatalog for Ramsund og Rognad'
+                value={values.description}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              <SC.ErrorMessage name='description' component='div' />
+            </SC.FieldSet>
+            <SC.FieldSet>
+              <SC.FieldHeader>
+                <div>
+                  <h2>URL til datakilde</h2>
+                  <SC.RequiredLabel>Obligatorisk</SC.RequiredLabel>
+                </div>
+                <div>
+                  Oppgi url-en til datakilden. Husk at formatet (Content-Type)
+                  må komme overens.
+                </div>
+              </SC.FieldHeader>
+              <input
+                type='text'
+                name='url'
+                placeholder='F.eks. https://mitt.domene.no/eksempel.ttl'
+                value={values.url}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              <SC.ErrorMessage name='url' component='div' />
+            </SC.FieldSet>
+
+            <SC.ModalActions>
+              <Button
+                type='submit'
+                variant={Variant.PRIMARY}
+                disabled={!isValid || isSubmitting}
+              >
+                Lagre
+              </Button>
+              <SC.DiscardButton variant={Variant.TERTIARY} onClick={onDiscard}>
+                Avbryt
+              </SC.DiscardButton>
+            </SC.ModalActions>
+          </form>
+        </SC.Modal>
+      </SC.DataSourceItemEditor>
+    </FocusTrap>
   );
 };
 
@@ -244,5 +327,6 @@ const formikConfig: WithFormikConfig<Props, FormValues> = {
 export default compose<FC<ExternalProps>>(
   memo,
   withAuth,
-  withFormik(formikConfig)
+  withFormik(formikConfig),
+  withOrganizations
 )(DataSourceItemEditor);
