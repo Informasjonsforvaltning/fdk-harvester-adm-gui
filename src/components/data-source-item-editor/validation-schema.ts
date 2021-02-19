@@ -5,72 +5,80 @@ import { DataType, Standard } from '../../types/enums';
 
 export default Yup.object().shape({
   dataType: Yup.string()
-    .required('Data source type is required')
+    .nullable()
+    .required('Katalog er obligatorisk')
     .oneOf(
       [
+        null,
         DataType.CONCEPT,
         DataType.DATASET,
         DataType.INFORMATION_MODEL,
         DataType.DATASERVICE,
         DataType.PUBLIC_SERVICE
       ],
-      'Data source type is not supported'
+      'Katalog er ugyldig'
     ),
   dataSourceType: Yup.string()
-    .required('Data standard is required')
+    .nullable()
+    .required('Datakildetype er obligatorisk')
     .when('dataType', {
       is: DataType.CONCEPT,
       then: Yup.string()
-        .required('Data standard is required')
+        .nullable()
+        .required('Datakildetype er obligatorisk')
         .oneOf(
-          [Standard.SKOS_AP_NO],
-          'Data standard is not supported for concepts'
+          [null, Standard.SKOS_AP_NO],
+          `Spesifikasjonen er ikke støttet av begrepskatalog`
         )
     })
     .when('dataType', {
       is: DataType.DATASET,
       then: Yup.string()
-        .required('Data standard is required')
+        .nullable()
+        .required('Datakildetype er obligatorisk')
         .oneOf(
-          [Standard.DCAT_AP_NO],
-          'Data standar is not supported for datasets'
+          [null, Standard.DCAT_AP_NO],
+          `Spesifikasjonen er ikke støttet av datasettkatalog`
         )
     })
     .when('dataType', {
       is: DataType.INFORMATION_MODEL,
       then: Yup.string()
-        .required('Data standard is required')
+        .nullable()
+        .required('Datakildetype er obligatorisk')
         .oneOf(
-          [Standard.DCAT_AP_NO],
-          'Data standard is not supported for information models'
+          [null, Standard.DCAT_AP_NO],
+          'Spesifikasjonen er ikke støttet av informasjonsmodellkatalog'
         )
     })
     .when('dataType', {
       is: DataType.DATASERVICE,
       then: Yup.string()
-        .required('Data standard is required')
+        .nullable()
+        .required('Datakildetype er obligatorisk')
         .oneOf(
-          [Standard.DCAT_AP_NO],
-          'Data standard is not supported for data services'
+          [null, Standard.DCAT_AP_NO],
+          'Spesifikasjonen er ikke støttet av API-katalog'
         )
     })
     .when('dataType', {
       is: DataType.PUBLIC_SERVICE,
       then: Yup.string()
-        .required('Data standard is required')
+        .nullable()
+        .required('Datakildetype er obligatorisk')
         .oneOf(
-          [Standard.CPSV_AP_NO],
-          'Data standard is not supported for public services'
+          [null, Standard.CPSV_AP_NO],
+          'Spesifikasjonen er ikke støttet av tjenestekatalog'
         )
     }),
   url: Yup.string()
-    .required('Data source URL is required')
-    .test('url', 'Data source URL must be valid', url =>
-      isURL(url ?? '', { require_tld: false })
-    ),
+    .nullable()
+    .required('URL til datakilde er obligatorisk')
+    .test('url', 'URL for datakilde er ugyldig', url => isURL(url ?? '')),
   publisherId: Yup.string()
-    .required('Organization number is required')
-    .matches(/^\d{9}$/, 'Organization number must be a 9-digit value'),
-  description: Yup.string(),
-  acceptHeaderValue: Yup.string().required('Accept header is required')
+    .nullable()
+    .required('Utgiver er obligatorisk')
+    .matches(/^\d{9}$/, 'Organisasjonsnummeret til utgiver er ugyldig'),
+  description: Yup.string().required('Navn på datakilde er obligatorisk'),
+  acceptHeaderValue: Yup.string().nullable().required('Format er obligatorisk')
 });

@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 import { theme, Colour } from '@fellesdatakatalog/theme';
 
-import Dialog from '@material-ui/core/Dialog';
 import BaseSnackbarContent from '@material-ui/core/SnackbarContent';
 
 import AddIconBase from '../../../../images/add-circle-icon.svg';
@@ -22,6 +21,7 @@ const SnackbarContent = styled(BaseSnackbarContent)<{ type: string }>`
   .message {
     display: flex;
     align-items: center;
+    font-size: ${theme.fontSize('FS16')};
 
     & > svg {
       margin-right: 10px;
@@ -33,12 +33,6 @@ const SnackbarContent = styled(BaseSnackbarContent)<{ type: string }>`
     css`
       background: #d70a5a !important;
     `}
-`;
-
-const ConfirmDialog = styled(Dialog)`
-  button {
-    color: #0069a5 !important;
-  }
 `;
 
 const ButtonBar = styled.div`
@@ -94,7 +88,6 @@ export default {
   Container,
   DataSourcesContent,
   SnackbarContent,
-  ConfirmDialog,
   ButtonBar,
   AddIcon,
   Title,

@@ -5,16 +5,14 @@ import Button, { Variant } from '@fellesdatakatalog/button';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import CloseIcon from '@material-ui/icons/Close';
 
 import Skeleton from 'react-loading-skeleton';
 
+import ConfirmDialog from '../../../confirm-dialog';
 import NoResultIcon from '../../../../images/no-result-icon.svg';
 
 import { withAuth } from '../../../../providers/auth';
@@ -237,6 +235,7 @@ const DataSourcesPage: FC<Props> = ({
             <Button
               onClick={() => showDataSourceItemEditor()}
               variant={Variant.PRIMARY}
+              disabled={organizations.length === 0}
             >
               <SC.AddIcon /> Legg til datakilde
             </Button>
@@ -289,22 +288,14 @@ const DataSourcesPage: FC<Props> = ({
             onSave={saveDataSourceItem}
           />
         )}
-        <SC.ConfirmDialog open={showConfirmModal} onClose={hideConfirm}>
-          <DialogTitle>Confirm data source removal</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Please confirm that you would like to remove a data source.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={hideConfirm} color='primary'>
-              Cancel
-            </Button>
-            <Button onClick={removeDataSourceItem} color='primary'>
-              Confirm
-            </Button>
-          </DialogActions>
-        </SC.ConfirmDialog>
+        {showConfirmModal && (
+          <ConfirmDialog
+            title='Bekreft sletting'
+            text='Bekreft at du vil slette denne datakilden.'
+            onConfirm={removeDataSourceItem}
+            onCancel={hideConfirm}
+          />
+        )}
       </SC.Container>
     </div>
   );
