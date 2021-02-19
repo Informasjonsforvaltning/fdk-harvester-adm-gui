@@ -53,7 +53,7 @@ const DataSourceItem: FC<Props> = ({
             <DatasetIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
-                {description.length > 0 ? description : '?'}
+                {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
               <SC.DataSourceSubTitle>Datasettkatalog</SC.DataSourceSubTitle>
             </SC.DataSourceTitleContainer>
@@ -65,7 +65,7 @@ const DataSourceItem: FC<Props> = ({
             <ConceptIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
-                {description.length > 0 ? description : '?'}
+                {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
               <SC.DataSourceSubTitle>Begrepskatalog</SC.DataSourceSubTitle>
             </SC.DataSourceTitleContainer>
@@ -77,7 +77,7 @@ const DataSourceItem: FC<Props> = ({
             <InformationModelIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
-                {description.length > 0 ? description : '?'}
+                {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
               <SC.DataSourceSubTitle>
                 Informasjonsmodellkatalog
@@ -91,7 +91,7 @@ const DataSourceItem: FC<Props> = ({
             <ApiIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
-                {description.length > 0 ? description : '?'}
+                {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
               <SC.DataSourceSubTitle>API-katalog</SC.DataSourceSubTitle>
             </SC.DataSourceTitleContainer>
@@ -103,7 +103,7 @@ const DataSourceItem: FC<Props> = ({
             <ServiceIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
-                {description.length > 0 ? description : '?'}
+                {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
               <SC.DataSourceSubTitle>Tjenestekatalog</SC.DataSourceSubTitle>
             </SC.DataSourceTitleContainer>
