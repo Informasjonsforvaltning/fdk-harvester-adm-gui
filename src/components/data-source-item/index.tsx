@@ -3,7 +3,6 @@ import { compose } from 'redux';
 import { Variant } from '@fellesdatakatalog/button';
 import Link from '@fellesdatakatalog/link';
 
-import { Link as RouteLink } from 'react-router-dom';
 import SC from './styled';
 
 import ConceptIcon from '../../images/concept-icon.svg';
@@ -132,17 +131,17 @@ const DataSourceItem: FC<Props> = ({
         <EditIcon />
         Rediger
       </SC.EditButton>
-      <SC.ValidateButton variant={Variant.SECONDARY} dataType={dataType}>
+      <SC.ValidateLink
+        to={{
+          pathname: `${FDK_BASE_URI}/validator/${encodeURIComponent(url)}`
+        }}
+        target='_blank'
+        dataType={dataType}
+      >
         <CheckIcon />
-        <RouteLink
-          to={{
-            pathname: `${FDK_BASE_URI}/validator/${encodeURIComponent(url)}`
-          }}
-          target='_blank'
-        >
-          Valider
-        </RouteLink>
-      </SC.ValidateButton>
+        Valider
+      </SC.ValidateLink>
+
       <SC.TertiaryButton
         onClick={() => onDataSourceItemRemove(id)}
         variant={Variant.TERTIARY}
