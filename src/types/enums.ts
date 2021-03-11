@@ -25,3 +25,8 @@ export enum MimeType {
   NTRIPLES = 'application/n-triples',
   N3 = 'text/n3'
 }
+
+export enum Shapes {
+  DCAT_AP_NO_V1 = 'https://raw.githubusercontent.com/Informasjonsforvaltning/dcat-ap-no/v1.1/shacl/dcat-ap_shacl_shapes_1.1.ttl',
+  DCAT_AP_NO_V2 = 'https://raw.githubusercontent.com/Informasjonsforvaltning/dcat-ap-no/v2/shacl/DCAT-AP-NO-shacl_shapes_2.00.ttl'
+}
