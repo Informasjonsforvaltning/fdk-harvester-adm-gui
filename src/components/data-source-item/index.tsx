@@ -16,7 +16,7 @@ import CheckIcon from '../../images/check-icon.svg';
 import RemoveIcon from '../../images/remove-circle-icon.svg';
 
 import type { DataSource, Organization } from '../../types';
-import { DataType } from '../../types/enums';
+import { DataType, Shapes } from '../../types/enums';
 
 import env from '../../env';
 
@@ -133,7 +133,9 @@ const DataSourceItem: FC<Props> = ({
       </SC.EditButton>
       <SC.ValidateLink
         to={{
-          pathname: `${FDK_BASE_URI}/validator/${encodeURIComponent(url)}`
+          pathname: `${FDK_BASE_URI}/validator?data=${encodeURIComponent(
+            url
+          )}&shapes=${encodeURIComponent(Shapes.DCAT_AP_NO_V2)}`
         }}
         target='_blank'
         dataType={dataType}
