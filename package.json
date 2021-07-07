@@ -26,6 +26,7 @@
     "node": ">= 14.15.4"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "run-s start:webpack",
     "start:webpack": "cross-env TS_NODE_PROJECT=tsconfig.webpack.json webpack serve --config webpack/dev.config.ts",
     "build:dev": "run-s build:webpack:dev",
@@ -55,6 +56,10 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "resolutions": {
+    "css-what": "^5.0.1",
+    "glob-parent": "^5.1.2"
   },
   "dependencies": {
     "@fellesdatakatalog/button": "^0.2.2",
@@ -93,8 +98,8 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
