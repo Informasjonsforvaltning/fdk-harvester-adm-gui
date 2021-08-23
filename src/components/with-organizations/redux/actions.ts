@@ -6,12 +6,10 @@ import {
 
 import type { Organization } from '../../../types';
 
-export function fetchOrganizationsRequested(ids: string[]) {
+export function fetchOrganizationsRequested() {
   return {
     type: FETCH_ORGANIZATIONS_REQUESTED,
-    payload: {
-      ids
-    }
+    payload: {}
   };
 }
 

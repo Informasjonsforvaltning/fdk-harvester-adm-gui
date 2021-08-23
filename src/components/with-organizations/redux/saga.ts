@@ -10,9 +10,7 @@ import type { Organization } from '../../../types';
 
 const { ORGANIZATION_CATALOGUE_HOST } = env;
 
-function* fetchOrganizationsRequested({
-  payload: { ids }
-}: ReturnType<typeof actions.fetchOrganizationsRequested>) {
+function* fetchOrganizationsRequested() {
   try {
     const auth = yield getContext('auth');
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
@@ -22,9 +20,6 @@ function* fetchOrganizationsRequested({
       {
         headers: {
           authorization
-        },
-        params: {
-          organizationId: ids.join()
         }
       }
     );
