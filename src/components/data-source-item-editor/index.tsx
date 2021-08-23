@@ -109,7 +109,7 @@ const DataSourceItemEditor: FC<Props> = ({
       hasOrganizationAdminPermissions &&
       !hasSystemAdminPermission
     ) {
-      values.publisherId = publisherOptions[0].value;
+      values.publisherId = publisherOptions[0] ? publisherOptions[0].value : '';
     }
   }, []);
 
