@@ -32,7 +32,6 @@ interface Props {
 }
 
 const DelegationPage: FC<Props> = ({
-  authService,
   delegatees,
   delegationActions: {
     findAllDelegateesRequested,
@@ -89,9 +88,7 @@ const DelegationPage: FC<Props> = ({
 
   const fetchOrganizations = () => {
     if (!organizations.length) {
-      fetchOrganizationsRequested(
-        authService.getOrganizationsWithAdminPermission()
-      );
+      fetchOrganizationsRequested();
     }
   };
 
