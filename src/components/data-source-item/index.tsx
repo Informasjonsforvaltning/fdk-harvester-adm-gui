@@ -48,7 +48,7 @@ const DataSourceItem: FC<Props> = ({
     switch (dataType) {
       case DataType.DATASET:
         return (
-          <SC.DataSourceType dataType={dataType}>
+          <SC.DataSourceType $dataType={dataType}>
             <DatasetIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
@@ -60,7 +60,7 @@ const DataSourceItem: FC<Props> = ({
         );
       case DataType.CONCEPT:
         return (
-          <SC.DataSourceType dataType={dataType}>
+          <SC.DataSourceType $dataType={dataType}>
             <ConceptIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
@@ -72,7 +72,7 @@ const DataSourceItem: FC<Props> = ({
         );
       case DataType.INFORMATION_MODEL:
         return (
-          <SC.DataSourceType dataType={dataType}>
+          <SC.DataSourceType $dataType={dataType}>
             <InformationModelIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
@@ -86,7 +86,7 @@ const DataSourceItem: FC<Props> = ({
         );
       case DataType.DATASERVICE:
         return (
-          <SC.DataSourceType dataType={dataType}>
+          <SC.DataSourceType $dataType={dataType}>
             <ApiIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
@@ -98,7 +98,7 @@ const DataSourceItem: FC<Props> = ({
         );
       case DataType.PUBLIC_SERVICE:
         return (
-          <SC.DataSourceType dataType={dataType}>
+          <SC.DataSourceType $dataType={dataType}>
             <ServiceIcon />
             <SC.DataSourceTitleContainer>
               <SC.DataSourceTitle>
@@ -117,8 +117,7 @@ const DataSourceItem: FC<Props> = ({
     <SC.DatasetItemControls>
       <SC.HarvestButton
         onClick={() => onDataSourceItemHarvest(id)}
-        variant={Variant.SECONDARY}
-        dataType={dataType}
+        $dataType={dataType}
       >
         <ImportIcon />
         Høst
@@ -126,7 +125,7 @@ const DataSourceItem: FC<Props> = ({
       <SC.EditButton
         onClick={() => onDataSourceItemEdit(id)}
         variant={Variant.SECONDARY}
-        dataType={dataType}
+        $dataType={dataType}
       >
         <EditIcon />
         Rediger
@@ -138,7 +137,7 @@ const DataSourceItem: FC<Props> = ({
           )}&shapes=${encodeURIComponent(Shapes.DCAT_AP_NO_V2)}`
         }}
         target='_blank'
-        dataType={dataType}
+        $dataType={dataType}
       >
         <CheckIcon />
         Valider
@@ -147,7 +146,7 @@ const DataSourceItem: FC<Props> = ({
       <SC.TertiaryButton
         onClick={() => onDataSourceItemRemove(id)}
         variant={Variant.TERTIARY}
-        dataType={dataType}
+        $dataType={dataType}
       >
         <RemoveIcon />
         Slett
@@ -166,7 +165,7 @@ const DataSourceItem: FC<Props> = ({
               {organization?.name} {publisherId}
             </span>
           </SC.DataSourceDetail>
-          <SC.DataSourceDetail dataType={dataType}>
+          <SC.DataSourceDetail $dataType={dataType}>
             <span>URI:</span>
             <span>
               <Link href={url} external>

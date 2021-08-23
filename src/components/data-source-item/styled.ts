@@ -6,7 +6,7 @@ import ButtonBase from '@fellesdatakatalog/button';
 import { DataType } from '../../types/enums';
 
 interface Props {
-  dataType?: DataType | null;
+  $dataType?: DataType | null;
 }
 
 const DataSourceItem = styled.li`
@@ -30,8 +30,8 @@ const DataSourceType = styled.div<Props>`
   padding: 10px;
   border-radius: 5px;
 
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           background: #d5edf2;
@@ -85,8 +85,8 @@ const DataSourceSubTitle = styled.div`
 const DataSourceDetail = styled.div<Props>`
   display: flex;
 
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           & > span:last-of-type {
@@ -160,8 +160,8 @@ const SecondaryButton = styled(ButtonBase)`
 `;
 
 const HarvestButton = styled(SecondaryButton)<Props>`
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           background: #d5edf2;
@@ -214,8 +214,8 @@ const HarvestButton = styled(SecondaryButton)<Props>`
 `;
 
 const EditButton = styled(SecondaryButton)<Props>`
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           background: #d5edf2;
@@ -291,8 +291,8 @@ const ValidateLink = styled(RouteLinkBase)<Props>`
     background: ${theme.colour(Colour.NEUTRAL, 'N70')};
   }
 
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           background: #d5edf2;
@@ -364,8 +364,8 @@ const ValidateLink = styled(RouteLinkBase)<Props>`
 `;
 
 const TertiaryButton = styled(ButtonBase)<Props>`
-  ${({ dataType }) => {
-    switch (dataType) {
+  ${({ $dataType }) => {
+    switch ($dataType) {
       case DataType.CONCEPT:
         return css`
           color: #2e6773;

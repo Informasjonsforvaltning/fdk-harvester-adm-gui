@@ -83,7 +83,7 @@ const DataSourceItemEditor: FC<Props> = ({
     }));
 
   const onChangeField = (fieldName: string, option: any) => {
-    setFieldValue(fieldName, option.value);
+    setFieldValue(fieldName, option?.value);
   };
 
   const filterDataSourceType = ({ value }: { value: Standard }) => {
@@ -109,7 +109,7 @@ const DataSourceItemEditor: FC<Props> = ({
       hasOrganizationAdminPermissions &&
       !hasSystemAdminPermission
     ) {
-      values.publisherId = publisherOptions[0].value;
+      values.publisherId = publisherOptions[0]?.value;
     }
   }, []);
 
@@ -149,7 +149,7 @@ const DataSourceItemEditor: FC<Props> = ({
                   value={
                     publisherOptions &&
                     publisherOptions.find(
-                      option => option.value === values.publisherId
+                      option => option?.value === values.publisherId
                     )
                   }
                 />
@@ -181,7 +181,7 @@ const DataSourceItemEditor: FC<Props> = ({
                 value={
                   datatTypeOptions &&
                   datatTypeOptions.find(
-                    option => option.value === values.dataType
+                    option => option?.value === values.dataType
                   )
                 }
                 onChange={(option: any) => onChangeField('dataType', option)}
@@ -206,7 +206,7 @@ const DataSourceItemEditor: FC<Props> = ({
                 value={
                   datatSourceTypeOptions
                     ? datatSourceTypeOptions.find(
-                        option => option.value === values.dataSourceType
+                        option => option?.value === values.dataSourceType
                       )
                     : datatSourceTypeOptions[0]
                 }
@@ -231,7 +231,7 @@ const DataSourceItemEditor: FC<Props> = ({
                 value={
                   formatOptions
                     ? formatOptions.find(
-                        option => option.value === values.acceptHeaderValue
+                        option => option?.value === values.acceptHeaderValue
                       )
                     : formatOptions[0]
                 }
