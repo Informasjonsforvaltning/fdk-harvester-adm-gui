@@ -118,7 +118,7 @@ const DataSourcesPage: FC<Props> = ({
 
   const fetchOrganizations = () => {
     if (!organizations.length) {
-      fetchOrganizationsRequested(dataSources.map(ds => ds.publisherId));
+      fetchOrganizationsRequested();
     }
   };
 
