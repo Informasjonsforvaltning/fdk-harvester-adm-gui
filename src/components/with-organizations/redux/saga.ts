@@ -1,10 +1,13 @@
-import { all, call, getContext, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 import env from '../../../env';
 
 import * as actions from './actions';
-import { FETCH_ORGANIZATIONS_REQUESTED } from './action-types';
+import {
+  FETCH_ORGANIZATION_REQUESTED,
+  FETCH_ORGANIZATIONS_REQUESTED
+} from './action-types';
 
 import type { Organization } from '../../../types';
 
@@ -12,16 +15,27 @@ const { ORGANIZATION_CATALOGUE_HOST } = env;
 
 function* fetchOrganizationsRequested() {
   try {
-    const auth = yield getContext('auth');
-    const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.get,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations`,
-      {
-        headers: {
-          authorization
-        }
-      }
+      `${ORGANIZATION_CATALOGUE_HOST}/organizations`
+    );
+    if (Array.isArray(data)) {
+      yield put(actions.fetchOrganizationsSucceeded(data as Organization[]));
+    } else {
+      yield put(actions.fetchOrganizationsFailed(JSON.stringify(message)));
+    }
+  } catch (e) {
+    yield put(actions.fetchOrganizationsFailed(e.message));
+  }
+}
+
+function* fetchOrganizationRequested({
+  payload: { id }
+}: ReturnType<typeof actions.fetchOrganizationRequested>) {
+  try {
+    const { data, message } = yield call(
+      axios.get,
+      `${ORGANIZATION_CATALOGUE_HOST}/organizations/${id}`
     );
     if (Array.isArray(data)) {
       yield put(actions.fetchOrganizationsSucceeded(data as Organization[]));
@@ -35,6 +49,7 @@ function* fetchOrganizationsRequested() {
 
 export default function* saga() {
   yield all([
-    takeLatest(FETCH_ORGANIZATIONS_REQUESTED, fetchOrganizationsRequested)
+    takeLatest(FETCH_ORGANIZATIONS_REQUESTED, fetchOrganizationsRequested),
+    takeLatest(FETCH_ORGANIZATION_REQUESTED, fetchOrganizationRequested)
   ]);
 }

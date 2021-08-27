@@ -20,6 +20,8 @@ import { Standard, DataType, MimeType } from '../../types/enums';
 
 import withOrganizations from '../with-organizations';
 
+import * as OrganizationActions from '../with-organizations/redux/actions';
+
 interface FormValues extends Omit<DataSource, 'id'> {}
 
 interface ExternalProps {
@@ -31,6 +33,7 @@ interface ExternalProps {
 interface Props extends ExternalProps, FormikProps<FormValues> {
   authService: Auth;
   organizations: Organization[];
+  organizationActions: typeof OrganizationActions;
 }
 
 const DataSourceItemEditor: FC<Props> = ({
@@ -43,7 +46,11 @@ const DataSourceItemEditor: FC<Props> = ({
   handleSubmit,
   setFieldValue,
   authService,
-  organizations
+  organizations,
+  organizationActions: {
+    fetchOrganizationRequested,
+    fetchOrganizationsRequested
+  }
 }) => {
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
   const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
@@ -103,6 +110,19 @@ const DataSourceItemEditor: FC<Props> = ({
     }
   };
 
+  const fetchMissingAuthOrganizations = () => {
+    const missing = authService
+      .getOrganizationsWithAdminPermission()
+      .filter(
+        orgId => !organizations.some(org => org.organizationId === orgId)
+      );
+
+    if (missing.length > 0) {
+      missing.forEach(orgId => fetchOrganizationRequested(orgId));
+      fetchOrganizationsRequested();
+    }
+  };
+
   useEffect(() => {
     if (
       !values.publisherId &&
@@ -112,6 +132,8 @@ const DataSourceItemEditor: FC<Props> = ({
       values.publisherId = publisherOptions[0]?.value;
     }
   }, []);
+
+  fetchMissingAuthOrganizations();
 
   return (
     <FocusTrap>
