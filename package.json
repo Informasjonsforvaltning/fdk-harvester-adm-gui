@@ -50,7 +50,8 @@
     "test:watch:all:verbose": "jest --passWithNoTests --watchAll --verbose",
     "clean:coverage": "rm -rf coverage",
     "bundle:analyse": "run-s build:webpack:stats",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "generate:types": "graphql-codegen"
   },
   "config": {
     "commitizen": {
@@ -74,6 +75,7 @@
     "core-js": "^3.8.3",
     "focus-trap-react": "^8.4.2",
     "formik": "^2.2.6",
+    "graphql": "^15.5.2",
     "history": "^5.0.0",
     "immutable": "^4.0.0-rc.12",
     "keycloak-js": "^10.0.2",
@@ -100,6 +102,11 @@
     "@babel/preset-react": "^7.12.10",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@graphql-codegen/cli": "^2.1.1",
+    "@graphql-codegen/fragment-matcher": "^3.1.0",
+    "@graphql-codegen/typescript": "^2.1.2",
+    "@graphql-codegen/typescript-operations": "^2.1.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.1.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
