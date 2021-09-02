@@ -63,6 +63,8 @@
     "glob-parent": "^5.1.2"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.10",
+    "@fellesdatakatalog/alert": "^0.1.6",
     "@fellesdatakatalog/button": "^0.2.2",
     "@fellesdatakatalog/internal-footer": "^0.3.4",
     "@fellesdatakatalog/internal-header": "^0.4.4",

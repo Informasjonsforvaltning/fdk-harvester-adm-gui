@@ -11,6 +11,11 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CloseIcon from '@material-ui/icons/Close';
 
 import Skeleton from 'react-loading-skeleton';
+import {
+  useGetServiceMessagesQuery,
+  ServiceMessage,
+  Enum_Servicemessage_Channel
+} from '../../../../services/api/strapi/generated/graphql';
 
 import ConfirmDialog from '../../../confirm-dialog';
 import NoResultIcon from '../../../../images/no-result-icon.svg';
@@ -26,6 +31,8 @@ import SC from './styled';
 import SideBar from '../side-bar';
 import DataSourceItem from '../../../data-source-item';
 import DataSourceItemEditor from '../../../data-source-item-editor';
+
+import ServiceMessages from '../../../service-messages';
 
 import {
   DataSource,
@@ -79,6 +86,23 @@ const DataSourcesPage: FC<Props> = ({
   const [showEditor, setShowEditor] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [dataSourceId, setDataSourceId] = useState<string | null>(null);
+
+  const date = new Date();
+  const now_utc = Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds()
+  );
+  const { data } = useGetServiceMessagesQuery({
+    variables: {
+      channel: Enum_Servicemessage_Channel.Adminportal,
+      today: new Date(now_utc)
+    }
+  });
+  const serviceMessages = data?.serviceMessages as ServiceMessage[];
 
   const showDataSourceItemEditor = (id?: string) => {
     document.body.classList.add('no-scroll');
@@ -222,7 +246,10 @@ const DataSourcesPage: FC<Props> = ({
   fetchOrganizations();
 
   return (
-    <div>
+    <SC.DataSourcesPage>
+      {serviceMessages?.length > 0 && (
+        <ServiceMessages serviceMessages={serviceMessages} />
+      )}
       <SC.Title>
         {organizations.length === 1
           ? `Kataloger for ${organizations[0].name}`
@@ -297,7 +324,7 @@ const DataSourcesPage: FC<Props> = ({
           />
         )}
       </SC.Container>
-    </div>
+    </SC.DataSourcesPage>
   );
 };
 

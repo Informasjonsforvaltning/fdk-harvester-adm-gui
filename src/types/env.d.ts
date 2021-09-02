@@ -7,4 +7,5 @@ export interface EnvironmentVariables {
   FDK_HARVEST_ADMIN_HOST: string;
   FDK_REGISTRATION_BASE_URI: string;
   ORGANIZATION_CATALOGUE_HOST: string;
+  FDK_CMS_BASE_URI: string;
 }
