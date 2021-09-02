@@ -16,3 +16,5 @@ Dockerfile
 *.conf
 
 package-lock.json
+
+src/services/api/strapi/generated
