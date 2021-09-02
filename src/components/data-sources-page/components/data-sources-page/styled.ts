@@ -6,6 +6,10 @@ import BaseSnackbarContent from '@material-ui/core/SnackbarContent';
 
 import AddIconBase from '../../../../images/add-circle-icon.svg';
 
+const DataSourcesPage = styled.div`
+  margin-top: ${theme.spacing('S24')};
+`;
+
 const Container = styled('div')`
   display: flex;
   justify-content: center;
@@ -85,6 +89,7 @@ const NoResults = styled.div`
 `;
 
 export default {
+  DataSourcesPage,
   Container,
   DataSourcesContent,
   SnackbarContent,

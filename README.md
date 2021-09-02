@@ -37,6 +37,7 @@ An administration application for Fellesdatakatalog.
 - `FDK_HARVEST_ADMIN_HOST` - fdk-harvest-admin API hostname
 - `FDK_REGISTRATION_BASE_URI` - Base URI of the FDK registration application
 - `ORGANIZATION_CATALOGUE_HOST` - organization-catalogue API hostname
+- `FDK_CMS_BASE_URI` - dk-cms hostname
 
 ## Contributing
 
