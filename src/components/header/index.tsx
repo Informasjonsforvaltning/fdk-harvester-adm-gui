@@ -21,6 +21,7 @@ const Header: FC<Props> = ({ authService }) => {
     <InternalHeader
       username={authService.getUser()?.name}
       onLogout={logOutAndRedirect}
+      useDemoLogo={env.USE_DEMO_LOGO}
     >
       <Link href={FDK_REGISTRATION_BASE_URI}>Registrere data</Link>
       <Link href='/'>Høste data</Link>

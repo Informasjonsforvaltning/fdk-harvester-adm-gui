@@ -8,4 +8,5 @@ export interface EnvironmentVariables {
   FDK_REGISTRATION_BASE_URI: string;
   ORGANIZATION_CATALOGUE_HOST: string;
   FDK_CMS_BASE_URI: string;
+  USE_DEMO_LOGO: boolean;
 }
