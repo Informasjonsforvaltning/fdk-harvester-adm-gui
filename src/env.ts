@@ -14,6 +14,7 @@ export default validateEnv(
       'https://registrering.staging.fellesdatakatalog.digdir.no',
     ORGANIZATION_CATALOGUE_HOST:
       'https://organization-catalogue.staging.fellesdatakatalog.digdir.no',
-    FDK_CMS_BASE_URI: 'https://cms.fellesdatakatalog.digdir.no'
+    FDK_CMS_BASE_URI: 'https://cms.fellesdatakatalog.digdir.no',
+    USE_DEMO_LOGO: false
   }
 );
