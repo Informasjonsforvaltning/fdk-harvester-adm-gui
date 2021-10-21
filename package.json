@@ -51,7 +51,8 @@
     "clean:coverage": "rm -rf coverage",
     "bundle:analyse": "run-s build:webpack:stats",
     "commit": "git-cz",
-    "generate:types": "graphql-codegen"
+    "generate:types": "graphql-codegen",
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
@@ -147,7 +148,7 @@
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.3.5",
     "html-webpack-plugin": "^5.4.0",
-    "husky": "^4.3.8",
+    "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "jest-styled-components": "^7.0.5",
