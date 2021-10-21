@@ -1,0 +1,56 @@
+{
+  "decisions": {
+    "1002401|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|@graphql-codegen/cli>listr>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|cz-conventional-changelog>commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002401|cz-conventional-changelog>commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1634799970390,
+      "expiresAt": 1637391934171
+    },
+    "1002423|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1634799979413,
+      "expiresAt": 1637391934171
+    },
+    "1002477|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>axios": {
+      "decision": "ignore",
+      "madeAt": 1634799985250,
+      "expiresAt": 1637391934171
+    },
+    "1002901|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>react-i18next>html-parse-stringify2": {
+      "decision": "ignore",
+      "madeAt": 1634799992541,
+      "expiresAt": 1637391934171
+    }
+  },
+  "rules": {},
+  "version": 1
+}
