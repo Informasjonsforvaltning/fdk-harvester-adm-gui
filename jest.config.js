@@ -7,7 +7,7 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/test/config/setup.ts'],
   transform: {
-    '^.+\\.svg$': 'jest-svg-transformer'
+    '^.+\\.svg$': 'jest-transformer-svg'
   },
   moduleNameMapper: {
     '\\.(ttf|woff|woff2)$': 'identity-obj-proxy'
