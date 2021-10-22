@@ -41,10 +41,8 @@ const DelegationPage: FC<Props> = ({
   organizations,
   organizationActions: { fetchOrganizationsRequested }
 }) => {
-  const [
-    showOrganizationFinderState,
-    setShowOrganizationFinderState
-  ] = useState(false);
+  const [showOrganizationFinderState, setShowOrganizationFinderState] =
+    useState(false);
   const [showConfirmModalState, setShowConfirmModalState] = useState(false);
   const [delegateeId, setDelegateeId] = useState<string | null>(null);
 

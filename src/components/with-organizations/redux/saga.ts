@@ -24,7 +24,7 @@ function* fetchOrganizationsRequested() {
     } else {
       yield put(actions.fetchOrganizationsFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.fetchOrganizationsFailed(e.message));
   }
 }
@@ -42,7 +42,7 @@ function* fetchOrganizationRequested({
     } else {
       yield put(actions.fetchOrganizationsFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.fetchOrganizationsFailed(e.message));
   }
 }

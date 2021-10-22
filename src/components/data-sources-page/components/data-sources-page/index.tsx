@@ -171,7 +171,8 @@ const DataSourcesPage: FC<Props> = ({
   };
 
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+  const hasOrganizationAdminPermissions =
+    authService.hasOrganizationAdminPermissions();
 
   const filteredDataSources = dataSources.filter(
     ({ publisherId, dataType }) => {

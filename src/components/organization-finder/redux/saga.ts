@@ -30,7 +30,7 @@ function* findOneDelegateeRequested({
       yield put(actions.findOneDelegateeFailed(JSON.stringify(message)));
       onError('Organization not found');
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.findOneDelegateeFailed(e.message));
     onError(
       e.response.status === 404

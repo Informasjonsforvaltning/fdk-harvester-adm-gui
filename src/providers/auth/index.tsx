@@ -39,14 +39,17 @@ const AuthProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   );
 };
 
-export const withAuth = <P extends AuthProps<any>, C extends ComponentType<P>>(
-  Child: C
-): ComponentType<Omit<P, keyof ServiceProps>> => (props: any) => (
-  <AuthContext.Consumer>
-    {({ service: authService }) => (
-      <Child {...props} authService={authService} />
-    )}
-  </AuthContext.Consumer>
-);
+export const withAuth =
+  <P extends AuthProps<any>, C extends ComponentType<P>>(
+    Child: C
+  ): ComponentType<Omit<P, keyof ServiceProps>> =>
+  (props: any) =>
+    (
+      <AuthContext.Consumer>
+        {({ service: authService }) => (
+          <Child {...props} authService={authService} />
+        )}
+      </AuthContext.Consumer>
+    );
 
 export default compose<FC>()(AuthProvider);

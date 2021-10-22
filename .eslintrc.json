@@ -35,6 +35,14 @@
     "jsx-a11y",
     "react-hooks"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".ts", ".d.ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
     "prettier/prettier": [
       "error",
@@ -88,8 +96,10 @@
     "react/jsx-wrap-multilines": "off",
     "react/no-array-index-key": "off",
     "react/no-unused-state": "off",
+    "react/no-unused-prop-types": "off",
     "react/jsx-indent": "off",
     "react/prop-types": "off",
+    "jsx-a11y/label-has-for": "off",
     "react/require-default-props": "off",
     "react/jsx-curly-newline": "off",
     "no-use-before-define": "off",
@@ -97,6 +107,14 @@
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "no-shadow": "off",
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_embedded"
+        ]
+      }
+    ],
     "camelcase": "off",
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",

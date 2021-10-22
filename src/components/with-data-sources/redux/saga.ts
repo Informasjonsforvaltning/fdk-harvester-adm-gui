@@ -34,7 +34,7 @@ function* fetchDataSourcesRequested() {
     } else {
       yield put(actions.fetchDataSourcesFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.fetchDataSourcesFailed(e.message));
   }
 }
@@ -60,7 +60,7 @@ function* harvestDataSourceRequested({
     } else {
       yield put(actions.harvestDataSourceFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.harvestDataSourceFailed(e.message));
   }
 }
@@ -91,7 +91,7 @@ function* registerDataSourceRequested({
     } else {
       yield put(actions.registerDataSourceFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.registerDataSourceFailed(e.message));
   }
 }
@@ -124,7 +124,7 @@ function* updateDataSourceRequested({
     } else {
       yield put(actions.updateDataSourceFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.updateDataSourceFailed(e.message));
   }
 }
@@ -149,7 +149,7 @@ function* removeDataSourceRequested({
     } else {
       yield put(actions.removeDataSourceFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.removeDataSourceFailed(e.message));
   }
 }

@@ -40,7 +40,7 @@ function* findAllDelegateesRequested() {
     } else {
       yield put(actions.findAllDelegateesFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.findAllDelegateesFailed(e.message));
   }
 }
@@ -72,7 +72,7 @@ function* registerDelegateeRequested({
     } else {
       yield put(actions.registerDelegateeFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.registerDelegateeFailed(e.message));
   }
 }
@@ -99,7 +99,7 @@ function* removeDelegateeRequested({
     } else {
       yield put(actions.removeDelegateeFailed(JSON.stringify(message)));
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(actions.removeDelegateeFailed(e.message));
   }
 }
