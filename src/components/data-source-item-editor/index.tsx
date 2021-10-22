@@ -53,7 +53,8 @@ const DataSourceItemEditor: FC<Props> = ({
   }
 }) => {
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+  const hasOrganizationAdminPermissions =
+    authService.hasOrganizationAdminPermissions();
 
   const datatTypeOptions = [
     { value: DataType.CONCEPT, label: 'Begrep' },

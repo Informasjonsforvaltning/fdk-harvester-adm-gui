@@ -32,7 +32,8 @@ const SideBar: FC<Props> = ({
   >(undefined);
 
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions = authService.hasOrganizationAdminPermissions();
+  const hasOrganizationAdminPermissions =
+    authService.hasOrganizationAdminPermissions();
 
   const { pathname } = location;
 
