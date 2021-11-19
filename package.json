@@ -68,7 +68,7 @@
     "@fellesdatakatalog/alert": "^0.1.7",
     "@fellesdatakatalog/button": "^0.2.4",
     "@fellesdatakatalog/internal-footer": "^0.3.8",
-    "@fellesdatakatalog/internal-header": "^0.4.9",
+    "@fellesdatakatalog/internal-header": "^0.5.0",
     "@fellesdatakatalog/link": "^0.2.7",
     "@fellesdatakatalog/side-menu": "^0.1.4",
     "@fellesdatakatalog/theme": "^0.4.4",
