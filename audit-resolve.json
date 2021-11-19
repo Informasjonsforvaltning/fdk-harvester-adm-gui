@@ -49,6 +49,60 @@
       "decision": "ignore",
       "madeAt": 1634799992541,
       "expiresAt": 1637391934171
+    },
+    "1004876|validator": {
+      "decision": "fix",
+      "madeAt": 1637314017095
+    },
+    "1004946|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|@graphql-codegen/cli>listr>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|cz-conventional-changelog>commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004946|cz-conventional-changelog>commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1637314040347,
+      "expiresAt": 1639905989665
+    },
+    "1004967|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1637314043179,
+      "expiresAt": 1639905989665
+    },
+    "1005018|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>axios": {
+      "decision": "ignore",
+      "madeAt": 1637314045922,
+      "expiresAt": 1639905989665
+    },
+    "1005417|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>react-i18next>html-parse-stringify2": {
+      "decision": "ignore",
+      "madeAt": 1637314047900,
+      "expiresAt": 1639905989665
     }
   },
   "rules": {},
