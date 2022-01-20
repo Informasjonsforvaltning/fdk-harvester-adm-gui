@@ -96,13 +96,13 @@
     },
     "1005018|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>axios": {
       "decision": "ignore",
-      "madeAt": 1637314045922,
-      "expiresAt": 1639905989665
+      "madeAt": 1642687308720,
+      "expiresAt": 1645279300410
     },
     "1005417|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>react-i18next>html-parse-stringify2": {
       "decision": "ignore",
-      "madeAt": 1637314047900,
-      "expiresAt": 1639905989665
+      "madeAt": 1642687313110,
+      "expiresAt": 1645279300410
     }
   },
   "rules": {},
