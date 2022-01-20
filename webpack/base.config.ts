@@ -15,26 +15,6 @@ const configuration: Configuration = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      hidePathInfo: true,
-      chunks: 'all',
-      maxInitialRequests: Infinity,
-      maxAsyncRequests: Infinity,
-      minSize: 0,
-      automaticNameDelimiter: '.',
-      cacheGroups: {
-        default: false,
-        mainVendors: {
-          test: ({ resource = '' }: any) => resource.includes('node_modules'),
-          name: 'main.vendors',
-          filename: '[name].bundle.js',
-          chunks: ({ name }) => name === 'main'
-        }
-      }
-    }
-  },
   module: {
     rules: [
       {
