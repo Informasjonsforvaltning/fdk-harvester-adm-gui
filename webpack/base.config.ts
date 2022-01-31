@@ -1,7 +1,6 @@
 import { Configuration, DefinePlugin } from 'webpack';
 import { resolve } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const configuration: Configuration = {
   entry: {
@@ -10,7 +9,8 @@ const configuration: Configuration = {
   },
   output: {
     path: resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
+    clean: true
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -76,7 +76,6 @@ const configuration: Configuration = {
     new DefinePlugin({
       'process.env.NODE_DEBUG': JSON.stringify(process.env.NODE_DEBUG)
     }),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/entrypoints/main/index.html',
       filename: 'index.html',
