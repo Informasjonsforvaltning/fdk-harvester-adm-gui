@@ -60,8 +60,12 @@
     }
   },
   "resolutions": {
+    "axios": "^0.25.0",
     "css-what": "^5.0.1",
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^5.1.2",
+    "ansi-regex": "^5.0.1",
+    "nth-check": "^2.0.1",
+    "node-fetch": "^2.6.7"
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
@@ -123,13 +127,11 @@
     "@types/styled-components": "^5.1.15",
     "@types/validator": "^13.6.4",
     "@types/webpack": "^5.28.0",
-    "@types/webpack-dev-server": "^4.3.1",
     "@types/yup": "^0.29.13",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.13.3",
-    "clean-webpack-plugin": "^4.0.0",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
