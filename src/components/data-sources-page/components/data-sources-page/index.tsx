@@ -14,7 +14,7 @@ import Skeleton from 'react-loading-skeleton';
 import {
   useGetServiceMessagesQuery,
   ServiceMessage,
-  Enum_Servicemessage_Channel
+  Enum_Servicemessage_Environment
 } from '../../../../services/api/strapi/generated/graphql';
 
 import ConfirmDialog from '../../../confirm-dialog';
@@ -98,8 +98,10 @@ const DataSourcesPage: FC<Props> = ({
   );
   const { data } = useGetServiceMessagesQuery({
     variables: {
-      channel: Enum_Servicemessage_Channel.Adminportal,
-      today: new Date(now_utc)
+      today: new Date(now_utc),
+      env: window.location.hostname.match('localhost|staging')
+        ? Enum_Servicemessage_Environment.Staging
+        : Enum_Servicemessage_Environment.Production
     }
   });
   const serviceMessages = data?.serviceMessages as ServiceMessage[];
