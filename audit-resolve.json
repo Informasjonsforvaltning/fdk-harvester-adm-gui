@@ -4,6 +4,76 @@
       "decision": "ignore",
       "madeAt": 1643638731081,
       "expiresAt": 1646230721999
+    },
+    "1005162|@graphql-codegen/cli>@graphql-tools/url-loader>ws": {
+      "decision": "ignore",
+      "madeAt": 1645543113079,
+      "expiresAt": 1648135087900
+    },
+    "1005162|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>ws": {
+      "decision": "ignore",
+      "madeAt": 1645543113079,
+      "expiresAt": 1648135087900
+    },
+    "1006899|@graphql-codegen/cli>@graphql-tools/apollo-engine-loader>cross-fetch>node-fetch": {
+      "decision": "ignore",
+      "madeAt": 1645543118921,
+      "expiresAt": 1648135087900
+    },
+    "1006899|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>cross-fetch>node-fetch": {
+      "decision": "ignore",
+      "madeAt": 1645543118921,
+      "expiresAt": 1648135087900
+    },
+    "1004946|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|@graphql-codegen/cli>listr>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|cz-conventional-changelog>commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004946|cz-conventional-changelog>commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1645543121602,
+      "expiresAt": 1648135087900
+    },
+    "1004967|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1645543124041,
+      "expiresAt": 1648135087900
+    },
+    "1005018|@fellesdatakatalog/internal-footer>@fellesdatakatalog/skatteetaten-frontend-components>axios": {
+      "decision": "ignore",
+      "madeAt": 1645543127991,
+      "expiresAt": 1648135087900
+    },
+    "1005018|@fellesdatakatalog/internal-header>@fellesdatakatalog/skatteetaten-frontend-components>axios": {
+      "decision": "ignore",
+      "madeAt": 1645543127991,
+      "expiresAt": 1648135087900
     }
   },
   "rules": {},
