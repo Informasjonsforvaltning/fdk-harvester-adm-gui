@@ -6,6 +6,7 @@ export enum Environment {
 export enum Standard {
   DCAT_AP_NO = 'DCAT-AP-NO',
   SKOS_AP_NO = 'SKOS-AP-NO',
+  TBX = 'TBX',
   CPSV_AP_NO = 'CPSV-AP-NO'
 }
 
@@ -23,7 +24,8 @@ export enum MimeType {
   RDF_JSON = 'application/rdf+json',
   LD_JSON = 'application/ld+json',
   NTRIPLES = 'application/n-triples',
-  N3 = 'text/n3'
+  N3 = 'text/n3',
+  TBX3 = 'application/x-tbx'
 }
 
 export enum Shapes {

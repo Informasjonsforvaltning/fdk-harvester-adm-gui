@@ -27,7 +27,7 @@ export default Yup.object().shape({
         .nullable()
         .required('Datakildetype er obligatorisk')
         .oneOf(
-          [null, Standard.SKOS_AP_NO],
+          [null, Standard.SKOS_AP_NO, Standard.TBX],
           `Spesifikasjonen er ikke støttet av begrepskatalog`
         )
     })
@@ -80,5 +80,11 @@ export default Yup.object().shape({
     .required('Utgiver er obligatorisk')
     .matches(/^\d{9}$/, 'Organisasjonsnummeret til utgiver er ugyldig'),
   description: Yup.string().required('Navn på datakilde er obligatorisk'),
-  acceptHeaderValue: Yup.string().nullable().required('Format er obligatorisk')
+  acceptHeaderValue: Yup.string().nullable().required('Format er obligatorisk'),
+  authHeader: Yup.object()
+    .nullable()
+    .shape({
+      name: Yup.string().required('Autentisering header navn er obligatorisk'),
+      value: Yup.string().required('Autentisering header verdi er obligatorisk')
+    })
 });

@@ -60,7 +60,7 @@ const DataSourceItemEditor: FC<Props> = ({
   const hasOrganizationAdminPermissions =
     authService.hasOrganizationAdminPermissions();
 
-  const datatTypeOptions = [
+  const dataTypeOptions = [
     { value: DataType.CONCEPT, label: 'Begrep' },
     { value: DataType.DATASET, label: 'Datasett' },
     { value: DataType.INFORMATION_MODEL, label: 'Informasjonsmodell' },
@@ -70,6 +70,7 @@ const DataSourceItemEditor: FC<Props> = ({
 
   const datatSourceTypeOptions = [
     { value: Standard.SKOS_AP_NO, label: 'SKOS-AP-NO' },
+    { value: Standard.TBX, label: 'TBX' },
     { value: Standard.DCAT_AP_NO, label: 'DCAT-AP-NO' },
     { value: Standard.CPSV_AP_NO, label: 'CPSV-AP-NO' }
   ];
@@ -80,7 +81,8 @@ const DataSourceItemEditor: FC<Props> = ({
     { value: MimeType.RDF_JSON, label: 'RDF/JSON' },
     { value: MimeType.LD_JSON, label: 'JSON-LD' },
     { value: MimeType.NTRIPLES, label: 'N-Triples' },
-    { value: MimeType.N3, label: 'N3' }
+    { value: MimeType.N3, label: 'N3' },
+    { value: MimeType.TBX3, label: 'TBX3' }
   ];
 
   const dataSourceItemEditorRef: MutableRefObject<any> = useRef();
@@ -101,7 +103,7 @@ const DataSourceItemEditor: FC<Props> = ({
   const filterDataSourceType = ({ value }: { value: Standard }) => {
     switch (values.dataType) {
       case DataType.CONCEPT:
-        return [Standard.SKOS_AP_NO].find(type => value === type);
+        return [Standard.SKOS_AP_NO, Standard.TBX].find(type => value === type);
       case DataType.DATASET:
         return [Standard.DCAT_AP_NO].find(type => value === type);
       case DataType.INFORMATION_MODEL:
@@ -112,6 +114,15 @@ const DataSourceItemEditor: FC<Props> = ({
         return [Standard.CPSV_AP_NO].find(type => value === type);
       default:
         return true;
+    }
+  };
+
+  const filterFormat = ({ value }: { value: MimeType }) => {
+    switch (values.dataSourceType) {
+      case Standard.TBX:
+        return [MimeType.TBX3].find(type => value === type);
+      default:
+        return [MimeType.TBX3].find(type => value !== type);
     }
   };
 
@@ -202,12 +213,12 @@ const DataSourceItemEditor: FC<Props> = ({
                 <div>Velg katalog datakilden hører til.</div>
               </SC.FieldHeader>
               <SC.Select
-                options={datatTypeOptions}
+                options={dataTypeOptions}
                 isClearable={false}
                 name='dataType'
                 value={
-                  datatTypeOptions &&
-                  datatTypeOptions.find(
+                  dataTypeOptions &&
+                  dataTypeOptions.find(
                     option => option?.value === values.dataType
                   )
                 }
@@ -249,7 +260,7 @@ const DataSourceItemEditor: FC<Props> = ({
                 <div>Velg formatet til datakilden (HTTP Content-Type).</div>
               </SC.FieldHeader>
               <SC.Select
-                options={formatOptions}
+                options={formatOptions.filter(filterFormat)}
                 isClearable={false}
                 name='acceptHeaderValue'
                 onChange={(option: any) =>
@@ -306,6 +317,34 @@ const DataSourceItemEditor: FC<Props> = ({
               />
               <SC.ErrorMessage name='url' component='div' />
             </SC.FieldSet>
+            <SC.FieldSet>
+              <SC.FieldHeader>
+                <div>
+                  <h2>Autentisering - HTTP Header</h2>
+                </div>
+                <div>Oppgi navn og verdi til autentiseringsheaderen.</div>
+              </SC.FieldHeader>
+              <input
+                type='text'
+                name='authHeader.name'
+                placeholder='F.eks. X-API-KEY'
+                value={values.authHeader?.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              <SC.ErrorMessage name='url' component='div' />
+              <input
+                type='text'
+                name='authHeader.value'
+                placeholder='F.eks. 7085e14c-0e9a-4953-ae53-c68e1c54e458'
+                value={values.authHeader?.value}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              <SC.ErrorMessage name='url' component='div' />
+            </SC.FieldSet>
 
             <SC.ModalActions>
               <Button
@@ -334,7 +373,8 @@ const formikConfig: WithFormikConfig<Props, FormValues> = {
       url = '',
       publisherId = '',
       description = '',
-      acceptHeaderValue = null
+      acceptHeaderValue = null,
+      authHeader = null
     } = {}
   }: Props) => ({
     dataType,
@@ -342,7 +382,8 @@ const formikConfig: WithFormikConfig<Props, FormValues> = {
     url,
     publisherId,
     description,
-    acceptHeaderValue
+    acceptHeaderValue,
+    authHeader
   }),
   handleSubmit: (values, { props: { onSave, dataSource } }) =>
     onSave(
