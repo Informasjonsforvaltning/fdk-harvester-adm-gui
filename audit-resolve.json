@@ -76,14 +76,134 @@
       "expiresAt": 1648135087900
     },
     "1065080|@graphql-codegen/cli>@graphql-tools/url-loader>ws": {
-      "decision": "ignore",
-      "madeAt": 1647594714622,
-      "expiresAt": 1648199491184
+      "decision": "fix",
+      "madeAt": 1648200757479
     },
     "1065080|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>ws": {
+      "decision": "fix",
+      "madeAt": 1648200757479
+    },
+    "1067278|webpack-dev-server>selfsigned>node-forge": {
+      "decision": "fix",
+      "madeAt": 1648200700898
+    },
+    "1067279|webpack-dev-server>selfsigned>node-forge": {
+      "decision": "fix",
+      "madeAt": 1648200701680
+    },
+    "1067280|webpack-dev-server>selfsigned>node-forge": {
+      "decision": "fix",
+      "madeAt": 1648200702374
+    },
+    "1067285|@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|@pmmmwh/react-refresh-webpack-plugin>loader-utils>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|react-svg-loader>react-svg-core>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>@jest/core>@jest/transform>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|@graphql-codegen/typescript>@graphql-codegen/visitor-plugin-common>@graphql-tools/relay-operation-optimizer>relay-compiler>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|@graphql-codegen/typescript-operations>@graphql-codegen/typescript>@graphql-codegen/visitor-plugin-common>@graphql-tools/relay-operation-optimizer>relay-compiler>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>@jest/core>jest-config>@jest/test-sequencer>jest-runtime>@jest/transform>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>jest-cli>@jest/core>jest-config>@jest/test-sequencer>jest-runtime>@jest/transform>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>jest-cli>@jest/core>jest-config>@jest/test-sequencer>jest-runtime>jest-snapshot>@jest/transform>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>jest-cli>@jest/core>jest-config>@jest/test-sequencer>jest-runtime>@jest/transform>babel-plugin-istanbul>istanbul-lib-instrument>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|jest>jest-cli>@jest/core>jest-config>@jest/test-sequencer>jest-runtime>jest-snapshot>@jest/transform>babel-plugin-istanbul>istanbul-lib-instrument>@babel/core>json5>minimist": {
+      "decision": "fix",
+      "madeAt": 1648200703472
+    },
+    "1067285|commitizen>minimist": {
       "decision": "ignore",
-      "madeAt": 1647594714622,
-      "expiresAt": 1648199491184
+      "madeAt": 1648200765071,
+      "expiresAt": 1650792750749
+    },
+    "1064646|@graphql-codegen/cli>@graphql-tools/apollo-engine-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1648200755986
+    },
+    "1064646|@graphql-codegen/cli>@graphql-tools/github-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1648200755986
+    },
+    "1064646|@graphql-codegen/cli>@graphql-tools/url-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1648200755986
+    },
+    "1064646|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1648200755986
+    },
+    "1064843|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|@graphql-codegen/cli>listr>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|cz-conventional-changelog>commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064843|cz-conventional-changelog>commitizen>inquirer>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1648200761313,
+      "expiresAt": 1650792750749
+    },
+    "1064864|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1648200763184,
+      "expiresAt": 1650792750749
+    },
+    "1067285|cz-conventional-changelog>commitizen>minimist": {
+      "decision": "ignore",
+      "madeAt": 1648200765071,
+      "expiresAt": 1650792750749
     }
   },
   "rules": {},
