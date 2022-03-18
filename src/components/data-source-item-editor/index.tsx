@@ -331,7 +331,6 @@ const DataSourceItemEditor: FC<Props> = ({
                 value={values.authHeader?.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required
               />
               <SC.ErrorMessage name='url' component='div' />
               <input
@@ -341,7 +340,6 @@ const DataSourceItemEditor: FC<Props> = ({
                 value={values.authHeader?.value}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required
               />
               <SC.ErrorMessage name='url' component='div' />
             </SC.FieldSet>
