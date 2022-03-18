@@ -74,6 +74,16 @@
       "decision": "ignore",
       "madeAt": 1645543127991,
       "expiresAt": 1648135087900
+    },
+    "1065080|@graphql-codegen/cli>@graphql-tools/url-loader>ws": {
+      "decision": "ignore",
+      "madeAt": 1647594714622,
+      "expiresAt": 1648199491184
+    },
+    "1065080|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>ws": {
+      "decision": "ignore",
+      "madeAt": 1647594714622,
+      "expiresAt": 1648199491184
     }
   },
   "rules": {},
