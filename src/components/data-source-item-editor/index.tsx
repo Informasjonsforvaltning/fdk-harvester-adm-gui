@@ -27,7 +27,11 @@ interface FormValues extends Omit<DataSource, 'id'> {}
 interface ExternalProps {
   dataSource?: Partial<DataSource>;
   onDiscard: () => void;
-  onSave: (dataSource: DataSource, update: boolean) => void;
+  onSave: (
+    dataSource: DataSource,
+    organizationId: string,
+    update: boolean
+  ) => void;
 }
 
 interface Props extends ExternalProps, FormikProps<FormValues> {
@@ -341,7 +345,11 @@ const formikConfig: WithFormikConfig<Props, FormValues> = {
     acceptHeaderValue
   }),
   handleSubmit: (values, { props: { onSave, dataSource } }) =>
-    onSave({ id: dataSource?.id ?? '', ...values }, !!dataSource),
+    onSave(
+      { id: dataSource?.id ?? '', ...values },
+      dataSource?.publisherId ?? values.publisherId,
+      !!dataSource
+    ),
   validationSchema,
   validateOnMount: false,
   displayName: 'DataSourceItemEditor'

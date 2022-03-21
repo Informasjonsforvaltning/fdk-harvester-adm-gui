@@ -42,11 +42,12 @@ export function fetchDataSourcesFailed(message: string) {
   };
 }
 
-export function harvestDataSourceRequested(id: string) {
+export function harvestDataSourceRequested(id: string, org: string) {
   return {
     type: HARVEST_DATA_SOURCE_REQUESTED,
     payload: {
-      id
+      id,
+      org
     }
   };
 }
@@ -95,10 +96,11 @@ export function registerDataSourceFailed(message: string) {
   };
 }
 
-export function updateDataSourceRequested(dataSource: DataSource) {
+export function updateDataSourceRequested(org: string, dataSource: DataSource) {
   return {
     type: UPDATE_DATA_SOURCE_REQUESTED,
     payload: {
+      org,
       dataSource
     }
   };
@@ -122,11 +124,12 @@ export function updateDataSourceFailed(message: string) {
   };
 }
 
-export function removeDataSourceRequested(id: string) {
+export function removeDataSourceRequested(id: string, org: string) {
   return {
     type: REMOVE_DATA_SOURCE_REQUESTED,
     payload: {
-      id
+      id,
+      org
     }
   };
 }

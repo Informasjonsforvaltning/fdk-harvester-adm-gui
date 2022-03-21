@@ -86,6 +86,7 @@ const DataSourcesPage: FC<Props> = ({
   const [showEditor, setShowEditor] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [dataSourceId, setDataSourceId] = useState<string | null>(null);
+  const [dataSourceOrg, setDataSourceOrg] = useState<string | null>(null);
 
   const date = new Date();
   const now_utc = Date.UTC(
@@ -106,16 +107,18 @@ const DataSourcesPage: FC<Props> = ({
   });
   const serviceMessages = data?.serviceMessages as ServiceMessage[];
 
-  const showDataSourceItemEditor = (id?: string) => {
+  const showDataSourceItemEditor = (id?: string, organizationId?: string) => {
     document.body.classList.add('no-scroll');
     setShowEditor(true);
     setDataSourceId(id ?? null);
+    setDataSourceOrg(organizationId ?? null);
   };
 
   const hideDataSourceItemEditor = () => {
     document.body.classList.remove('no-scroll');
     setShowEditor(false);
     setDataSourceId(null);
+    setDataSourceOrg(null);
   };
 
   const showSnackbar = () => {
@@ -126,14 +129,16 @@ const DataSourcesPage: FC<Props> = ({
     setSnackbarOpen(false);
   };
 
-  const showConfirm = (id: string) => {
+  const showConfirm = (id: string, organizationId: string) => {
     setShowConfirmModal(true);
     setDataSourceId(id);
+    setDataSourceOrg(organizationId);
   };
 
   const hideConfirm = () => {
     setShowConfirmModal(false);
     setDataSourceId(null);
+    setDataSourceOrg(null);
   };
 
   const fetchDataSources = () => {
@@ -151,9 +156,13 @@ const DataSourcesPage: FC<Props> = ({
   const getOrganization = (id: string) =>
     organizations.find(({ organizationId }) => organizationId === id);
 
-  const saveDataSourceItem = (dataSource: DataSource, update: boolean) => {
+  const saveDataSourceItem = (
+    dataSource: DataSource,
+    org: string,
+    update: boolean
+  ) => {
     if (update) {
-      updateDataSourceRequested(dataSource as DataSource);
+      updateDataSourceRequested(org, dataSource as DataSource);
     } else {
       registerDataSourceRequested(dataSource);
     }
@@ -161,14 +170,14 @@ const DataSourcesPage: FC<Props> = ({
     fetchOrganizations();
   };
 
-  const harvestDataSourceItem = (id: string) => {
-    harvestDataSourceRequested(id);
+  const harvestDataSourceItem = (id: string, organizationId: string) => {
+    harvestDataSourceRequested(id, organizationId);
   };
 
   const removeDataSourceItem = () => {
-    if (dataSourceId) {
+    if (dataSourceId && dataSourceOrg) {
       hideConfirm();
-      removeDataSourceRequested(dataSourceId);
+      removeDataSourceRequested(dataSourceId, dataSourceOrg);
     }
   };
 

@@ -22,7 +22,7 @@ function* fetchDataSourcesRequested() {
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.get,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources`,
+      `${FDK_HARVEST_ADMIN_HOST}/datasources`,
       {
         headers: {
           authorization
@@ -40,14 +40,14 @@ function* fetchDataSourcesRequested() {
 }
 
 function* harvestDataSourceRequested({
-  payload: { id }
+  payload: { id, org }
 }: ReturnType<typeof actions.harvestDataSourceRequested>) {
   try {
     const auth = yield getContext('auth');
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { message, status } = yield call(
       axios.post,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      `${FDK_HARVEST_ADMIN_HOST}/organizations/${org}/datasources/${id}/start-harvesting`,
       {},
       {
         headers: {
@@ -71,9 +71,9 @@ function* registerDataSourceRequested({
   try {
     const auth = yield getContext('auth');
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
-    const { headers, message, status } = yield call(
+    const { data, message, status } = yield call(
       axios.post,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources`,
+      `${FDK_HARVEST_ADMIN_HOST}/organizations/${dataSource.publisherId}/datasources`,
       dataSource,
       {
         headers: {
@@ -82,12 +82,7 @@ function* registerDataSourceRequested({
       }
     );
     if (status === 201) {
-      yield put(
-        actions.registerDataSourceSucceeded({
-          ...dataSource,
-          id: headers.location
-        } as DataSource)
-      );
+      yield put(actions.registerDataSourceSucceeded(data as DataSource));
     } else {
       yield put(actions.registerDataSourceFailed(JSON.stringify(message)));
     }
@@ -98,6 +93,7 @@ function* registerDataSourceRequested({
 
 function* updateDataSourceRequested({
   payload: {
+    org,
     dataSource: { id, ...dataSourceData }
   }
 }: ReturnType<typeof actions.updateDataSourceRequested>) {
@@ -106,7 +102,7 @@ function* updateDataSourceRequested({
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message, status } = yield call(
       axios.put,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      `${FDK_HARVEST_ADMIN_HOST}/organizations/${org}/datasources/${id}`,
       dataSourceData,
       {
         headers: {
@@ -130,14 +126,14 @@ function* updateDataSourceRequested({
 }
 
 function* removeDataSourceRequested({
-  payload: { id }
+  payload: { id, org }
 }: ReturnType<typeof actions.removeDataSourceRequested>) {
   try {
     const auth = yield getContext('auth');
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { message, status } = yield call(
       axios.delete,
-      `${FDK_HARVEST_ADMIN_HOST}/api/datasources/${id}`,
+      `${FDK_HARVEST_ADMIN_HOST}/organizations/${org}/datasources/${id}`,
       {
         headers: {
           authorization
