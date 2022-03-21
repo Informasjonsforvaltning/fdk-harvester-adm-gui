@@ -23,9 +23,9 @@ import env from '../../env';
 interface Props {
   dataSourceItem: DataSource;
   organization?: Organization;
-  onDataSourceItemHarvest: (id: string) => void;
-  onDataSourceItemEdit: (id: string) => void;
-  onDataSourceItemRemove: (id: string) => void;
+  onDataSourceItemHarvest: (id: string, organizationId: string) => void;
+  onDataSourceItemEdit: (id: string, organizationId: string) => void;
+  onDataSourceItemRemove: (id: string, organizationId: string) => void;
 }
 
 const { FDK_BASE_URI } = env;
@@ -116,14 +116,14 @@ const DataSourceItem: FC<Props> = ({
   const DatasetItemControls = () => (
     <SC.DatasetItemControls>
       <SC.HarvestButton
-        onClick={() => onDataSourceItemHarvest(id)}
+        onClick={() => onDataSourceItemHarvest(id, publisherId)}
         $dataType={dataType}
       >
         <ImportIcon />
         Høst
       </SC.HarvestButton>
       <SC.EditButton
-        onClick={() => onDataSourceItemEdit(id)}
+        onClick={() => onDataSourceItemEdit(id, publisherId)}
         variant={Variant.SECONDARY}
         $dataType={dataType}
       >
@@ -144,7 +144,7 @@ const DataSourceItem: FC<Props> = ({
       </SC.ValidateLink>
 
       <SC.TertiaryButton
-        onClick={() => onDataSourceItemRemove(id)}
+        onClick={() => onDataSourceItemRemove(id, publisherId)}
         variant={Variant.TERTIARY}
         $dataType={dataType}
       >
