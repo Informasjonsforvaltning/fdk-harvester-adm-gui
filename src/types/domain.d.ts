@@ -26,4 +26,17 @@ export interface Filter {
   dataType?: DataType;
 }
 
+export interface HarvestStatus {
+  id: string;
+  statuses: Array<StatusForDataType>;
+}
+
+export interface StatusForDataType {
+  harvestType: string;
+  status: string;
+  startTime: string;
+  endTime: string;
+  errorMessage: string;
+}
+
 export type SnackbarVariant = 'harvest:success' | 'harvest:error';

@@ -1,7 +1,7 @@
 import React, { ComponentType, memo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { DataSource, SnackbarVariant } from '../../types';
+import { DataSource, HarvestStatus, SnackbarVariant } from '../../types';
 
 import * as actions from './redux/actions';
 
@@ -10,6 +10,7 @@ export interface Props {
   dataSources: DataSource[];
   dataSourceActions: typeof actions;
   snackbarVariant: SnackbarVariant;
+  harvestStatus: HarvestStatus;
 }
 
 const withDataSources = (Component: ComponentType<any>) => {
@@ -18,7 +19,8 @@ const withDataSources = (Component: ComponentType<any>) => {
   const mapStateToProps = (state: any) => ({
     fetchingDataSources: state.DataSourcesReducer.get('isFetching'),
     dataSources: state.DataSourcesReducer.get('dataSources')?.toJS(),
-    snackbarVariant: state.DataSourcesReducer.get('snackbarVariant')
+    snackbarVariant: state.DataSourcesReducer.get('snackbarVariant'),
+    harvestStatus: state.DataSourcesReducer.get('harvestStatus')?.toJS()
   });
 
   const mapDispatchToProps = (dispatch: Dispatch) => ({
