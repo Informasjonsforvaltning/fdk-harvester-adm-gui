@@ -31,12 +31,14 @@ import SC from './styled';
 import SideBar from '../side-bar';
 import DataSourceItem from '../../../data-source-item';
 import DataSourceItemEditor from '../../../data-source-item-editor';
+import HarvestStatusModal from '../../../harvest-status-modal';
 
 import ServiceMessages from '../../../service-messages';
 
 import {
   DataSource,
   Filter,
+  HarvestStatus,
   Organization,
   SnackbarVariant
 } from '../../../../types';
@@ -48,6 +50,7 @@ interface Props {
   authService: Auth;
   fetchingDataSources: boolean;
   dataSources: DataSource[];
+  harvestStatus?: HarvestStatus;
   snackbarVariant?: SnackbarVariant;
   dataSourceActions: typeof DataSourceActions;
   organizations: Organization[];
@@ -70,13 +73,15 @@ const DataSourcesPage: FC<Props> = ({
   authService,
   fetchingDataSources,
   dataSources,
+  harvestStatus,
   snackbarVariant,
   dataSourceActions: {
     fetchDataSourcesRequested,
     registerDataSourceRequested,
     updateDataSourceRequested,
     removeDataSourceRequested,
-    harvestDataSourceRequested
+    harvestDataSourceRequested,
+    harvestStatusRequested
   },
   organizations,
   organizationActions: { fetchOrganizationsRequested },
@@ -84,6 +89,7 @@ const DataSourcesPage: FC<Props> = ({
 }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
+  const [showHarvestStatusModal, setShowHarvestStatusModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [dataSourceId, setDataSourceId] = useState<string | null>(null);
   const [dataSourceOrg, setDataSourceOrg] = useState<string | null>(null);
@@ -172,6 +178,24 @@ const DataSourcesPage: FC<Props> = ({
 
   const harvestDataSourceItem = (id: string, organizationId: string) => {
     harvestDataSourceRequested(id, organizationId);
+  };
+
+  const showDataSourceItemHarvestStatus = (
+    id: string,
+    organizationId: string
+  ) => {
+    document.body.classList.add('no-scroll');
+    harvestStatusRequested(id, organizationId);
+    setShowHarvestStatusModal(true);
+    setDataSourceId(id ?? null);
+    setDataSourceOrg(organizationId ?? null);
+  };
+
+  const hideDataSourceItemHarvestStatus = () => {
+    document.body.classList.remove('no-scroll');
+    setShowHarvestStatusModal(false);
+    setDataSourceId(null);
+    setDataSourceOrg(null);
   };
 
   const removeDataSourceItem = () => {
@@ -288,6 +312,7 @@ const DataSourcesPage: FC<Props> = ({
                 dataSourceItem={dataSourceItem}
                 organization={getOrganization(dataSourceItem.publisherId)}
                 onDataSourceItemHarvest={harvestDataSourceItem}
+                onDataSourceHarvestStatus={showDataSourceItemHarvestStatus}
                 onDataSourceItemEdit={showDataSourceItemEditor}
                 onDataSourceItemRemove={showConfirm}
               />
@@ -325,6 +350,15 @@ const DataSourcesPage: FC<Props> = ({
             dataSource={dataSource}
             onDiscard={hideDataSourceItemEditor}
             onSave={saveDataSourceItem}
+          />
+        )}
+        {showHarvestStatusModal && (
+          <HarvestStatusModal
+            name={
+              dataSources.find(ds => ds.id === harvestStatus?.id)?.description
+            }
+            harvestStatus={harvestStatus}
+            onDiscard={hideDataSourceItemHarvestStatus}
           />
         )}
         {showConfirmModal && (

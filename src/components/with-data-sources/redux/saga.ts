@@ -7,12 +7,13 @@ import * as actions from './actions';
 import {
   FETCH_DATA_SOURCES_REQUESTED,
   HARVEST_DATA_SOURCE_REQUESTED,
+  HARVEST_STATUS_REQUESTED,
   REGISTER_DATA_SOURCE_REQUESTED,
   UPDATE_DATA_SOURCE_REQUESTED,
   REMOVE_DATA_SOURCE_REQUESTED
 } from './action-types';
 
-import { DataSource } from '../../../types';
+import { DataSource, HarvestStatus } from '../../../types';
 
 const { FDK_HARVEST_ADMIN_HOST } = env;
 
@@ -150,10 +151,29 @@ function* removeDataSourceRequested({
   }
 }
 
+function* harvestStatusRequested({
+  payload: { id, org }
+}: ReturnType<typeof actions.harvestStatusRequested>) {
+  try {
+    const { data, message, status } = yield call(
+      axios.get,
+      `${FDK_HARVEST_ADMIN_HOST}/organizations/${org}/datasources/${id}/status`
+    );
+    if (status === 200) {
+      yield put(actions.harvestStatusSucceeded(data as HarvestStatus));
+    } else {
+      yield put(actions.harvestStatusFailed(JSON.stringify(message)));
+    }
+  } catch (e: any) {
+    yield put(actions.harvestStatusFailed(e.message));
+  }
+}
+
 export default function* saga() {
   yield all([
     takeLatest(FETCH_DATA_SOURCES_REQUESTED, fetchDataSourcesRequested),
     takeLatest(HARVEST_DATA_SOURCE_REQUESTED, harvestDataSourceRequested),
+    takeLatest(HARVEST_STATUS_REQUESTED, harvestStatusRequested),
     takeLatest(REGISTER_DATA_SOURCE_REQUESTED, registerDataSourceRequested),
     takeLatest(UPDATE_DATA_SOURCE_REQUESTED, updateDataSourceRequested),
     takeLatest(REMOVE_DATA_SOURCE_REQUESTED, removeDataSourceRequested)

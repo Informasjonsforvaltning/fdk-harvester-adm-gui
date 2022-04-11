@@ -24,6 +24,7 @@ interface Props {
   dataSourceItem: DataSource;
   organization?: Organization;
   onDataSourceItemHarvest: (id: string, organizationId: string) => void;
+  onDataSourceHarvestStatus: (id: string, organizationId: string) => void;
   onDataSourceItemEdit: (id: string, organizationId: string) => void;
   onDataSourceItemRemove: (id: string, organizationId: string) => void;
 }
@@ -41,6 +42,7 @@ const DataSourceItem: FC<Props> = ({
   },
   organization,
   onDataSourceItemHarvest,
+  onDataSourceHarvestStatus,
   onDataSourceItemEdit,
   onDataSourceItemRemove
 }) => {
@@ -121,6 +123,12 @@ const DataSourceItem: FC<Props> = ({
       >
         <ImportIcon />
         Høst
+      </SC.HarvestButton>
+      <SC.HarvestButton
+        onClick={() => onDataSourceHarvestStatus(id, publisherId)}
+        $dataType={dataType}
+      >
+        Høstestatus
       </SC.HarvestButton>
       <SC.EditButton
         onClick={() => onDataSourceItemEdit(id, publisherId)}

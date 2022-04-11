@@ -5,6 +5,9 @@ import {
   HARVEST_DATA_SOURCE_FAILED,
   HARVEST_DATA_SOURCE_REQUESTED,
   HARVEST_DATA_SOURCE_SUCCEEDED,
+  HARVEST_STATUS_FAILED,
+  HARVEST_STATUS_REQUESTED,
+  HARVEST_STATUS_SUCCEEDED,
   REGISTER_DATA_SOURCE_FAILED,
   REGISTER_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
@@ -16,7 +19,7 @@ import {
   UPDATE_DATA_SOURCE_SUCCEEDED
 } from './action-types';
 
-import type { DataSource } from '../../../types';
+import type { DataSource, HarvestStatus } from '../../../types';
 
 export function fetchDataSourcesRequested() {
   return {
@@ -61,6 +64,34 @@ export function harvestDataSourceSucceeded() {
 export function harvestDataSourceFailed(message: string) {
   return {
     type: HARVEST_DATA_SOURCE_FAILED,
+    payload: {
+      message
+    }
+  };
+}
+
+export function harvestStatusRequested(id: string, org: string) {
+  return {
+    type: HARVEST_STATUS_REQUESTED,
+    payload: {
+      id,
+      org
+    }
+  };
+}
+
+export function harvestStatusSucceeded(status: HarvestStatus) {
+  return {
+    type: HARVEST_STATUS_SUCCEEDED,
+    payload: {
+      status
+    }
+  };
+}
+
+export function harvestStatusFailed(message: string) {
+  return {
+    type: HARVEST_STATUS_FAILED,
     payload: {
       message
     }

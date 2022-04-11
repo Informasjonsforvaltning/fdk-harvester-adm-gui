@@ -10,7 +10,10 @@ import {
   HARVEST_DATA_SOURCE_REQUESTED,
   REGISTER_DATA_SOURCE_SUCCEEDED,
   UPDATE_DATA_SOURCE_SUCCEEDED,
-  REMOVE_DATA_SOURCE_SUCCEEDED
+  REMOVE_DATA_SOURCE_SUCCEEDED,
+  HARVEST_STATUS_REQUESTED,
+  HARVEST_STATUS_SUCCEEDED,
+  HARVEST_STATUS_FAILED
 } from './action-types';
 
 import { Actions } from '../../../types';
@@ -18,6 +21,7 @@ import { Actions } from '../../../types';
 const initialState = fromJS({
   dataSources: [],
   organizations: [],
+  harvestStatus: undefined,
   snackbarVariant: undefined
 });
 
@@ -58,6 +62,12 @@ export default function reducer(
       return state.set('snackbarVariant', 'harvest:success');
     case HARVEST_DATA_SOURCE_FAILED:
       return state.set('snackbarVariant', 'harvest:error');
+    case HARVEST_STATUS_REQUESTED:
+      return state.set('harvestStatus', undefined);
+    case HARVEST_STATUS_SUCCEEDED:
+      return state.set('harvestStatus', fromJS(action.payload.status));
+    case HARVEST_STATUS_FAILED:
+      return state.set('harvestStatus', undefined);
     default:
       return state;
   }
