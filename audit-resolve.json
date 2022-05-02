@@ -204,6 +204,88 @@
       "decision": "ignore",
       "madeAt": 1648200765071,
       "expiresAt": 1650792750749
+    },
+    "1070022|@graphql-codegen/cli>@graphql-tools/apollo-engine-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070022|@graphql-codegen/cli>@graphql-tools/github-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070022|@graphql-codegen/cli>@graphql-tools/url-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070022|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>cross-fetch>node-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070101|@graphql-codegen/cli>@graphql-tools/url-loader>ws": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070101|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>ws": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070266|@graphql-codegen/cli>@graphql-tools/apollo-engine-loader>cross-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070266|@graphql-codegen/cli>@graphql-tools/github-loader>cross-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070266|@graphql-codegen/cli>@graphql-tools/url-loader>cross-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070266|@graphql-codegen/cli>@graphql-tools/prisma-loader>@graphql-tools/url-loader>cross-fetch": {
+      "decision": "fix",
+      "madeAt": 1651493066473
+    },
+    "1070250|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>strip-ansi>ansi-regex": {
+      "decision": "fix",
+      "madeAt": 1651493078145
+    },
+    "1070250|@graphql-codegen/cli>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "fix",
+      "madeAt": 1651493078145
+    },
+    "1070250|@graphql-codegen/cli>listr>listr-update-renderer>log-update>wrap-ansi>string-width>strip-ansi>ansi-regex": {
+      "decision": "fix",
+      "madeAt": 1651493078145
+    },
+    "1070250|commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1651493136897,
+      "expiresAt": 1654085123061
+    },
+    "1070250|cz-conventional-changelog>commitizen>inquirer>string-width>strip-ansi>ansi-regex": {
+      "decision": "ignore",
+      "madeAt": 1651493136897,
+      "expiresAt": 1654085123061
+    },
+    "1067342|commitizen>minimist": {
+      "decision": "ignore",
+      "madeAt": 1651493094573,
+      "expiresAt": 1654085023761
+    },
+    "1067342|cz-conventional-changelog>commitizen>minimist": {
+      "decision": "ignore",
+      "madeAt": 1651493094574,
+      "expiresAt": 1654085023761
+    },
+    "1067654|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1651493100764,
+      "expiresAt": 1654085023761
+    },
+    "1070245|@fellesdatakatalog/internal-footer>@skatteetaten/frontend-components>moment": {
+      "decision": "ignore",
+      "madeAt": 1651493105964,
+      "expiresAt": 1654085023761
     }
   },
   "rules": {},
