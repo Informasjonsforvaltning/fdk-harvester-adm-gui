@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
-    "@fellesdatakatalog/alert": "^0.1.7",
+    "@fellesdatakatalog/alert": "^0.1.10",
     "@fellesdatakatalog/button": "^0.2.4",
     "@fellesdatakatalog/internal-footer": "^0.3.12",
     "@fellesdatakatalog/internal-header": "^0.5.4",
