@@ -269,13 +269,13 @@
     },
     "1067342|commitizen>minimist": {
       "decision": "ignore",
-      "madeAt": 1651493094573,
-      "expiresAt": 1654085023761
+      "madeAt": 1657181052868,
+      "expiresAt": 1659773047068
     },
     "1067342|cz-conventional-changelog>commitizen>minimist": {
       "decision": "ignore",
-      "madeAt": 1651493094574,
-      "expiresAt": 1654085023761
+      "madeAt": 1657181052868,
+      "expiresAt": 1659773047068
     },
     "1067654|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
       "decision": "ignore",
@@ -286,6 +286,21 @@
       "decision": "ignore",
       "madeAt": 1651493105964,
       "expiresAt": 1654085023761
+    },
+    "1070415|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
+      "decision": "ignore",
+      "madeAt": 1657181054623,
+      "expiresAt": 1659773047068
+    },
+    "1080920|@graphql-codegen/cli>latest-version>package-json>got": {
+      "decision": "ignore",
+      "madeAt": 1657181055926,
+      "expiresAt": 1659773047068
+    },
+    "1080944|@fellesdatakatalog/internal-footer>@skatteetaten/frontend-components>moment": {
+      "decision": "ignore",
+      "madeAt": 1657181058093,
+      "expiresAt": 1659773047068
     }
   },
   "rules": {},
