@@ -324,8 +324,8 @@
     },
     "1081697|@graphql-codegen/cli>cross-undici-fetch>undici": {
       "decision": "ignore",
-      "madeAt": 1658760061378,
-      "expiresAt": 1661352056405
+      "madeAt": 1658819605568,
+      "expiresAt": 1661411590253
     },
     "1081697|@graphql-codegen/cli>@graphql-tools/apollo-engine-loader>@whatwg-node/fetch>undici": {
       "decision": "ignore",
@@ -336,6 +336,31 @@
       "decision": "ignore",
       "madeAt": 1658760061378,
       "expiresAt": 1661352056405
+    },
+    "1081761|@fellesdatakatalog/internal-footer>@skatteetaten/frontend-components>moment": {
+      "decision": "ignore",
+      "madeAt": 1658819603859,
+      "expiresAt": 1661411590253
+    },
+    "1081761|@fellesdatakatalog/internal-header>@skatteetaten/frontend-components>moment": {
+      "decision": "ignore",
+      "madeAt": 1658819603860,
+      "expiresAt": 1661411590253
+    },
+    "1081697|@graphql-tools/apollo-engine-loader>@whatwg-node/fetch>undici": {
+      "decision": "ignore",
+      "madeAt": 1658819605568,
+      "expiresAt": 1661411590253
+    },
+    "1081697|@graphql-tools/github-loader>@whatwg-node/fetch>undici": {
+      "decision": "ignore",
+      "madeAt": 1658819605568,
+      "expiresAt": 1661411590253
+    },
+    "1081697|@graphql-tools/prisma-loader>@graphql-tools/url-loader>@whatwg-node/fetch>undici": {
+      "decision": "ignore",
+      "madeAt": 1658819605568,
+      "expiresAt": 1661411590253
     }
   },
   "rules": {},
