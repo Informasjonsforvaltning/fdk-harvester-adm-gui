@@ -289,8 +289,8 @@
     },
     "1070415|react-svg-loader>react-svg-core>svgo>css-select>nth-check": {
       "decision": "ignore",
-      "madeAt": 1657181054623,
-      "expiresAt": 1659773047068
+      "madeAt": 1661951070589,
+      "expiresAt": 1664543066243
     },
     "1080920|@graphql-codegen/cli>latest-version>package-json>got": {
       "decision": "ignore",
@@ -339,8 +339,8 @@
     },
     "1081761|@fellesdatakatalog/internal-footer>@skatteetaten/frontend-components>moment": {
       "decision": "ignore",
-      "madeAt": 1658819603859,
-      "expiresAt": 1661411590253
+      "madeAt": 1661951072025,
+      "expiresAt": 1664543066243
     },
     "1081761|@fellesdatakatalog/internal-header>@skatteetaten/frontend-components>moment": {
       "decision": "ignore",
