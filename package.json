@@ -87,7 +87,7 @@
     "immutable": "^4.0.0-rc.12",
     "keycloak-js": "^10.0.2",
     "react": "^17.0.1",
-    "react-collapse": "^5.1.0",
+    "react-collapse": "^5.1.1",
     "react-dom": "^17.0.1",
     "react-loading-skeleton": "^3.1.0",
     "react-redux": "^7.2.5",
