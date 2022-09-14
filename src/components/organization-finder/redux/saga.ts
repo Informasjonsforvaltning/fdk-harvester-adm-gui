@@ -6,7 +6,7 @@ import env from '../../../env';
 import * as actions from './actions';
 import { FIND_ONE_DELEGATEE_REQUESTED } from './action-types';
 
-const { ORGANIZATION_CATALOGUE_HOST } = env;
+const { ORGANIZATION_CATALOG_URI } = env;
 
 function* findOneDelegateeRequested({
   payload: { id, onError }
@@ -16,7 +16,7 @@ function* findOneDelegateeRequested({
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.get,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations/${id}`,
+      `${ORGANIZATION_CATALOG_URI}/organizations/${id}`,
       {
         headers: {
           authorization,

@@ -11,13 +11,13 @@ import {
 
 import type { Organization } from '../../../types';
 
-const { ORGANIZATION_CATALOGUE_HOST } = env;
+const { ORGANIZATION_CATALOG_URI } = env;
 
 function* fetchOrganizationsRequested() {
   try {
     const { data, message } = yield call(
       axios.get,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations`
+      `${ORGANIZATION_CATALOG_URI}/organizations`
     );
     if (Array.isArray(data)) {
       yield put(actions.fetchOrganizationsSucceeded(data as Organization[]));
@@ -35,7 +35,7 @@ function* fetchOrganizationRequested({
   try {
     const { data, message } = yield call(
       axios.get,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations/${id}`
+      `${ORGANIZATION_CATALOG_URI}/organizations/${id}`
     );
     if (Array.isArray(data)) {
       yield put(actions.fetchOrganizationsSucceeded(data as Organization[]));
