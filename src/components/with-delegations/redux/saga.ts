@@ -12,7 +12,7 @@ import {
 
 import { Delegatee } from '../../../types';
 
-const { ORGANIZATION_CATALOGUE_HOST } = env;
+const { ORGANIZATION_CATALOG_URI } = env;
 
 function* findAllDelegateesRequested() {
   try {
@@ -20,7 +20,7 @@ function* findAllDelegateesRequested() {
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.get,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations/delegated`,
+      `${ORGANIZATION_CATALOG_URI}/organizations/delegated`,
       {
         headers: {
           authorization,
@@ -53,7 +53,7 @@ function* registerDelegateeRequested({
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.put,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations/${id}`,
+      `${ORGANIZATION_CATALOG_URI}/organizations/${id}`,
       { allowDelegatedRegistration: true },
       {
         headers: {
@@ -85,7 +85,7 @@ function* removeDelegateeRequested({
     const authorization = yield call([auth, auth.getAuthorizationHeader]);
     const { data, message } = yield call(
       axios.put,
-      `${ORGANIZATION_CATALOGUE_HOST}/organizations/${id}`,
+      `${ORGANIZATION_CATALOG_URI}/organizations/${id}`,
       { allowDelegatedRegistration: false },
       {
         headers: {

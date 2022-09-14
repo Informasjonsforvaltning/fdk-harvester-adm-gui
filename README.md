@@ -20,7 +20,7 @@ An administration application for Fellesdatakatalog.
 - Build a Docker container using the following command:
   - `docker build -t fdk-admin-gui .`
 - Run the container using the following comand:
-  - `docker run -d -p 8137:8080 -e ENV -e OIDC_ISSUER -e FDK_HARVEST_ADMIN_HOST -e ORGANIZATION_CATALOGUE_HOST fdk-admin-gui`
+  - `docker run -d -p 8137:8080 -e ENV -e OIDC_ISSUER -e FDK_HARVEST_ADMIN_HOST -e ORGANIZATION_CATALOG_URI fdk-admin-gui`
 
 #### Running application using Docker Compose
 
@@ -36,7 +36,7 @@ An administration application for Fellesdatakatalog.
 - `FDK_BASE_URI` - FDK Base URI
 - `FDK_HARVEST_ADMIN_HOST` - fdk-harvest-admin API hostname
 - `FDK_REGISTRATION_BASE_URI` - Base URI of the FDK registration application
-- `ORGANIZATION_CATALOGUE_HOST` - organization-catalogue API hostname
+- `ORGANIZATION_CATALOG_URI` - organization-catalog API hostname
 - `FDK_CMS_BASE_URI` - dk-cms hostname
 
 ## Contributing
