@@ -207,9 +207,13 @@ const HarvestButton = styled(SecondaryButton)<Props>`
     }
   }};
 
-  &:hover > svg > path,
-  &:focus > svg > path {
-    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  &:hover,
+  &:focus {
+    color: ${theme.colour(Colour.NEUTRAL, 'N0')};
+
+    & > svg > path {
+      fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    }
   }
 `;
 
@@ -261,9 +265,13 @@ const EditButton = styled(SecondaryButton)<Props>`
     }
   }};
 
-  &:hover > svg > path,
-  &:focus > svg > path {
-    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  &:hover,
+  &:focus {
+    color: ${theme.colour(Colour.NEUTRAL, 'N0')};
+
+    & > svg > path {
+      fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    }
   }
 `;
 
@@ -284,12 +292,6 @@ const ValidateLink = styled(RouteLinkBase)<Props>`
   border-radius: 4px;
   padding: ${theme.spacing('S10')} ${theme.spacing('S24')};
   margin-left: 10px;
-
-  &:hover,
-  &:focus {
-    color: ${theme.colour(Colour.NEUTRAL, 'N0')};
-    background: ${theme.colour(Colour.NEUTRAL, 'N70')};
-  }
 
   ${({ $dataType }) => {
     switch ($dataType) {
@@ -353,13 +355,21 @@ const ValidateLink = styled(RouteLinkBase)<Props>`
     }
   }};
 
-  &:hover > svg > path:first-child,
-  &:focus > svg > path:first-child {
-    fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
-  }
-  &:hover > svg > path:last-child,
-  &:focus > svg > path:last-child {
-    stroke: ${theme.colour(Colour.NEUTRAL, 'N0')};
+  &:hover,
+  &:focus {
+    color: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    background: ${theme.colour(Colour.NEUTRAL, 'N70')};
+
+    & > svg > path {
+      fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    }
+
+    & > svg > path:first-child {
+      fill: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    }
+    & > svg > path:last-child {
+      stroke: ${theme.colour(Colour.NEUTRAL, 'N0')};
+    }
   }
 `;
 
@@ -413,11 +423,9 @@ const TertiaryButton = styled(ButtonBase)<Props>`
   &:hover,
   &:focus {
     color: ${theme.colour(Colour.NEUTRAL, 'N70')};
-  }
-
-  &:hover > svg > path,
-  &:focus > svg > path {
-    fill: ${theme.colour(Colour.NEUTRAL, 'N70')};
+    & > svg > path {
+      fill: ${theme.colour(Colour.NEUTRAL, 'N70')};
+    }
   }
 `;
 
