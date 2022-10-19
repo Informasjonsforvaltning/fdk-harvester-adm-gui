@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Skeleton from 'react-loading-skeleton';
 import {
   useGetServiceMessagesQuery,
-  ServiceMessage,
+  ServiceMessageEntity,
   Enum_Servicemessage_Environment
 } from '../../../../services/api/strapi/generated/graphql';
 
@@ -111,7 +111,7 @@ const DataSourcesPage: FC<Props> = ({
         : Enum_Servicemessage_Environment.Production
     }
   });
-  const serviceMessages = data?.serviceMessages as ServiceMessage[];
+  const serviceMessages = data?.serviceMessages?.data as ServiceMessageEntity[];
 
   const showDataSourceItemEditor = (id?: string, organizationId?: string) => {
     document.body.classList.add('no-scroll');
