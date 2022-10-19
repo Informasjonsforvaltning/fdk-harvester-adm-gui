@@ -1,15 +1,16 @@
-query GetServiceMessages(
-    $today: DateTime
-    $env: String
-) {
-    serviceMessages (where:
-    {
-        valid_from_lte: $today
-        valid_to_gte: $today
-        channel_adminportal: true
-        environment: $env
-    }) {
-        id
+query GetServiceMessages($today: DateTime, $env: String) {
+  serviceMessages(
+    filters: {
+      valid_from: { lte: $today }
+      valid_to: { gte: $today }
+      channel_adminportal: { eq: true }
+      environment: { eq: $env }
+    }
+    sort: "valid_from:desc"
+  ) {
+    data {
+      id
+      attributes {
         title
         valid_from
         valid_to
@@ -17,19 +18,44 @@ query GetServiceMessages(
         short_description
         description
         environment
-        channel_adminportal
+        channel_publiseringportal
+        locale
+        localizations {
+          data {
+            attributes {
+              title
+              short_description
+              description
+            }
+          }
+        }
+      }
     }
+  }
 }
 
 query GetServiceMessage($id: ID!) {
-    serviceMessage(id: $id) {
-        id
+  serviceMessage(id: $id) {
+    data {
+      id
+      attributes {
         title
         valid_from
         valid_to
         message_type
-        channel
         short_description
         description
+        locale
+        localizations {
+          data {
+            attributes {
+              title
+              short_description
+              description
+            }
+          }
+        }
+      }
     }
+  }
 }
