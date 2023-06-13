@@ -106,7 +106,7 @@ const DataSourceItem: FC<Props> = ({
               <SC.DataSourceTitle>
                 {description && description.length ? description : '?'}
               </SC.DataSourceTitle>
-              <SC.DataSourceSubTitle>Tjenestekatalog</SC.DataSourceSubTitle>
+              <SC.DataSourceSubTitle>Tjeneste- og hendelseskatalog</SC.DataSourceSubTitle>
             </SC.DataSourceTitleContainer>
           </SC.DataSourceType>
         );
