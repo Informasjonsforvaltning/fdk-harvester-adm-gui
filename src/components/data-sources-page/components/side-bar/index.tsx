@@ -133,7 +133,7 @@ const SideBar: FC<Props> = ({
               checked={selectedDataType === DataType.PUBLIC_SERVICE}
               onChange={() => onSelectDataType(DataType.PUBLIC_SERVICE)}
             />
-            Tjenestekatalog
+            Tjeneste- og hendelseskatalog
           </SC.ListItem>
         </SC.List>
       </SC.ExpansionPanel>
