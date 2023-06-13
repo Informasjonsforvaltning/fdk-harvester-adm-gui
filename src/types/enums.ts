@@ -7,7 +7,8 @@ export enum Standard {
   DCAT_AP_NO = 'DCAT-AP-NO',
   SKOS_AP_NO = 'SKOS-AP-NO',
   TBX = 'TBX',
-  CPSV_AP_NO = 'CPSV-AP-NO'
+  CPSV_AP_NO = 'CPSV-AP-NO',
+  ModellDCAT_AP_NO = 'ModellDCAT-AP-NO'
 }
 
 export enum DataType {

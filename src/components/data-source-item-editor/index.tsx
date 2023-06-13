@@ -72,7 +72,8 @@ const DataSourceItemEditor: FC<Props> = ({
     { value: Standard.SKOS_AP_NO, label: 'SKOS-AP-NO' },
     { value: Standard.TBX, label: 'TBX' },
     { value: Standard.DCAT_AP_NO, label: 'DCAT-AP-NO' },
-    { value: Standard.CPSV_AP_NO, label: 'CPSV-AP-NO' }
+    { value: Standard.CPSV_AP_NO, label: 'CPSV-AP-NO' },
+    { value: Standard.ModellDCAT_AP_NO, label: 'ModellDCAT-AP-NO' }
   ];
 
   const formatOptions = [
@@ -107,7 +108,7 @@ const DataSourceItemEditor: FC<Props> = ({
       case DataType.DATASET:
         return [Standard.DCAT_AP_NO].find(type => value === type);
       case DataType.INFORMATION_MODEL:
-        return [Standard.DCAT_AP_NO].find(type => value === type);
+        return [Standard.ModellDCAT_AP_NO].find(type => value === type);
       case DataType.DATASERVICE:
         return [Standard.DCAT_AP_NO].find(type => value === type);
       case DataType.PUBLIC_SERVICE:
