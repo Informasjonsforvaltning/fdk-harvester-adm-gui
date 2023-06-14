@@ -65,7 +65,7 @@ const DataSourceItemEditor: FC<Props> = ({
     { value: DataType.DATASET, label: 'Datasett' },
     { value: DataType.INFORMATION_MODEL, label: 'Informasjonsmodell' },
     { value: DataType.DATASERVICE, label: 'API' },
-    { value: DataType.PUBLIC_SERVICE, label: 'Tjeneste/hendelse' }
+    { value: DataType.PUBLIC_SERVICE, label: 'Tjeneste/Hendelse' }
   ];
 
   const datatSourceTypeOptions = [
