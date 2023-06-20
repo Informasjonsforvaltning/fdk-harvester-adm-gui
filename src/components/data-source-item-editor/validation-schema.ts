@@ -47,7 +47,7 @@ export default Yup.object().shape({
         .nullable()
         .required('Datakildetype er obligatorisk')
         .oneOf(
-          [null, Standard.DCAT_AP_NO],
+          [null, Standard.ModellDCAT_AP_NO],
           'Spesifikasjonen er ikke støttet av informasjonsmodellkatalog'
         )
     })
