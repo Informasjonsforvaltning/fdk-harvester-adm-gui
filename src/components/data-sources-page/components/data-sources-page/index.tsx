@@ -206,13 +206,13 @@ const DataSourcesPage: FC<Props> = ({
   };
 
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions =
-    authService.hasOrganizationAdminPermissions();
+  const hasOrganizationWritePermissions =
+    authService.hasOrganizationWritePermissions();
 
   const filteredDataSources = dataSources.filter(
     ({ publisherId, dataType }) => {
-      if (hasOrganizationAdminPermissions && !hasSystemAdminPermission) {
-        if (!authService.hasOrganizationAdminPermission(publisherId)) {
+      if (hasOrganizationWritePermissions && !hasSystemAdminPermission) {
+        if (!authService.hasOrganizationWritePermission(publisherId)) {
           return false;
         }
       }

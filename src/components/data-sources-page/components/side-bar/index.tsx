@@ -32,8 +32,8 @@ const SideBar: FC<Props> = ({
   >(undefined);
 
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions =
-    authService.hasOrganizationAdminPermissions();
+  const hasOrganizationWritePermissions =
+    authService.hasOrganizationWritePermissions();
 
   const { pathname } = location;
 
@@ -66,7 +66,7 @@ const SideBar: FC<Props> = ({
         title: 'Datakilder',
         id: '/data-sources',
         active: pathname === '/data-sources',
-        visible: hasSystemAdminPermission || hasOrganizationAdminPermissions
+        visible: hasSystemAdminPermission || hasOrganizationWritePermissions
       },
       {
         title: 'Delegeringer',

@@ -20,8 +20,8 @@ interface Props extends ExternalProps, RouteComponentProps {
 
 const SideBar: FC<Props> = ({ title, authService, location }) => {
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions =
-    authService.hasOrganizationAdminPermissions();
+  const hasOrganizationWritePermissions =
+    authService.hasOrganizationWritePermissions();
 
   const { pathname } = location;
 
@@ -31,7 +31,7 @@ const SideBar: FC<Props> = ({ title, authService, location }) => {
         title: 'Datakilder',
         id: '/data-sources',
         active: pathname === '/data-sources',
-        visible: hasSystemAdminPermission || hasOrganizationAdminPermissions
+        visible: hasSystemAdminPermission || hasOrganizationWritePermissions
       },
       {
         title: 'Delegeringer',
