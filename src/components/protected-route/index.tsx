@@ -16,7 +16,7 @@ interface Props extends ExternalProps {
 const ProtectedRoute: FC<Props> = ({ disabled, authService, ...props }) =>
   !disabled &&
   (authService.hasSystemAdminPermission() ||
-    authService.hasOrganizationAdminPermissions()) ? (
+    authService.hasOrganizationWritePermissions()) ? (
     <Route {...props} />
   ) : (
     <Redirect to='/login' />

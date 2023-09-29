@@ -115,7 +115,8 @@ export class Auth {
     );
 
   hasOrganizationWritePermission = (orgNr: string) =>
-    this.hasOrganizationRole({ orgNr, role: 'admin' });
+    this.hasOrganizationAdminPermission(orgNr) ||
+    this.hasOrganizationRole({ orgNr, role: 'write' });
 
   hasOrganizationAdminPermission = (orgNr: string) =>
     this.hasOrganizationRole({ orgNr, role: 'admin' });
@@ -130,6 +131,12 @@ export class Auth {
   hasOrganizationAdminPermissions = () =>
     this.getResourceRoles().some(
       ({ resource, role }) => resource === 'organization' && role === 'admin'
+    );
+
+  hasOrganizationWritePermissions = () =>
+    this.hasOrganizationAdminPermissions() ||
+    this.getResourceRoles().some(
+      ({ resource, role }) => resource === 'organization' && role === 'write'
     );
 
   getOrganizationsWithAdminPermission = () =>

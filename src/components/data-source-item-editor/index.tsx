@@ -57,8 +57,8 @@ const DataSourceItemEditor: FC<Props> = ({
   }
 }) => {
   const hasSystemAdminPermission = authService.hasSystemAdminPermission();
-  const hasOrganizationAdminPermissions =
-    authService.hasOrganizationAdminPermissions();
+  const hasOrganizationWritePermissions =
+    authService.hasOrganizationWritePermissions();
 
   const dataTypeOptions = [
     { value: DataType.CONCEPT, label: 'Begrep' },
@@ -90,7 +90,7 @@ const DataSourceItemEditor: FC<Props> = ({
 
   const publisherOptions = organizations
     .filter(({ organizationId }) =>
-      authService.hasOrganizationAdminPermission(organizationId)
+      authService.hasOrganizationWritePermission(organizationId)
     )
     .map(({ organizationId, name }) => ({
       value: organizationId,
@@ -143,7 +143,7 @@ const DataSourceItemEditor: FC<Props> = ({
   useEffect(() => {
     if (
       !values.publisherId &&
-      hasOrganizationAdminPermissions &&
+      hasOrganizationWritePermissions &&
       !hasSystemAdminPermission
     ) {
       values.publisherId = publisherOptions[0]?.value;
@@ -176,7 +176,7 @@ const DataSourceItemEditor: FC<Props> = ({
                 <div>Velg organisasjonen som eier datakilden.</div>
               </SC.FieldHeader>
 
-              {hasOrganizationAdminPermissions && !hasSystemAdminPermission ? (
+              {hasOrganizationWritePermissions && !hasSystemAdminPermission ? (
                 <SC.Select
                   options={publisherOptions}
                   isClearable={false}
