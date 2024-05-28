@@ -23,14 +23,12 @@ const HarvestStatusModal: FC<Props> = ({ name, harvestStatus, onDiscard }) => (
       {harvestStatus?.statuses &&
         harvestStatus?.statuses.length > 0 &&
         harvestStatus?.statuses?.map(
-          ({ harvestType, status, startTime, endTime, errorMessage }) => (
+          ({ harvestType, startTime, errorMessage }) => (
             <SC.HarvestStatus>
               {harvestType && <SC.Text>{`høstetype: ${harvestType}`}</SC.Text>}
-              {status && <SC.Text>{`høstestatus: ${status}`}</SC.Text>}
               {startTime && (
                 <SC.Text>{`høsteprosess startet: ${startTime}`}</SC.Text>
               )}
-              {endTime && <SC.Text>{`ute i portal: ${endTime}`}</SC.Text>}
               {errorMessage && (
                 <SC.Text>{`feilmelding: ${errorMessage}`}</SC.Text>
               )}
