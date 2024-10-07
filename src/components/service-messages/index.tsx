@@ -4,23 +4,22 @@ import { Severity } from '@fellesdatakatalog/alert';
 
 import env from '../../env';
 
-import { ServiceMessageEntity } from '../../services/api/strapi/generated/graphql';
+import { ServiceMessage } from '../../services/api/strapi/generated/graphql';
 
 import SC from './styled';
 
 interface Props {
-  serviceMessages: ServiceMessageEntity[] | null;
+  serviceMessages: ServiceMessage[] | null;
 }
 
 const { FDK_BASE_URI } = env;
 
-const renderServiceMessage = (entity: ServiceMessageEntity) => {
-  const { id, attributes } = entity;
-  if (attributes) {
-    const { title, short_description, message_type } = attributes;
+const renderServiceMessage = (entity: ServiceMessage) => {
+  if (entity) {
+    const { documentId, title, short_description, message_type } = entity;
     return (
       <SC.Alert
-        key={id}
+        key={documentId}
         severity={Severity[message_type as keyof typeof Severity]}
       >
         <SC.Content>
@@ -28,7 +27,7 @@ const renderServiceMessage = (entity: ServiceMessageEntity) => {
           <SC.Description>
             <SC.Text>{short_description}</SC.Text>
             <SC.Link
-              href={`${FDK_BASE_URI}/publishing/service-messages/${id}`}
+              href={`${FDK_BASE_URI}/publishing/service-messages/${documentId}`}
               target='_blank'
             >
               Se detaljert driftsmelding for mer informasjon.
@@ -44,7 +43,7 @@ const renderServiceMessage = (entity: ServiceMessageEntity) => {
 
 const ServiceMessages: FC<Props> = ({ serviceMessages = [] }) => {
   const [extendedServiceMessages, setExtendedServiceMessages] = useState<
-    ServiceMessageEntity[] | null
+    ServiceMessage[] | null
   >();
 
   useEffect(() => {
